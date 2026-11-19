@@ -75,20 +75,14 @@ export function Projects() {
     <section id="projects" className="py-24 md:py-28 border-t border-border relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
-          <Reveal direction="up">
-            <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
-              Featured Work
-            </h2>
-            <TextMaskReveal
-              as="h3"
-              className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
-            >
-              Projects & Engineering Cases
-            </TextMaskReveal>
-            <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mt-5">
-              A curated collection of production applications, capstone projects, and institutional platforms engineered with modern TypeScript and resilient system patterns.
-            </p>
-          </Reveal>
+          <EditorialHeading
+            align="left"
+            eyebrow="Featured Work"
+            sansText="Projects &"
+            serifText="Engineering Cases"
+            description="A curated collection of production applications, capstone projects, and institutional platforms engineered with modern TypeScript and resilient system patterns."
+            className="max-w-xl"
+          />
 
           {/* Filter Pills with Montserrat font */}
           <div className="flex flex-wrap gap-2">

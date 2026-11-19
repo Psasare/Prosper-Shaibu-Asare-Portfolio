@@ -20,7 +20,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     {
       code: "01",
       category: "DISCIPLINE 01 // SYSTEMS",
-      title: "Full-Stack Software Engineering",
+      titleSans: "Full-Stack",
+      titleSerif: "Software Engineering",
       subtitle: "Architecting resilient, type-safe web systems and high-throughput backend infrastructure.",
       detail: "Next.js 16 • TypeScript • RESTful APIs • Relational Schemas",
       sector: "FULL-STACK ARCHITECTURE",
@@ -28,7 +29,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     {
       code: "02",
       category: "DISCIPLINE 02 // INTERFACE",
-      title: "Modern Web Design & Architecture",
+      titleSans: "Modern",
+      titleSerif: "Web Designing & Craft",
       subtitle: "Crafting editorial, accessible digital experiences with uncompromising aesthetic discipline.",
       detail: "Tailwind CSS v4 • Editorial Systems • Responsive Web Standards",
       sector: "MODERN WEB CRAFT",
@@ -36,7 +38,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     {
       code: "03",
       category: "DISCIPLINE 03 // MOBILE",
-      title: "Cross-Platform Mobile Development",
+      titleSans: "Cross-Platform",
+      titleSerif: "Mobile Application Dev",
       subtitle: "Engineering intuitive touch applications designed for real-world reliability and offline performance.",
       detail: "React Native • Offline-First Caching • Fluid Micro-Interactions",
       sector: "CROSS-PLATFORM MOBILE",
@@ -44,7 +47,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     {
       code: "04",
       category: "ENTERPRISE // INFRASTRUCTURE",
-      title: "Administrative & Clinical Computing",
+      titleSans: "Administrative &",
+      titleSerif: "Clinical Computing",
       subtitle: "Enterprise systems administration at UHAS and hospital clinical network infrastructure.",
       detail: "UHAS ICT Directorate • Ho Teaching Hospital • Volta Regional Hospital",
       sector: "ENTERPRISE SYSTEMS",
@@ -52,7 +56,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     {
       code: "05",
       category: "SCHOLARSHIP // FOUNDATION",
-      title: "University of Ghana IT Graduate",
+      titleSans: "University of Ghana",
+      titleSerif: "IT Scholar '26",
       subtitle: "Grounded in analytical problem-solving and rigorous computer science foundations.",
       detail: "BSc. Information Technology '26 • Analytical Science (Kpando SHS)",
       sector: "UNIVERSITY OF GHANA",
