@@ -1,5 +1,8 @@
+"use client";
+
 import * as React from "react";
 import { Briefcase, GraduationCap, Calendar, MapPin } from "lucide-react";
+import { Reveal } from "./reveal";
 
 interface TimelineItem {
   period: string;
@@ -50,9 +53,9 @@ export function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-20 border-t border-border/60 relative">
+    <section id="experience" className="py-24 border-t border-border/60 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <Reveal direction="up" className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <h2 className="text-xs uppercase tracking-widest font-semibold text-primary">
             Career & Milestones
           </h2>
@@ -62,7 +65,7 @@ export function Experience() {
           <p className="text-sm sm:text-base text-muted-foreground">
             A track record of engineering scalable applications, continuous learning, and software delivery.
           </p>
-        </div>
+        </Reveal>
 
         {/* Timeline List */}
         <div className="max-w-3xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:-translate-x-px before:h-full before:w-0.5 before:bg-border/80">
@@ -92,34 +95,36 @@ export function Experience() {
                     isEven ? "sm:pl-10" : "sm:pr-10 text-left sm:text-right"
                   }`}
                 >
-                  <div className="p-6 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-md hover:border-primary/40 hover:bg-card/90 transition-all duration-300 shadow-sm text-left">
-                    <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20">
-                        <Calendar className="w-3 h-3" />
-                        {item.period}
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
-                        <MapPin className="w-3 h-3" />
-                        {item.location}
-                      </span>
+                  <Reveal delay={index * 0.15} direction={isEven ? "left" : "right"}>
+                    <div className="p-6 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-md hover:border-primary/50 hover:bg-card/95 hover:-translate-y-1 transition-all duration-300 shadow-sm text-left">
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20">
+                          <Calendar className="w-3 h-3" />
+                          {item.period}
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+                          <MapPin className="w-3 h-3" />
+                          {item.location}
+                        </span>
+                      </div>
+
+                      <h3 className="font-bold text-base text-foreground">
+                        {item.role}
+                      </h3>
+                      <p className="text-xs font-medium text-primary mb-3">
+                        {item.organization}
+                      </p>
+
+                      <ul className="space-y-1.5 text-xs text-muted-foreground leading-relaxed">
+                        {item.description.map((point, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary/60 mt-1.5 shrink-0" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-
-                    <h3 className="font-bold text-base text-foreground">
-                      {item.role}
-                    </h3>
-                    <p className="text-xs font-medium text-primary mb-3">
-                      {item.organization}
-                    </p>
-
-                    <ul className="space-y-1.5 text-xs text-muted-foreground leading-relaxed">
-                      {item.description.map((point, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary/60 mt-1.5 shrink-0" />
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  </Reveal>
                 </div>
               </div>
             );

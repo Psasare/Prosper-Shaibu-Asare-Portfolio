@@ -4,6 +4,7 @@ import * as React from "react";
 import { ExternalLink, FolderGit2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GithubIcon } from "./icons";
+import { Reveal } from "./reveal";
 
 interface Project {
   title: string;
@@ -91,7 +92,7 @@ export function Projects() {
     <section id="projects" className="py-20 border-t border-border/60 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="space-y-3">
+          <Reveal direction="up" className="space-y-3">
             <h2 className="text-xs uppercase tracking-widest font-semibold text-primary">
               Featured Work
             </h2>
@@ -102,7 +103,7 @@ export function Projects() {
               Selected projects highlighting systems architecture, practical user utility,
               and modern interactive aesthetics.
             </p>
-          </div>
+          </Reveal>
 
           {/* Filter Pills */}
           <div className="flex flex-wrap gap-2">
