@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Sparkles, Terminal, Code2, Rocket } from "lucide-react";
+import { Terminal, Code2, Rocket, Smartphone } from "lucide-react";
 
 export function About() {
   const values = [
@@ -9,9 +9,9 @@ export function About() {
       text: "Writing modular, testable, and maintainable code built with TypeScript and resilient system patterns.",
     },
     {
-      icon: Sparkles,
-      title: "Spatial & 3D Craft",
-      text: "Unifying modern 3D scenes (Spline, Three.js) with responsive interfaces to elevate digital storytelling.",
+      icon: Smartphone,
+      title: "Mobile & Responsive",
+      text: "Crafting fluid cross-platform mobile apps and responsive web interfaces designed for intuitive human touch.",
     },
     {
       icon: Code2,
@@ -21,7 +21,7 @@ export function About() {
     {
       icon: Rocket,
       title: "Adaptive & Iterative",
-      text: "Rapid prototyping, continuous delivery, and staying ahead of emerging development tools and AI agent workflows.",
+      text: "Rapid prototyping, continuous delivery, and staying ahead of emerging development tools and engineering practices.",
     },
   ];
 
@@ -35,13 +35,13 @@ export function About() {
               About Me
             </h2>
             <p className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              Passionate about crafting intuitive web experiences and powerful mobile apps.
+              Passionate about full-stack engineering, web design, and mobile solutions.
             </p>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              I specialize in web designing and mobile application development, driven by curiosity, precision, and human-centered design principles.
+              I am a Software Engineer specializing in full-stack engineering, modern web designing, and mobile application development. My approach combines robust backend systems with refined, accessible user interfaces.
             </p>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Whether architecting responsive web applications, building fluid cross-platform mobile interfaces, or embedding interactive 3D assets, I focus on delivering seamless end-to-end user experiences that perform flawlessly across both light and dark environments.
+              Whether building resilient healthcare platforms, developing machine learning computer vision systems, or engineering mobile applications, I focus on delivering seamless end-to-end user experiences that perform flawlessly across both light and dark environments.
             </p>
           </div>
 

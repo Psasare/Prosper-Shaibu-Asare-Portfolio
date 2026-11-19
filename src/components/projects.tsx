@@ -47,11 +47,11 @@ export function Projects() {
       featured: true,
     },
     {
-      title: "Interactive 3D Web Canvas",
-      category: "3D & Creative",
+      title: "Full-Stack Logistics & Inventory Engine",
+      category: "Full Stack / Mobile",
       description:
-        "Experiential landing page integrating Spline 3D real-time scenes with custom interactive states, physics interactions, and adaptive light/dark shading.",
-      tags: ["Spline 3D", "Next.js", "Framer Motion", "Tailwind CSS"],
+        "High-performance resource and inventory tracking platform featuring real-time state synchronization, automated reporting, and role-based access control.",
+      tags: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS"],
       githubUrl: "https://github.com/Psasare",
       featured: false,
     },
@@ -80,7 +80,6 @@ export function Projects() {
     "Full Stack / Mobile",
     "Healthcare / Web",
     "AI & Computer Vision",
-    "3D & Creative",
   ];
 
   const filteredProjects =

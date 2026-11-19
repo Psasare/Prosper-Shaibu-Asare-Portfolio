@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import dynamic from "next/dynamic";
-import { Sparkles, Layers, Box, Compass } from "lucide-react";
+import { Layers, Box, Compass, Code2 } from "lucide-react";
 
 // Dynamically load Spline runtime to avoid SSR hydration issues
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
@@ -48,7 +48,7 @@ function SplineFallback() {
         }}
       />
 
-      {/* 3D Floating Interactive Cube Container */}
+      {/* Interactive Floating Element Container */}
       <div
         className="relative mb-8 transition-transform duration-200 ease-out"
         style={{
@@ -65,7 +65,7 @@ function SplineFallback() {
 
         {/* Orbiting indicators */}
         <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-card border border-border shadow-md flex items-center justify-center text-primary text-xs">
-          <Sparkles className="w-4 h-4 animate-spin [animation-duration:8s]" />
+          <Code2 className="w-4 h-4" />
         </div>
         <div className="absolute -bottom-2 -left-3 w-8 h-8 rounded-full bg-card border border-border shadow-md flex items-center justify-center text-accent text-xs">
           <Layers className="w-4 h-4" />
@@ -76,13 +76,13 @@ function SplineFallback() {
       <div className="max-w-xs space-y-2.5 relative z-10">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/25">
           <Compass className="w-3.5 h-3.5" />
-          <span>Interactive 3D Viewport</span>
+          <span>Interactive Canvas Viewport</span>
         </div>
         <h3 className="font-bold text-foreground text-base tracking-tight">
-          Spline Canvas Ready
+          Visual Canvas Ready
         </h3>
         <p className="text-xs text-muted-foreground leading-relaxed">
-          Plug in your exported Spline URL to render live real-time 3D objects, keyframe animations, and event triggers.
+          Provide your Spline scene export URL to render interactive canvas models and fluid state animations.
         </p>
       </div>
     </div>

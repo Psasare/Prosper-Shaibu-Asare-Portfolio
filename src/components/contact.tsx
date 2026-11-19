@@ -31,7 +31,7 @@ export function Contact() {
               Let&apos;s build something exceptional together.
             </p>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Have an upcoming product, 3D experience, or engineering opening? Feel free to reach out directly or send a message.
+              Have an upcoming web project, mobile app, or full-stack engineering opening? Feel free to reach out directly or send a message.
             </p>
 
             <div className="space-y-4 pt-4">

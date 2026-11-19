@@ -19,7 +19,7 @@ export function Experience() {
       location: "Remote",
       description: [
         "Architecting resilient web systems and full-stack solutions using Next.js, TypeScript, React, and Node.js.",
-        "Engineering computer vision pipelines (FastAPI, OpenCV) and interactive 3D applications using Spline and Three.js.",
+        "Engineering computer vision pipelines (FastAPI, OpenCV) and responsive full-stack applications with modern web architectures.",
         "Collaborating on community-driven healthcare initiatives including patient-centric maternal health tools.",
       ],
       type: "work",

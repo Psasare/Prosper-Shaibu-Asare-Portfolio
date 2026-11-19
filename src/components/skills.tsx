@@ -2,7 +2,7 @@ import * as React from "react";
 import {
   Layers,
   Cpu,
-  Palette,
+  Smartphone,
   Workflow,
   CheckCircle2,
 } from "lucide-react";
@@ -10,35 +10,35 @@ import {
 export function Skills() {
   const categories = [
     {
-      title: "Frontend & Architecture",
+      title: "Frontend & Web Design",
       icon: Layers,
-      description: "Modern, responsive, accessible web interfaces engineered with strict type safety.",
+      description: "Modern, responsive, accessible web interfaces engineered with strict type safety and design precision.",
       skills: [
         "Next.js (App Router)",
         "React 19",
         "TypeScript",
         "Tailwind CSS v4",
-        "Component Systems",
+        "Design Systems",
         "Responsive & A11y Design",
       ],
     },
     {
-      title: "3D, Animation & Interaction",
-      icon: Palette,
-      description: "Immersive web craft combining spatial depth, interactive canvas scenes, and micro-interactions.",
+      title: "Mobile & UI/UX Engineering",
+      icon: Smartphone,
+      description: "Intuitive mobile application interfaces, cross-platform architecture, and fluid micro-interactions.",
       skills: [
-        "Spline 3D Modeling",
+        "React Native & Mobile UI",
         "Framer & Framer Motion",
-        "Keyframe Animation",
-        "Interactive Event Triggers",
-        "Interactive Canvas UI",
+        "Touch Gestures & Feedback",
+        "Component Libraries",
+        "Mobile State Management",
         "Light & Dark UI Adaptation",
       ],
     },
     {
       title: "Backend & Systems",
       icon: Cpu,
-      description: "Performant application logic, secure data access, and API design.",
+      description: "Performant full-stack application logic, secure data access, and API design.",
       skills: [
         "Node.js & Express",
         "Python",
@@ -74,7 +74,7 @@ export function Skills() {
             Technical Stack & Craft
           </p>
           <p className="text-sm sm:text-base text-muted-foreground">
-            A balanced foundation spanning resilient full-stack engineering, interactive 3D assets, and clean visual design.
+            A balanced foundation spanning resilient full-stack engineering, web design, and cross-platform mobile apps.
           </p>
         </div>
 
