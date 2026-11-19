@@ -73,14 +73,14 @@ export function Skills() {
   return (
     <section id="skills" className="py-24 md:py-28 border-t border-border relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
             Capabilities & Focus
           </h2>
-          <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground">
+          <p className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight">
             Technical Stack & Craft
           </p>
-          <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-5 sm:mt-6">
             A comprehensive engineering toolkit cultivated through enterprise systems administration, academic rigor, and production software delivery.
           </p>
         </Reveal>
