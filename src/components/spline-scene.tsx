@@ -4,7 +4,7 @@ import * as React from "react";
 import dynamic from "next/dynamic";
 import { Sparkles, Layers, Box, Compass } from "lucide-react";
 
-// Dynamically load Spline runtime to avoid SSR issues
+// Dynamically load Spline runtime to avoid SSR hydration issues
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
   loading: () => <SplineFallback />,
@@ -89,7 +89,7 @@ function SplineFallback() {
   );
 }
 
-interface SplineSceneProps {
+export interface SplineSceneProps {
   sceneUrl?: string;
   className?: string;
 }

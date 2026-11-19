@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowRight, Code2, Sparkles, Terminal, Download } from "lucide-react";
+import { ArrowRight, Code2, Sparkles, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 import { SplineScene } from "./spline-scene";
 
