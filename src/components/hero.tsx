@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowRight, Code2, Sparkles, Terminal } from "lucide-react";
+import { ArrowRight, Globe, Smartphone, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { SplineScene } from "./spline-scene";
 
@@ -24,24 +24,28 @@ export function Hero() {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card/80 border border-border/80 backdrop-blur-md shadow-sm">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-xs font-medium text-foreground/85">
-                Available for Engineering Roles & Collaborative Projects
+                Available for Web & Mobile Development Projects
               </span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.12]">
-              Architecting{" "}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.14]">
+              Specializing in{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-indigo-500">
-                reliable software
+                Web Designing
               </span>{" "}
-              & interactive experiences.
+              &{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-blue-500 to-primary">
+                Mobile Application Development
+              </span>
+              .
             </h1>
 
             {/* Intro Subtitle */}
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
               Hi, I&apos;m <span className="font-semibold text-foreground">Prosper Shaibu Asare</span>.
-              I engineer scalable web systems, intuitive interfaces, and dynamic
-              interactive visuals built with speed and accessibility at their core.
+              I craft modern, accessible web designs and intuitive mobile applications
+              engineered for performance, elegance, and scale.
             </p>
 
             {/* Action Buttons */}
@@ -64,13 +68,13 @@ export function Hero() {
             {/* Highlights ticker */}
             <div className="pt-6 border-t border-border/60 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-muted-foreground font-medium">
               <div className="flex items-center gap-2">
-                <Code2 className="w-4 h-4 text-primary" /> Full-Stack Engineering
+                <Globe className="w-4 h-4 text-primary" /> Web Designing
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-primary" /> Spline 3D & Framer
+                <Smartphone className="w-4 h-4 text-primary" /> Mobile Application Development
               </div>
               <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-primary" /> Next.js & TypeScript
+                <Sparkles className="w-4 h-4 text-primary" /> Interactive 3D & UI
               </div>
             </div>
           </motion.div>

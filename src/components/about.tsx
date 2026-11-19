@@ -35,13 +35,13 @@ export function About() {
               About Me
             </h2>
             <p className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              Passionate about solving complex problems through elegant software.
+              Passionate about crafting intuitive web experiences and powerful mobile apps.
             </p>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              I am a Software Engineer driven by curiosity, precision, and human-first design. My journey bridges full-stack application development, AI integrations, and creative interactive web technologies.
+              I specialize in web designing and mobile application development, driven by curiosity, precision, and human-centered design principles.
             </p>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Whether building resilient patient healthcare applications, designing intelligent computer vision pipelines, or embedding real-time 3D models into web browsers, I focus on delivering seamless end-to-end user experiences that perform flawlessly across both light and dark environments.
+              Whether architecting responsive web applications, building fluid cross-platform mobile interfaces, or embedding interactive 3D assets, I focus on delivering seamless end-to-end user experiences that perform flawlessly across both light and dark environments.
             </p>
           </div>
 
