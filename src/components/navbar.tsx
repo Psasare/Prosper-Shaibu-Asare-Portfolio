@@ -3,7 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
-import { Github, Linkedin, Menu, X, Terminal } from "lucide-react";
+import { Menu, X, Terminal } from "lucide-react";
+import { GithubIcon } from "./icons";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -53,7 +54,7 @@ export function Navbar() {
             className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors"
             aria-label="GitHub"
           >
-            <Github className="w-4 h-4" />
+            <GithubIcon className="w-4 h-4" />
           </a>
           <ThemeToggle />
 
@@ -88,7 +89,7 @@ export function Navbar() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:text-foreground transition-colors"
             >
-              <Github className="w-4 h-4" /> GitHub
+              <GithubIcon className="w-4 h-4" /> GitHub
             </a>
           </div>
         </div>
