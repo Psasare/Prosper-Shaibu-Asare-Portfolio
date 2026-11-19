@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
-import { EditorialHeading } from "./animated-text";
+import { TextMaskReveal } from "./animated-text";
 
 export function Skills() {
   const sectionRef = React.useRef<HTMLElement>(null);
@@ -22,8 +22,7 @@ export function Skills() {
   const cardsY = useTransform(scrollYProgress, [0, 1], [20, -20]);
   const categories = [
     {
-      titleSans: "Frontend &",
-      titleSerif: "Web Design",
+      title: "Frontend & Web Design",
       icon: Layers,
       description:
         "Building responsive, high-performance web applications using modern Next.js and React architectures with strict type safety and accessible design standards.",
@@ -37,8 +36,7 @@ export function Skills() {
       ],
     },
     {
-      titleSans: "Mobile &",
-      titleSerif: "UI/UX Engineering",
+      title: "Mobile & UI/UX Engineering",
       icon: Smartphone,
       description:
         "Developing intuitive cross-platform mobile experiences with fluid touch interactions, modular components, and seamless offline data caching.",
@@ -52,8 +50,7 @@ export function Skills() {
       ],
     },
     {
-      titleSans: "Backend &",
-      titleSerif: "Systems Architecture",
+      title: "Backend & Systems",
       icon: Cpu,
       description:
         "Architecting dependable backend logic, secure authentication layers, and efficient relational database schemas built for reliability and scale.",
@@ -67,8 +64,7 @@ export function Skills() {
       ],
     },
     {
-      titleSans: "Tools, Systems &",
-      titleSerif: "DevOps",
+      title: "Tools, Systems & DevOps",
       icon: Workflow,
       description:
         "Applying disciplined engineering workflows, version control standards, continuous deployment, and enterprise infrastructure maintenance.",
@@ -86,19 +82,26 @@ export function Skills() {
   return (
     <section ref={sectionRef} id="skills" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <EditorialHeading
-          eyebrow="Capabilities & Focus"
-          sansText="Technical Stack &"
-          serifText="Digital Craft"
-          description="A comprehensive engineering toolkit cultivated through enterprise systems administration, academic rigor, and production software delivery."
-          className="mb-16 md:mb-20"
-        />
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
+            Capabilities & Focus
+          </h2>
+          <TextMaskReveal
+            as="h3"
+            className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
+          >
+            Technical Stack & Craft
+          </TextMaskReveal>
+          <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-5 sm:mt-6">
+            A comprehensive engineering toolkit cultivated through enterprise systems administration, academic rigor, and production software delivery.
+          </p>
+        </Reveal>
 
         <motion.div style={{ y: cardsY }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
-              <Reveal key={category.titleSans} delay={index * 0.12} direction="up">
+              <Reveal key={category.title} delay={index * 0.12} direction="up">
                 <div className="h-full group p-7 sm:p-8 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-4 mb-4">
@@ -107,10 +110,7 @@ export function Skills() {
                       </div>
                       <div>
                         <h3 className="font-montserrat font-bold text-lg text-foreground group-hover:text-accent transition-colors">
-                          {category.titleSans}{" "}
-                          <span className="font-serif italic font-normal text-accent">
-                            {category.titleSerif}
-                          </span>
+                          {category.title}
                         </h3>
                       </div>
                     </div>

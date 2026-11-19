@@ -419,7 +419,7 @@ export function InteractiveCanvas3D() {
     let isDragging = false;
     let prevMouse = { x: 0, y: 0 };
     const mouse = { x: 0, y: 0 };
-    let dragRotation = { x: 0, y: 0 };
+    const dragRotation = { x: 0, y: 0 };
     let dragVelocity = { x: 0, y: 0 };
 
     const onMouseDown = (e: MouseEvent) => {
@@ -480,7 +480,7 @@ export function InteractiveCanvas3D() {
 
     // 9. Render & Animation Loop
     let animationFrameId: number;
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);

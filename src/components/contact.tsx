@@ -4,7 +4,7 @@ import * as React from "react";
 import { Mail, Send, CheckCircle2, MapPin, Phone, MessageSquare } from "lucide-react";
 import { GithubIcon } from "./icons";
 import { Reveal } from "./reveal";
-import { EditorialHeading } from "./animated-text";
+import { TextMaskReveal } from "./animated-text";
 
 export function Contact() {
   const [submitted, setSubmitted] = React.useState(false);
@@ -25,12 +25,17 @@ export function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14">
           {/* Contact Details */}
           <div className="lg:col-span-5 space-y-7">
-            <EditorialHeading
-              align="left"
-              eyebrow="Get in Touch"
-              sansText="Let's build something"
-              serifText="exceptional together."
-            />
+            <Reveal direction="left">
+              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
+                Get in Touch
+              </h2>
+              <TextMaskReveal
+                as="h3"
+                className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]"
+              >
+                Let&apos;s build something exceptional together.
+              </TextMaskReveal>
+            </Reveal>
 
             <Reveal direction="left" delay={0.15}>
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
