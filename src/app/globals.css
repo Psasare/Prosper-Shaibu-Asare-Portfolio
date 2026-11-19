@@ -1,42 +1,220 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --card: #ffffff;
-  --card-foreground: #0f172a;
-  --primary: #2563eb;
-  --primary-foreground: #ffffff;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --border: #e2e8f0;
-  --accent: #3b82f6;
+  /* Parchment scale */
+  --parchment: #edede9;
+  --parchment-100: #34342a;
+  --parchment-200: #676754;
+  --parchment-300: #989881;
+  --parchment-400: #c2c2b5;
+  --parchment-500: #edede9;
+  --parchment-600: #f0f0ed;
+  --parchment-700: #f4f4f2;
+  --parchment-800: #f8f8f6;
+  --parchment-900: #fbfbfb;
+
+  /* Dust Grey scale */
+  --dust-grey: #d6ccc2;
+  --dust-grey-100: #312921;
+  --dust-grey-200: #625241;
+  --dust-grey-300: #937a62;
+  --dust-grey-400: #b6a391;
+  --dust-grey-500: #d6ccc2;
+  --dust-grey-600: #ded6ce;
+  --dust-grey-700: #e7e0da;
+  --dust-grey-800: #efebe7;
+  --dust-grey-900: #f7f5f3;
+
+  /* Linen scale */
+  --linen: #f5ebe0;
+  --linen-100: #473017;
+  --linen-200: #8e5f2e;
+  --linen-300: #c78f52;
+  --linen-400: #debd99;
+  --linen-500: #f5ebe0;
+  --linen-600: #f7efe6;
+  --linen-700: #f9f3ed;
+  --linen-800: #fbf7f3;
+  --linen-900: #fdfbf9;
+
+  /* Powder Petal scale */
+  --powder-petal: #e3d5ca;
+  --powder-petal-100: #38291e;
+  --powder-petal-200: #70523b;
+  --powder-petal-300: #a87b59;
+  --powder-petal-400: #c5a891;
+  --powder-petal-500: #e3d5ca;
+  --powder-petal-600: #e8ddd4;
+  --powder-petal-700: #eee6df;
+  --powder-petal-800: #f4eeea;
+  --powder-petal-900: #f9f7f4;
+
+  /* Almond Silk scale */
+  --almond-silk: #d5bdaf;
+  --almond-silk-100: #33241b;
+  --almond-silk-200: #664735;
+  --almond-silk-300: #986b50;
+  --almond-silk-400: #ba937c;
+  --almond-silk-500: #d5bdaf;
+  --almond-silk-600: #ddcabf;
+  --almond-silk-700: #e6d7cf;
+  --almond-silk-800: #eee4df;
+  --almond-silk-900: #f7f2ef;
+
+  /* Semantic UI Tokens for Light Theme */
+  --background: #edede9;
+  --foreground: #34342a;
+  --card: #f8f8f6;
+  --card-foreground: #312921;
+  --primary: #34342a;
+  --primary-foreground: #fbfbfb;
+  --secondary: #e7e0da;
+  --secondary-foreground: #312921;
+  --muted: #efebe7;
+  --muted-foreground: #676754;
+  --border: #d6ccc2;
+  --accent: #8e5f2e;
+  --accent-foreground: #fdfbf9;
 }
 
 .dark {
-  --background: #090d16;
-  --foreground: #f8fafc;
-  --card: #0f172a;
-  --card-foreground: #f8fafc;
-  --primary: #60a5fa;
-  --primary-foreground: #090d16;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --border: #1e293b;
-  --accent: #60a5fa;
+  /* Semantic UI Tokens for Dark Theme */
+  --background: #141210;
+  --foreground: #f5ebe0;
+  --card: #1c1815;
+  --card-foreground: #fbfbfb;
+  --primary: #d5bdaf;
+  --primary-foreground: #1e1711;
+  --secondary: #26211d;
+  --secondary-foreground: #e3d5ca;
+  --muted: #26211d;
+  --muted-foreground: #b6a391;
+  --border: #332b24;
+  --accent: #c78f52;
+  --accent-foreground: #1c150e;
 }
 
 @theme {
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  /* Parchment */
+  --color-parchment: #edede9;
+  --color-parchment-DEFAULT: #edede9;
+  --color-parchment-100: #34342a;
+  --color-parchment-200: #676754;
+  --color-parchment-300: #989881;
+  --color-parchment-400: #c2c2b5;
+  --color-parchment-500: #edede9;
+  --color-parchment-600: #f0f0ed;
+  --color-parchment-700: #f4f4f2;
+  --color-parchment-800: #f8f8f6;
+  --color-parchment-900: #fbfbfb;
+
+  /* Dust Grey */
+  --color-dust_grey: #d6ccc2;
+  --color-dust_grey-DEFAULT: #d6ccc2;
+  --color-dust_grey-100: #312921;
+  --color-dust_grey-200: #625241;
+  --color-dust_grey-300: #937a62;
+  --color-dust_grey-400: #b6a391;
+  --color-dust_grey-500: #d6ccc2;
+  --color-dust_grey-600: #ded6ce;
+  --color-dust_grey-700: #e7e0da;
+  --color-dust_grey-800: #efebe7;
+  --color-dust_grey-900: #f7f5f3;
+
+  --color-dust-grey: #d6ccc2;
+  --color-dust-grey-DEFAULT: #d6ccc2;
+  --color-dust-grey-100: #312921;
+  --color-dust-grey-200: #625241;
+  --color-dust-grey-300: #937a62;
+  --color-dust-grey-400: #b6a391;
+  --color-dust-grey-500: #d6ccc2;
+  --color-dust-grey-600: #ded6ce;
+  --color-dust-grey-700: #e7e0da;
+  --color-dust-grey-800: #efebe7;
+  --color-dust-grey-900: #f7f5f3;
+
+  /* Linen */
+  --color-linen: #f5ebe0;
+  --color-linen-DEFAULT: #f5ebe0;
+  --color-linen-100: #473017;
+  --color-linen-200: #8e5f2e;
+  --color-linen-300: #c78f52;
+  --color-linen-400: #debd99;
+  --color-linen-500: #f5ebe0;
+  --color-linen-600: #f7efe6;
+  --color-linen-700: #f9f3ed;
+  --color-linen-800: #fbf7f3;
+  --color-linen-900: #fdfbf9;
+
+  /* Powder Petal */
+  --color-powder_petal: #e3d5ca;
+  --color-powder_petal-DEFAULT: #e3d5ca;
+  --color-powder_petal-100: #38291e;
+  --color-powder_petal-200: #70523b;
+  --color-powder_petal-300: #a87b59;
+  --color-powder_petal-400: #c5a891;
+  --color-powder_petal-500: #e3d5ca;
+  --color-powder_petal-600: #e8ddd4;
+  --color-powder_petal-700: #eee6df;
+  --color-powder_petal-800: #f4eeea;
+  --color-powder_petal-900: #f9f7f4;
+
+  --color-powder-petal: #e3d5ca;
+  --color-powder-petal-DEFAULT: #e3d5ca;
+  --color-powder-petal-100: #38291e;
+  --color-powder-petal-200: #70523b;
+  --color-powder-petal-300: #a87b59;
+  --color-powder-petal-400: #c5a891;
+  --color-powder-petal-500: #e3d5ca;
+  --color-powder-petal-600: #e8ddd4;
+  --color-powder-petal-700: #eee6df;
+  --color-powder-petal-800: #f4eeea;
+  --color-powder-petal-900: #f9f7f4;
+
+  /* Almond Silk */
+  --color-almond_silk: #d5bdaf;
+  --color-almond_silk-DEFAULT: #d5bdaf;
+  --color-almond_silk-100: #33241b;
+  --color-almond_silk-200: #664735;
+  --color-almond_silk-300: #986b50;
+  --color-almond_silk-400: #ba937c;
+  --color-almond_silk-500: #d5bdaf;
+  --color-almond_silk-600: #ddcabf;
+  --color-almond_silk-700: #e6d7cf;
+  --color-almond_silk-800: #eee4df;
+  --color-almond_silk-900: #f7f2ef;
+
+  --color-almond-silk: #d5bdaf;
+  --color-almond-silk-DEFAULT: #d5bdaf;
+  --color-almond-silk-100: #33241b;
+  --color-almond-silk-200: #664735;
+  --color-almond-silk-300: #986b50;
+  --color-almond-silk-400: #ba937c;
+  --color-almond-silk-500: #d5bdaf;
+  --color-almond-silk-600: #ddcabf;
+  --color-almond-silk-700: #e6d7cf;
+  --color-almond-silk-800: #eee4df;
+  --color-almond-silk-900: #f7f2ef;
 }
 
 html {
@@ -46,6 +224,10 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat);
 }

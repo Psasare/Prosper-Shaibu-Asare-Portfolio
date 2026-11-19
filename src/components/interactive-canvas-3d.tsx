@@ -18,11 +18,11 @@ export function InteractiveCanvas3D() {
     // 1. Scene
     const scene = new THREE.Scene();
 
-    // 2. Camera
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.z = 5.2;
+    // 2. Camera: carefully positioned to frame the 3D geometry seamlessly on the page
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
+    camera.position.set(0, 0, 5.0);
 
-    // 3. Renderer
+    // 3. Renderer with transparent background (no container / no box)
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -30,63 +30,63 @@ export function InteractiveCanvas3D() {
 
     const isDark = resolvedTheme === "dark";
 
-    // 4. Lights
+    // 4. Lights matched to user's earthy luxury palette (linen, dust grey, almond silk)
     const ambientLight = new THREE.AmbientLight(
-      isDark ? 0x223355 : 0x6688aa,
-      2.0
+      isDark ? 0x27221e : 0xf4f4f2,
+      isDark ? 1.8 : 2.2
     );
     scene.add(ambientLight);
 
     const pointLight1 = new THREE.PointLight(
-      isDark ? 0x38bdf8 : 0x2563eb,
-      4.0,
-      15
+      isDark ? 0xdebd99 : 0xc78f52,
+      isDark ? 3.5 : 2.8,
+      20
     );
     pointLight1.position.set(4, 4, 3);
     scene.add(pointLight1);
 
     const pointLight2 = new THREE.PointLight(
-      isDark ? 0x818cf8 : 0x4f46e5,
-      3.0,
-      15
+      isDark ? 0x986b50 : 0x8e5f2e,
+      isDark ? 2.6 : 2.0,
+      18
     );
-    pointLight2.position.set(-4, -4, 2);
+    pointLight2.position.set(-4, -3, 2.5);
     scene.add(pointLight2);
 
-    // 5. Main 3D Geometry: Torus Knot with dual-layer Wireframe & Core
+    // 5. Main 3D Composition: Floating Geometric Core + Outer Architectural Cage
     const group = new THREE.Group();
     scene.add(group);
 
-    // Inner smooth core
-    const coreGeometry = new THREE.TorusKnotGeometry(1.0, 0.28, 128, 32, 2, 3);
+    // Inner smooth core: brushed warm metal
+    const coreGeometry = new THREE.TorusKnotGeometry(0.95, 0.26, 128, 32, 2, 3);
     const coreMaterial = new THREE.MeshStandardMaterial({
-      color: isDark ? 0x1e293b : 0xe2e8f0,
-      roughness: 0.2,
-      metalness: 0.8,
+      color: isDark ? 0x312921 : 0xa87b59,
+      roughness: isDark ? 0.22 : 0.35,
+      metalness: isDark ? 0.78 : 0.6,
     });
     const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
     group.add(coreMesh);
 
-    // Outer geometric wireframe cage
-    const wireGeometry = new THREE.IcosahedronGeometry(1.85, 2);
+    // Outer geometric wireframe cage: subtle architectural facet
+    const wireGeometry = new THREE.IcosahedronGeometry(1.75, 2);
     const wireMaterial = new THREE.MeshBasicMaterial({
-      color: isDark ? 0x60a5fa : 0x3b82f6,
+      color: isDark ? 0xba937c : 0x625241,
       wireframe: true,
       transparent: true,
-      opacity: isDark ? 0.25 : 0.2,
+      opacity: isDark ? 0.28 : 0.18,
     });
     const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
     group.add(wireMesh);
 
-    // 6. Floating Particle Field
-    const particleCount = 180;
+    // 6. Floating Particle Field: delicate dust dots
+    const particleCount = 140;
     const particleGeometry = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount * 3; i += 3) {
-      particlePositions[i] = (Math.random() - 0.5) * 8;
-      particlePositions[i + 1] = (Math.random() - 0.5) * 8;
-      particlePositions[i + 2] = (Math.random() - 0.5) * 6;
+      particlePositions[i] = (Math.random() - 0.5) * 7.5;
+      particlePositions[i + 1] = (Math.random() - 0.5) * 7.5;
+      particlePositions[i + 2] = (Math.random() - 0.5) * 5.5;
     }
     particleGeometry.setAttribute(
       "position",
@@ -94,10 +94,10 @@ export function InteractiveCanvas3D() {
     );
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: isDark ? 0x93c5fd : 0x3b82f6,
-      size: 0.035,
+      color: isDark ? 0xe3d5ca : 0x937a62,
+      size: 0.03,
       transparent: true,
-      opacity: isDark ? 0.6 : 0.45,
+      opacity: isDark ? 0.45 : 0.35,
     });
     const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
     scene.add(particleSystem);
@@ -125,24 +125,24 @@ export function InteractiveCanvas3D() {
 
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth inertia lerp toward mouse
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+      // Smooth inertia lerp toward mouse position
+      mouse.x += (mouse.targetX - mouse.x) * 0.045;
+      mouse.y += (mouse.targetY - mouse.y) * 0.045;
 
       // Group rotation (continuous base rotation + mouse influence)
-      group.rotation.x = elapsedTime * 0.25 + mouse.y * 0.6;
-      group.rotation.y = elapsedTime * 0.35 + mouse.x * 0.8;
+      group.rotation.x = elapsedTime * 0.22 + mouse.y * 0.55;
+      group.rotation.y = elapsedTime * 0.3 + mouse.x * 0.7;
 
-      // Gentle floating oscillation
-      group.position.y = Math.sin(elapsedTime * 1.5) * 0.12;
+      // Gentle floating breathing oscillation
+      group.position.y = Math.sin(elapsedTime * 1.4) * 0.1;
 
       // Counter-rotating outer wireframe
-      wireMesh.rotation.x = -elapsedTime * 0.15;
-      wireMesh.rotation.y = -elapsedTime * 0.2;
+      wireMesh.rotation.x = -elapsedTime * 0.12;
+      wireMesh.rotation.y = -elapsedTime * 0.16;
 
       // Slow particle field drift
-      particleSystem.rotation.y = elapsedTime * 0.05;
-      particleSystem.rotation.x = elapsedTime * 0.03;
+      particleSystem.rotation.y = elapsedTime * 0.04;
+      particleSystem.rotation.x = elapsedTime * 0.02;
 
       renderer.render(scene, camera);
     };
@@ -182,25 +182,14 @@ export function InteractiveCanvas3D() {
     };
   }, [resolvedTheme]);
 
+  // Completely uncontained — pure transparent canvas blending seamlessly into the page structure
   return (
-    <div className="relative w-full h-full min-h-[380px] rounded-3xl border border-border/80 bg-gradient-to-br from-card/85 via-card/50 to-primary/5 backdrop-blur-2xl overflow-hidden shadow-2xl shadow-black/5 group flex items-center justify-center">
-      {/* Background radial glow */}
-      <div className="absolute -top-28 -right-28 w-80 h-80 rounded-full bg-primary/20 blur-[100px] pointer-events-none transition-all duration-700 group-hover:bg-primary/30" />
-      <div className="absolute -bottom-28 -left-28 w-80 h-80 rounded-full bg-accent/20 blur-[100px] pointer-events-none transition-all duration-700 group-hover:bg-accent/30" />
-
-      {/* 3D WebGL Canvas mount */}
-      <div ref={mountRef} className="absolute inset-0 cursor-grab active:cursor-grabbing" />
-
-      {/* Bottom overlay badge */}
-      <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-xs pointer-events-none">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/70 border border-border/70 backdrop-blur-md shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
-          <span className="font-semibold text-foreground/90">Interactive 3D Engine</span>
-        </div>
-        <span className="text-[11px] font-medium text-muted-foreground hidden sm:inline-block bg-background/50 backdrop-blur-md px-2.5 py-1 rounded-md border border-border/40">
-          Move cursor to rotate
-        </span>
-      </div>
+    <div className="relative w-full h-[420px] sm:h-[480px] lg:h-[520px] flex items-center justify-center">
+      <div
+        ref={mountRef}
+        className="w-full h-full cursor-grab active:cursor-grabbing select-none"
+        title="Interactive 3D geometry - drag or move cursor to inspect"
+      />
     </div>
   );
 }

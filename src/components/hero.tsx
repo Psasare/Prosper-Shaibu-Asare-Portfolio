@@ -3,90 +3,90 @@
 import * as React from "react";
 import { ArrowRight, Code2, Globe, Smartphone } from "lucide-react";
 import { motion } from "framer-motion";
-import { SplineScene } from "./spline-scene";
+import { InteractiveCanvas3D } from "./interactive-canvas-3d";
 
 export function Hero() {
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      {/* Background radial gradients */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-primary/10 dark:bg-primary/15 rounded-full blur-[130px] pointer-events-none -z-10" />
+      {/* Subtle, solid architectural backdrop glow — no loud rainbow gradients */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-dust_grey-600/35 dark:bg-card/50 rounded-full blur-[140px] pointer-events-none -z-10" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Column: Text & CTA */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="lg:col-span-7 space-y-8 text-center lg:text-left"
+            transition={{ duration: 0.65, ease: "easeOut" }}
+            className="lg:col-span-7 space-y-7 text-center lg:text-left z-10"
           >
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card/80 border border-border/80 backdrop-blur-md shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-medium text-foreground/85">
+            {/* Status Pill with Montserrat uppercase tracking */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card border border-border shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="font-montserrat text-[11px] font-bold uppercase tracking-wider text-foreground/90">
                 Available for Full-Stack, Web & Mobile Projects
               </span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.14]">
+            {/* Main Headline: Bold Montserrat with editorial serif accent, zero gradient text */}
+            <h1 className="font-montserrat text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground leading-[1.12]">
               Full-Stack Engineering,{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-indigo-500">
+              <span className="font-serif italic font-normal text-accent">
                 Web Designing
               </span>{" "}
               &{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-blue-500 to-primary">
+              <span className="text-foreground">
                 Mobile Application Development
               </span>
               .
             </h1>
 
-            {/* Intro Subtitle */}
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+            {/* Intro Subtitle: Plus Jakarta Sans for reading clarity */}
+            <p className="font-sans text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
               Hi, I&apos;m <span className="font-semibold text-foreground">Prosper Shaibu Asare</span>.
-              I build reliable full-stack web architectures, elegant responsive designs,
-              and high-performance mobile applications engineered for speed, clean UX, and scale.
+              I architect reliable full-stack systems, craft elegant responsive interfaces,
+              and build performant cross-platform mobile applications engineered for precision, speed, and real-world scale.
             </p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+            {/* Action Buttons with Montserrat font */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-1">
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm shadow-md shadow-primary/25 hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-montserrat font-bold text-xs uppercase tracking-wider shadow-sm hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer"
               >
                 <span>Explore Projects</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-card border border-border/80 text-foreground font-semibold text-sm hover:bg-muted/80 hover:border-primary/40 active:scale-[0.98] transition-all cursor-pointer shadow-sm"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-card border border-border text-foreground font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-muted/70 active:scale-[0.98] transition-all cursor-pointer shadow-xs"
               >
                 <span>Get in Touch</span>
               </a>
             </div>
 
             {/* Highlights ticker */}
-            <div className="pt-6 border-t border-border/60 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-muted-foreground font-medium">
+            <div className="pt-6 border-t border-border flex flex-wrap items-center justify-center lg:justify-start gap-6 font-montserrat text-xs text-muted-foreground font-semibold tracking-wide">
               <div className="flex items-center gap-2">
-                <Code2 className="w-4 h-4 text-primary" /> Full-Stack Engineering
+                <Code2 className="w-4 h-4 text-accent" /> Full-Stack Engineering
               </div>
               <div className="flex items-center gap-2">
-                <Globe className="w-4 h-4 text-primary" /> Web Designing
+                <Globe className="w-4 h-4 text-accent" /> Web Designing
               </div>
               <div className="flex items-center gap-2">
-                <Smartphone className="w-4 h-4 text-primary" /> Mobile Application Development
+                <Smartphone className="w-4 h-4 text-accent" /> Mobile Application Development
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Visual Showcase */}
+          {/* Right Column: 3D Articulation (Unboxed, transparent, seamlessly fitting page) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-            className="lg:col-span-5 h-[420px] sm:h-[460px] w-full flex items-center justify-center"
+            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+            className="lg:col-span-5 w-full flex items-center justify-center relative pointer-events-auto"
           >
-            <SplineScene className="w-full h-full" />
+            <InteractiveCanvas3D />
           </motion.div>
         </div>
       </div>

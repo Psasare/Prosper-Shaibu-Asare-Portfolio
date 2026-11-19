@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col selection:bg-primary/20 selection:text-primary">
+      <body className="min-h-screen flex flex-col selection:bg-accent/20 selection:text-foreground">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

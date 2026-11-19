@@ -19,22 +19,22 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 border-t border-border/60 relative">
+    <section id="contact" className="py-24 border-t border-border relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Contact Details */}
           <div className="lg:col-span-5 space-y-6">
             <Reveal direction="left">
-              <h2 className="text-xs uppercase tracking-widest font-semibold text-primary mb-3">
+              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
                 Get in Touch
               </h2>
-              <p className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground leading-tight">
+              <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-tight">
                 Let&apos;s build something exceptional together.
               </p>
             </Reveal>
 
             <Reveal direction="left" delay={0.15}>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
                 Have an upcoming web project, mobile app, or full-stack engineering opening? Feel free to reach out directly or send a message.
               </p>
             </Reveal>
@@ -43,14 +43,14 @@ export function Contact() {
               <Reveal direction="left" delay={0.2}>
                 <a
                   href="mailto:prosper.shaibu.asare@gmail.com"
-                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border/70 bg-card/60 backdrop-blur-md hover:border-primary/50 hover:bg-card/90 transition-all duration-300 group"
+                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-xs text-muted-foreground font-medium">Email Me</div>
-                    <div className="text-sm font-semibold text-foreground">
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Email Me</div>
+                    <div className="font-montserrat text-sm font-bold text-foreground">
                       Connect via Email
                     </div>
                   </div>
@@ -62,14 +62,14 @@ export function Contact() {
                   href="https://github.com/Psasare"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border/70 bg-card/60 backdrop-blur-md hover:border-primary/50 hover:bg-card/90 transition-all duration-300 group"
+                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform">
                     <GithubIcon className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-xs text-muted-foreground font-medium">GitHub</div>
-                    <div className="text-sm font-semibold text-foreground">
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">GitHub</div>
+                    <div className="font-montserrat text-sm font-bold text-foreground">
                       github.com/Psasare
                     </div>
                   </div>
@@ -77,13 +77,13 @@ export function Contact() {
               </Reveal>
 
               <Reveal direction="left" delay={0.3}>
-                <div className="flex items-center gap-3 p-3.5 rounded-xl border border-border/70 bg-card/60 backdrop-blur-md">
+                <div className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card shadow-xs">
                   <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-xs text-muted-foreground font-medium">Location & Work Style</div>
-                    <div className="text-sm font-semibold text-foreground">
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Location & Work Style</div>
+                    <div className="font-montserrat text-sm font-bold text-foreground">
                       Remote & Worldwide Collaboration
                     </div>
                   </div>
@@ -95,80 +95,80 @@ export function Contact() {
           {/* Form */}
           <div className="lg:col-span-7">
             <Reveal direction="right" delay={0.15}>
-              <div className="p-8 rounded-3xl border border-border/70 bg-card/80 backdrop-blur-xl shadow-xl shadow-black/5 hover:border-border/90 transition-all">
+              <div className="p-8 rounded-3xl border border-border bg-card shadow-xs">
                 {submitted ? (
                   <div className="py-12 text-center space-y-4">
-                    <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 mx-auto flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-accent/20 text-accent flex items-center justify-center mx-auto">
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground">
-                      Message Sent!
+                    <h3 className="font-montserrat text-xl font-bold text-foreground">
+                      Message Received!
                     </h3>
-                    <p className="text-sm text-muted-foreground max-w-sm mx-auto">
-                      Thank you for reaching out. I will get back to you promptly.
+                    <p className="font-sans text-sm text-muted-foreground max-w-sm mx-auto">
+                      Thank you for reaching out. I&apos;ll review your message and reply as soon as possible.
                     </p>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="text-xs font-semibold text-primary hover:underline pt-2 cursor-pointer"
+                      className="px-5 py-2.5 rounded-xl bg-secondary text-secondary-foreground font-montserrat text-xs font-semibold uppercase tracking-wider hover:bg-muted transition-colors cursor-pointer"
                     >
-                      Send another message
+                      Send Another Message
                     </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-foreground/90">
+                        <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/80">
                           Your Name
                         </label>
                         <input
-                          type="text"
                           required
+                          type="text"
                           placeholder="e.g. Alex Morgan"
-                          className="w-full px-4 py-2.5 rounded-xl bg-background/80 border border-border/80 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                          className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-foreground/90">
-                          Your Email
+                        <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/80">
+                          Email Address
                         </label>
                         <input
-                          type="email"
                           required
+                          type="email"
                           placeholder="alex@company.com"
-                          className="w-full px-4 py-2.5 rounded-xl bg-background/80 border border-border/80 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                          className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-foreground/90">
-                        Subject
+                      <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/80">
+                        Subject / Focus Area
                       </label>
                       <input
-                        type="text"
                         required
-                        placeholder="Project Inquiry / Engineering Role"
-                        className="w-full px-4 py-2.5 rounded-xl bg-background/80 border border-border/80 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                        type="text"
+                        placeholder="Project discussion, contract opening, or technical question"
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-foreground/90">
+                      <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/80">
                         Message
                       </label>
                       <textarea
-                        rows={4}
                         required
-                        placeholder="Tell me about your project, timeline, or scope..."
-                        className="w-full px-4 py-2.5 rounded-xl bg-background/80 border border-border/80 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all resize-none"
+                        rows={4}
+                        placeholder="Tell me about your project, timeline, or requirements..."
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors resize-none"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm shadow-md shadow-primary/25 hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer disabled:opacity-60"
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-montserrat font-bold text-xs uppercase tracking-wider shadow-sm hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50"
                     >
                       <span>{loading ? "Sending..." : "Send Message"}</span>
                       <Send className="w-4 h-4" />

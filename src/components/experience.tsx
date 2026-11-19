@@ -53,22 +53,22 @@ export function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-24 border-t border-border/60 relative">
+    <section id="experience" className="py-24 border-t border-border relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal direction="up" className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <h2 className="text-xs uppercase tracking-widest font-semibold text-primary">
+          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent">
             Career & Milestones
           </h2>
-          <p className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+          <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground">
             Experience & Education
           </p>
-          <p className="text-sm sm:text-base text-muted-foreground">
+          <p className="font-sans text-sm sm:text-base text-muted-foreground">
             A track record of engineering scalable applications, continuous learning, and software delivery.
           </p>
         </Reveal>
 
         {/* Timeline List */}
-        <div className="max-w-3xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:-translate-x-px before:h-full before:w-0.5 before:bg-border/80">
+        <div className="max-w-3xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:-translate-x-px before:h-full before:w-0.5 before:bg-border">
           {timeline.map((item, index) => {
             const isWork = item.type === "work";
             const isEven = index % 2 === 0;
@@ -81,7 +81,7 @@ export function Experience() {
                 }`}
               >
                 {/* Center Node Icon */}
-                <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-primary bg-background flex items-center justify-center text-primary z-10 shadow-sm">
+                <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-accent bg-card flex items-center justify-center text-accent z-10 shadow-xs">
                   {isWork ? (
                     <Briefcase className="w-3.5 h-3.5" />
                   ) : (
@@ -96,29 +96,29 @@ export function Experience() {
                   }`}
                 >
                   <Reveal delay={index * 0.15} direction={isEven ? "left" : "right"}>
-                    <div className="p-6 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-md hover:border-primary/50 hover:bg-card/95 hover:-translate-y-1 transition-all duration-300 shadow-sm text-left">
+                    <div className="p-6 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs text-left">
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20">
+                        <span className="inline-flex items-center gap-1.5 font-montserrat text-xs font-semibold px-2.5 py-0.5 rounded-md bg-secondary text-secondary-foreground border border-border">
                           <Calendar className="w-3 h-3" />
                           {item.period}
                         </span>
-                        <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+                        <span className="inline-flex items-center gap-1 font-montserrat text-[11px] text-muted-foreground">
                           <MapPin className="w-3 h-3" />
                           {item.location}
                         </span>
                       </div>
 
-                      <h3 className="font-bold text-base text-foreground">
+                      <h3 className="font-montserrat font-bold text-base text-foreground">
                         {item.role}
                       </h3>
-                      <p className="text-xs font-medium text-primary mb-3">
+                      <p className="font-montserrat text-xs font-semibold text-accent mb-3">
                         {item.organization}
                       </p>
 
-                      <ul className="space-y-1.5 text-xs text-muted-foreground leading-relaxed">
+                      <ul className="space-y-1.5 font-sans text-xs text-muted-foreground leading-relaxed">
                         {item.description.map((point, i) => (
                           <li key={i} className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary/60 mt-1.5 shrink-0" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
                             <span>{point}</span>
                           </li>
                         ))}
