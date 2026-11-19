@@ -45,7 +45,7 @@ export function About() {
 
             <Reveal direction="up" delay={0.15}>
               <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed">
-                I am an Information Technology professional and scholar at the <span className="font-semibold text-foreground">University of Ghana, Legon</span>, dedicated to building dependable full-stack web platforms, elegant responsive interfaces, and cross-platform mobile applications.
+                I am an Information Technology professional and a graduate of the Prestigious<span className="font-semibold text-foreground">UNIVERSITY OF GHANA, LEGON</span>, dedicated to building dependable full-stack web platforms, elegant responsive interfaces, and cross-platform mobile applications.
               </p>
             </Reveal>
 
