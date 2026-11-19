@@ -20,7 +20,7 @@ export function Hero() {
             {/* Status Pill with Montserrat uppercase tracking */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card border border-border shadow-xs">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="font-montserrat text-[11px] font-bold uppercase tracking-wider text-foreground/90">
+              <span className="font-montserrat text-[11px] font-bold uppercase tracking-wider text-foreground">
                 Available for Full-Stack, Web & Mobile Projects
               </span>
             </div>

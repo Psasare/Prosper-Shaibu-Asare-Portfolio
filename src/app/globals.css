@@ -74,16 +74,16 @@
 
   /* Semantic UI Tokens for Light Theme - Crisp, bright, high-contrast (zero brownish haze) */
   --background: #fbfbfb;
-  --foreground: #1c1d22;
+  --foreground: #090a0f;
   --card: #ffffff;
-  --card-foreground: #1c1d22;
-  --primary: #1c1d22;
+  --card-foreground: #090a0f;
+  --primary: #090a0f;
   --primary-foreground: #ffffff;
-  --secondary: #f3f4f6;
-  --secondary-foreground: #1c1d22;
-  --muted: #f3f4f6;
-  --muted-foreground: #6b7280;
-  --border: #e5e7eb;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #090a0f;
+  --muted: #f1f5f9;
+  --muted-foreground: #334155;
+  --border: #e2e8f0;
   --accent: #8e5f2e;
   --accent-foreground: #ffffff;
 }
@@ -91,15 +91,15 @@
 .dark {
   /* Semantic UI Tokens for Dark Theme - Crisp, sleek obsidian/graphite (zero brownish tint) */
   --background: #090b10;
-  --foreground: #f3f4f6;
+  --foreground: #f8fafc;
   --card: #11141c;
-  --card-foreground: #f9fafb;
-  --primary: #f3f4f6;
+  --card-foreground: #f8fafc;
+  --primary: #f8fafc;
   --primary-foreground: #090b10;
   --secondary: #181c26;
-  --secondary-foreground: #e5e7eb;
+  --secondary-foreground: #f8fafc;
   --muted: #151821;
-  --muted-foreground: #9ca3af;
+  --muted-foreground: #cbd5e1;
   --border: #202533;
   --accent: #d5bdaf;
   --accent-foreground: #090b10;

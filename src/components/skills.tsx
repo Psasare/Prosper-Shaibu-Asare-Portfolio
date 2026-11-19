@@ -112,7 +112,7 @@ export function Skills() {
                     {category.skills.map((skill) => (
                       <div
                         key={skill}
-                        className="flex items-center gap-2 font-montserrat text-xs font-semibold text-foreground/90 bg-muted/70 hover:bg-muted hover:border-accent/40 transition-all rounded-lg px-3 py-2 border border-border/60"
+                        className="flex items-center gap-2 font-montserrat text-xs font-bold text-foreground bg-muted/80 hover:bg-muted hover:border-accent/40 transition-all rounded-lg px-3 py-2 border border-border"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-accent shrink-0" />
                         <span className="truncate">{skill}</span>

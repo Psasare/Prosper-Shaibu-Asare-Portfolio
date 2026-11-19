@@ -62,7 +62,7 @@ export function About() {
             </Reveal>
 
             <Reveal direction="up" delay={0.34}>
-              <div className="pt-3 flex flex-wrap gap-2.5 font-montserrat text-xs font-semibold text-foreground/80">
+              <div className="pt-3 flex flex-wrap gap-2.5 font-montserrat text-xs font-semibold text-foreground">
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
                   BSc. IT Graduate &bull; 2026 (UG Legon)
                 </span>
