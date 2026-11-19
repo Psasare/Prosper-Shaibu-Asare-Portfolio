@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { ExternalLink, FolderGit2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { GithubIcon } from "./icons";
 
 interface Project {
@@ -74,7 +75,13 @@ export function Projects() {
     },
   ];
 
-  const categories = ["All", "Full Stack / Mobile", "Healthcare / Web", "AI & Computer Vision", "3D & Creative"];
+  const categories = [
+    "All",
+    "Full Stack / Mobile",
+    "Healthcare / Web",
+    "AI & Computer Vision",
+    "3D & Creative",
+  ];
 
   const filteredProjects =
     activeFilter === "All"
@@ -93,7 +100,8 @@ export function Projects() {
               Projects & Engineering Cases
             </p>
             <p className="text-sm sm:text-base text-muted-foreground max-w-xl">
-              Selected projects highlighting systems architecture, practical user utility, and modern interactive aesthetics.
+              Selected projects highlighting systems architecture, practical user utility,
+              and modern interactive aesthetics.
             </p>
           </div>
 
@@ -116,66 +124,73 @@ export function Projects() {
         </div>
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.title}
-              className="flex flex-col justify-between p-6 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-md hover:border-primary/40 hover:bg-card/90 transition-all duration-300 shadow-sm group"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-primary/10 text-primary border border-primary/20">
-                    {project.category}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-foreground transition-colors p-1"
-                        aria-label="View Source on GitHub"
-                      >
-                        <GithubIcon className="w-4 h-4" />
-                      </a>
-                    )}
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-foreground transition-colors p-1"
-                        aria-label="Visit Live Demo"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence>
+            {filteredProjects.map((project) => (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.25 }}
+                key={project.title}
+                className="flex flex-col justify-between p-6 rounded-2xl border border-border/70 bg-card/60 backdrop-blur-md hover:border-primary/40 hover:bg-card/90 transition-all duration-300 shadow-sm group hover:-translate-y-1"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-primary/10 text-primary border border-primary/20">
+                      {project.category}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-foreground transition-colors p-1"
+                          aria-label="View Source on GitHub"
+                        >
+                          <GithubIcon className="w-4 h-4" />
+                        </a>
+                      )}
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-foreground transition-colors p-1"
+                          aria-label="Visit Live Demo"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
                   </div>
+
+                  <h3 className="font-bold text-lg text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
+                    {project.description}
+                  </p>
                 </div>
 
-                <h3 className="font-bold text-lg text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
-                  {project.description}
-                </p>
-              </div>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border/50">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-muted text-muted-foreground"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border/50">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-muted text-muted-foreground"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
         {/* GitHub link banner */}
         <div className="mt-12 text-center">
