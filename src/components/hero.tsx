@@ -8,9 +8,6 @@ import { InteractiveCanvas3D } from "./interactive-canvas-3d";
 export function Hero() {
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      {/* Subtle, solid architectural backdrop glow - no loud rainbow gradients */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-dust_grey-600/35 dark:bg-card/50 rounded-full blur-[140px] pointer-events-none -z-10" />
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left Column: Text & CTA */}

@@ -30,24 +30,24 @@ export function InteractiveCanvas3D() {
 
     const isDark = resolvedTheme === "dark";
 
-    // 4. Lights matched to user's earthy luxury palette (linen, dust grey, almond silk)
+    // 4. Lights: Crisp, clean illumination (zero muddy brown tint)
     const ambientLight = new THREE.AmbientLight(
-      isDark ? 0x27221e : 0xf4f4f2,
+      isDark ? 0x181e29 : 0xffffff,
       isDark ? 1.8 : 2.2
     );
     scene.add(ambientLight);
 
     const pointLight1 = new THREE.PointLight(
-      isDark ? 0xdebd99 : 0xc78f52,
-      isDark ? 3.5 : 2.8,
+      isDark ? 0xe2e8f0 : 0xffffff,
+      isDark ? 3.2 : 2.6,
       20
     );
     pointLight1.position.set(4, 4, 3);
     scene.add(pointLight1);
 
     const pointLight2 = new THREE.PointLight(
-      isDark ? 0x986b50 : 0x8e5f2e,
-      isDark ? 2.6 : 2.0,
+      isDark ? 0x94a3b8 : 0xcbd5e1,
+      isDark ? 2.4 : 1.8,
       18
     );
     pointLight2.position.set(-4, -3, 2.5);
@@ -57,28 +57,28 @@ export function InteractiveCanvas3D() {
     const group = new THREE.Group();
     scene.add(group);
 
-    // Inner smooth core: brushed warm metal
+    // Inner smooth core: sleek metallic finish
     const coreGeometry = new THREE.TorusKnotGeometry(0.95, 0.26, 128, 32, 2, 3);
     const coreMaterial = new THREE.MeshStandardMaterial({
-      color: isDark ? 0x312921 : 0xa87b59,
-      roughness: isDark ? 0.22 : 0.35,
-      metalness: isDark ? 0.78 : 0.6,
+      color: isDark ? 0x1f2737 : 0xd1d5db,
+      roughness: isDark ? 0.22 : 0.28,
+      metalness: isDark ? 0.85 : 0.72,
     });
     const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
     group.add(coreMesh);
 
-    // Outer geometric wireframe cage: subtle architectural facet
+    // Outer geometric wireframe cage: clean architectural facet
     const wireGeometry = new THREE.IcosahedronGeometry(1.75, 2);
     const wireMaterial = new THREE.MeshBasicMaterial({
-      color: isDark ? 0xba937c : 0x625241,
+      color: isDark ? 0x64748b : 0x4b5563,
       wireframe: true,
       transparent: true,
-      opacity: isDark ? 0.28 : 0.18,
+      opacity: isDark ? 0.25 : 0.16,
     });
     const wireMesh = new THREE.Mesh(wireGeometry, wireMaterial);
     group.add(wireMesh);
 
-    // 6. Floating Particle Field: delicate dust dots
+    // 6. Floating Particle Field: crisp starlight dots
     const particleCount = 140;
     const particleGeometry = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
@@ -94,7 +94,7 @@ export function InteractiveCanvas3D() {
     );
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: isDark ? 0xe3d5ca : 0x937a62,
+      color: isDark ? 0x94a3b8 : 0x6b7280,
       size: 0.03,
       transparent: true,
       opacity: isDark ? 0.45 : 0.35,

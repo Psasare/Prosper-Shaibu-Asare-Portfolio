@@ -72,47 +72,37 @@
   --almond-silk-800: #eee4df;
   --almond-silk-900: #f7f2ef;
 
-  /* Semantic UI Tokens for Light Theme */
-  --background: #edede9;
-  --foreground: #34342a;
-  --card: #f8f8f6;
-  --card-foreground: #312921;
-  --primary: #34342a;
-  --primary-foreground: #fbfbfb;
-  --secondary: #e7e0da;
-  --secondary-foreground: #312921;
-  --muted: #efebe7;
-  --muted-foreground: #676754;
-  --border: #d6ccc2;
+  /* Semantic UI Tokens for Light Theme - Crisp, bright, high-contrast (zero brownish haze) */
+  --background: #fbfbfb;
+  --foreground: #1c1d22;
+  --card: #ffffff;
+  --card-foreground: #1c1d22;
+  --primary: #1c1d22;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #1c1d22;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --border: #e5e7eb;
   --accent: #8e5f2e;
-  --accent-foreground: #fdfbf9;
+  --accent-foreground: #ffffff;
 }
 
 .dark {
-  --background: #090d16;
-  --foreground: #f8fafc;
-  --card: #0f172a;
-  --card-foreground: #f8fafc;
-  --primary: #60a5fa;
-  --primary-foreground: #090d16;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --border: #1e293b;
-  --accent: #60a5fa;
-  /* Semantic UI Tokens for Dark Theme */
-  --background: #141210;
-  --foreground: #f5ebe0;
-  --card: #1c1815;
-  --card-foreground: #fbfbfb;
-  --primary: #d5bdaf;
-  --primary-foreground: #1e1711;
-  --secondary: #26211d;
-  --secondary-foreground: #e3d5ca;
-  --muted: #26211d;
-  --muted-foreground: #b6a391;
-  --border: #332b24;
-  --accent: #c78f52;
-  --accent-foreground: #1c150e;
+  /* Semantic UI Tokens for Dark Theme - Crisp, sleek obsidian/graphite (zero brownish tint) */
+  --background: #090b10;
+  --foreground: #f3f4f6;
+  --card: #11141c;
+  --card-foreground: #f9fafb;
+  --primary: #f3f4f6;
+  --primary-foreground: #090b10;
+  --secondary: #181c26;
+  --secondary-foreground: #e5e7eb;
+  --muted: #151821;
+  --muted-foreground: #9ca3af;
+  --border: #202533;
+  --accent: #d5bdaf;
+  --accent-foreground: #090b10;
 }
 
 @theme {
