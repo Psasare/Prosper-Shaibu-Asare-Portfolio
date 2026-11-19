@@ -99,9 +99,9 @@ export function Contact() {
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Location & Education</div>
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Location & Base</div>
                     <div className="font-montserrat text-sm font-bold text-foreground">
-                      Accra, Ghana &bull; Univ. of Ghana, Legon
+                      Ho, Ghana
                     </div>
                   </div>
                 </div>
