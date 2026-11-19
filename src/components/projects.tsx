@@ -24,7 +24,7 @@ export function Projects() {
       title: "MindBridge - Mental Health Navigator",
       badge: "Final Year Project",
       description:
-        "Cross-platform mental health navigation mobile application engineered for University of Ghana undergraduate final year capstone. Features guided wellness assessments, mood tracking, and accessible therapeutic self-care resources.",
+        "Cross-platform mental health navigation mobile application engineered for my University of Ghana final year capstone. Delivers self-guided clinical wellness assessments, mood tracking metrics, and accessible psychoeducational resources.",
       tags: ["TypeScript", "React Native", "Mobile UI", "Mental Health", "State Management"],
       category: "Full Stack / Mobile",
       githubUrl: "https://github.com/Psasare/MindBridge-Mental-Health-Navigator-Mobile-App-Project",
@@ -33,7 +33,7 @@ export function Projects() {
       title: "Bloom Maternal Health App",
       badge: "Healthcare Collaboration",
       description:
-        "Community-centered maternal healthcare digital platform designed for expecting mothers, providing localized prenatal milestone tracking, clinical appointment schedules, and maternal wellness resources.",
+        "Community-centered maternal healthcare digital platform built to empower expecting mothers with localized prenatal milestone tracking, clinical appointment schedules, and curated wellness guidance.",
       tags: ["TypeScript", "Healthcare", "Web Platform", "Frontend Architecture", "REST APIs"],
       category: "Healthcare / Web",
       githubUrl: "https://github.com/Ad-joa/Bloom-Maternal-Health-App",
@@ -42,7 +42,7 @@ export function Projects() {
       title: "Course Registration System",
       badge: "Academic Portal",
       description:
-        "Institutional student enrollment and course management platform built with strict validation logic for prerequisite compliance, credit unit quotas, academic scheduling, and administrative oversight.",
+        "Institutional student enrollment and course management platform built with robust validation logic for prerequisite compliance, credit unit quotas, academic scheduling, and administrative oversight.",
       tags: ["TypeScript", "Academic Systems", "Database Design", "Authentication", "Validation Logic"],
       category: "Academic Systems",
       githubUrl: "https://github.com/Psasare/Course-Registration-System",
@@ -71,19 +71,18 @@ export function Projects() {
       : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-24 border-t border-border relative">
+    <section id="projects" className="py-24 md:py-28 border-t border-border relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <Reveal direction="up" className="space-y-3">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+          <Reveal direction="up" className="space-y-4">
             <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent">
               Featured Work
             </h2>
             <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground">
               Projects & Engineering Cases
             </p>
-            <p className="font-sans text-sm sm:text-base text-muted-foreground max-w-xl">
-              Selected projects highlighting systems architecture, practical user utility,
-              and modern interactive aesthetics.
+            <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl">
+              A curated collection of production applications, capstone projects, and institutional platforms engineered with modern TypeScript and resilient system patterns.
             </p>
           </Reveal>
 
@@ -93,7 +92,7 @@ export function Projects() {
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                   activeFilter === cat
                     ? "bg-primary text-primary-foreground shadow-xs"
                     : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -116,7 +115,7 @@ export function Projects() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25 }}
                 key={project.title}
-                className="flex flex-col justify-between p-7 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs group"
+                className="flex flex-col justify-between p-7 sm:p-8 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs group"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-4">
@@ -156,7 +155,7 @@ export function Projects() {
                     </div>
                   </div>
 
-                  <h3 className="font-montserrat font-bold text-lg text-foreground mb-2 group-hover:text-accent transition-colors">
+                  <h3 className="font-montserrat font-bold text-lg sm:text-xl text-foreground mb-2.5 group-hover:text-accent transition-colors">
                     {project.title}
                   </h3>
 

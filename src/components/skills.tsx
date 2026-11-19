@@ -16,35 +16,35 @@ export function Skills() {
       title: "Frontend & Web Design",
       icon: Layers,
       description:
-        "Modern, responsive, accessible web interfaces engineered with strict type safety and design precision.",
+        "Building responsive, high-performance web applications using modern Next.js and React architectures with strict type safety and accessible design standards.",
       skills: [
         "Next.js (App Router)",
         "React 19",
         "TypeScript",
         "Tailwind CSS v4",
         "Design Systems",
-        "Responsive & A11y Design",
+        "Responsive & A11y UI",
       ],
     },
     {
       title: "Mobile & UI/UX Engineering",
       icon: Smartphone,
       description:
-        "Intuitive mobile application interfaces, cross-platform architecture, and fluid micro-interactions.",
+        "Developing intuitive cross-platform mobile experiences with fluid touch interactions, modular components, and seamless offline data caching.",
       skills: [
         "React Native & Mobile UI",
-        "Framer & Framer Motion",
+        "Framer Motion",
         "Touch Gestures & Feedback",
         "Component Libraries",
         "Mobile State Management",
-        "Light & Dark UI Adaptation",
+        "Adaptive Light/Dark Modes",
       ],
     },
     {
       title: "Backend & Systems",
       icon: Cpu,
       description:
-        "Performant full-stack application logic, secure data access, and API design.",
+        "Architecting dependable backend logic, secure authentication layers, and efficient relational database schemas built for reliability and scale.",
       skills: [
         "Node.js & Express",
         "Python",
@@ -55,15 +55,15 @@ export function Skills() {
       ],
     },
     {
-      title: "Tools, Workflow & Delivery",
+      title: "Tools, Systems & DevOps",
       icon: Workflow,
       description:
-        "Developer tooling and disciplined engineering practices for production excellence.",
+        "Applying disciplined engineering workflows, version control standards, continuous deployment, and enterprise infrastructure maintenance.",
       skills: [
         "Git & GitHub Workflows",
         "Vercel Deployment",
-        "Turbopack & Modern Bundlers",
-        "Model Context Protocol (MCP)",
+        "Network Administration",
+        "Systems Troubleshooting",
         "Testing & Code Quality",
         "Performance Optimization",
       ],
@@ -71,17 +71,17 @@ export function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-24 border-t border-border relative">
+    <section id="skills" className="py-24 md:py-28 border-t border-border relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal direction="up" className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent">
             Capabilities & Focus
           </h2>
           <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground">
             Technical Stack & Craft
           </p>
-          <p className="font-sans text-sm sm:text-base text-muted-foreground">
-            A balanced foundation spanning resilient full-stack engineering, web design, and cross-platform mobile apps.
+          <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            A comprehensive engineering toolkit cultivated through enterprise systems administration, academic rigor, and production software delivery.
           </p>
         </Reveal>
 
@@ -90,23 +90,25 @@ export function Skills() {
             const Icon = category.icon;
             return (
               <Reveal key={category.title} delay={index * 0.12} direction="up">
-                <div className="h-full group p-6 sm:p-8 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform duration-300">
-                      <Icon className="w-6 h-6" />
+                <div className="h-full group p-7 sm:p-8 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform duration-300">
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="font-montserrat font-bold text-lg text-foreground group-hover:text-accent transition-colors">
+                          {category.title}
+                        </h3>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-montserrat font-bold text-lg text-foreground group-hover:text-accent transition-colors">
-                        {category.title}
-                      </h3>
-                    </div>
+
+                    <p className="font-sans text-xs sm:text-sm text-muted-foreground mb-6 leading-relaxed">
+                      {category.description}
+                    </p>
                   </div>
 
-                  <p className="font-sans text-xs sm:text-sm text-muted-foreground mb-6 leading-relaxed">
-                    {category.description}
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-2 gap-2.5 pt-2">
                     {category.skills.map((skill) => (
                       <div
                         key={skill}

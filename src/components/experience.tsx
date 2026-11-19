@@ -14,7 +14,7 @@ interface TimelineItem {
 }
 
 export function Experience() {
-  // Chronological order: from lower foundational education & early experience up to tertiary degree and national service
+  // Chronological order: from foundational education up through university degree to apex enterprise service
   const timeline: TimelineItem[] = [
     {
       period: "Secondary Education",
@@ -22,7 +22,8 @@ export function Experience() {
       organization: "Kpando Senior High School",
       location: "Kpando, Volta Region",
       description: [
-        "Built a strong foundation in physics, mathematics, chemistry, and elective sciences establishing analytical problem-solving skills.",
+        "Built rigorous analytical and quantitative problem-solving foundations through advanced coursework in physics, elective mathematics, and chemistry.",
+        "Cultivated the scientific curiosity, disciplined inquiry, and computational thinking that underpin my approach to software engineering.",
       ],
       type: "education",
     },
@@ -32,9 +33,8 @@ export function Experience() {
       organization: "Solidere Ghana Limited (PremierBet Ghana)",
       location: "Farrar Avenue, Adabraka Accra",
       description: [
-        "Delivered responsive user assistance across phone, email, chat, and in-person channels with high satisfaction rates.",
-        "Explained products, services, promotions, and account procedures clearly and evidently to clients.",
-        "Handled orders, account verification, and transaction processing accurately while maintaining thorough interaction logs.",
+        "Provided responsive, client-centered assistance across digital chat, telephone, email, and direct in-person inquiries with consistent satisfaction ratings.",
+        "Facilitated account verifications, processed transaction workflows accurately, and maintained structured documentation within collaborative shift teams.",
       ],
       type: "work",
     },
@@ -44,8 +44,8 @@ export function Experience() {
       organization: "University of Ghana",
       location: "Accra, Legon",
       description: [
-        "Rigorous coursework in Software Development, Database Administration, Systems Architecture, and Network Engineering.",
-        "Applied software engineering principles to full-stack web and mobile application projects, combining software logic with infrastructure.",
+        "Pursuing advanced studies in software development, relational database administration, computer network engineering, and system architectures.",
+        "Applying modern software engineering principles to full-stack web and mobile application projects, combining backend logic with accessible interface design.",
       ],
       type: "education",
     },
@@ -55,9 +55,8 @@ export function Experience() {
       organization: "Ho Teaching Hospital",
       location: "Ho, Ghana",
       description: [
-        "Supported the deployment, installation, and network configuration of new computing systems and hospital network infrastructure.",
-        "Maintained IT asset records and contributed to standard operating procedure documentation for internal technical workflows.",
-        "Conducted preventive maintenance routines to minimize hospital operational downtime; monitored and maintained server room equipment for thermal and performance reliability.",
+        "Supported the deployment, installation, and network configuration of hospital workstations and clinical communications infrastructure.",
+        "Maintained IT asset documentation, assisted in standardizing technical procedures, and performed preventive maintenance on server room cooling and power systems.",
       ],
       type: "work",
     },
@@ -67,9 +66,9 @@ export function Experience() {
       organization: "Volta Regional Hospital",
       location: "Hohoe, Ghana",
       description: [
-        "Administered and maintained the hospital's local area network (LAN), ensuring high uptime and reliable connectivity across clinical departments.",
-        "Diagnosed and resolved hardware and software faults on clinical workstations, printers, and critical peripheral equipment.",
-        "Delivered hands-on training sessions to healthcare personnel on office software productivity and modern digital IT tools.",
+        "Administered the hospital Local Area Network (LAN) to ensure continuous connectivity and uninterrupted uptime across clinical wards and administrative units.",
+        "Diagnosed and resolved critical hardware and software faults across medical workstations, network switches, and peripheral devices.",
+        "Conducted digital literacy training sessions for healthcare personnel, improving their proficiency with modern office software and digital records.",
       ],
       type: "work",
     },
@@ -79,31 +78,31 @@ export function Experience() {
       organization: "University of Health and Allied Sciences (UHAS) - ICT Directorate",
       location: "Ho, Ghana",
       description: [
-        "Support the development, implementation, management, and maintenance of university administrative information systems, including ERP platforms, HR systems, financial systems, and core databases.",
-        "Collaborate with stakeholders to analyze functional requirements, improve digital workflows, ensure data accuracy, and support seamless system integration across university directorates.",
-        "Assist in quality assurance, performance monitoring, and security management to ensure institutional administrative platforms remain secure, reliable, and operationally aligned.",
+        "Entrusted with the maintenance, support, and ongoing evolution of university administrative information systems, ERP platforms, and central databases.",
+        "Collaborating with academic and administrative stakeholders to evaluate functional requirements, optimize digital workflows, and guarantee institutional data accuracy.",
+        "Participating in cross-system integration, quality assurance, performance monitoring, and security management to uphold high-availability enterprise services.",
       ],
       type: "work",
     },
   ];
 
   return (
-    <section id="experience" className="py-24 border-t border-border relative">
+    <section id="experience" className="py-24 md:py-28 border-t border-border relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal direction="up" className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent">
-            Milestones & Career Journey
+            Career Journey & Milestones
           </h2>
           <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground">
             Experience & Education
           </p>
-          <p className="font-sans text-sm sm:text-base text-muted-foreground">
-            From foundational science education up to University of Ghana IT studies, hospital systems engineering, and administrative computing at UHAS.
+          <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            A chronological journey of analytical development, clinical systems support, University of Ghana academic excellence, and enterprise computing leadership.
           </p>
         </Reveal>
 
         {/* Timeline List */}
-        <div className="max-w-3xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:-translate-x-px before:h-full before:w-0.5 before:bg-border">
+        <div className="max-w-3xl mx-auto space-y-10 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:-translate-x-px before:h-full before:w-0.5 before:bg-border">
           {timeline.map((item, index) => {
             const isWork = item.type === "work";
             const isEven = index % 2 === 0;
@@ -131,8 +130,8 @@ export function Experience() {
                   }`}
                 >
                   <Reveal delay={index * 0.1} direction={isEven ? "left" : "right"}>
-                    <div className="p-6 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs text-left">
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <div className="p-7 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs text-left">
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                         <span className="inline-flex items-center gap-1.5 font-montserrat text-xs font-semibold px-2.5 py-0.5 rounded-md bg-secondary text-secondary-foreground border border-border">
                           <Calendar className="w-3 h-3" />
                           {item.period}
@@ -143,17 +142,17 @@ export function Experience() {
                         </span>
                       </div>
 
-                      <h3 className="font-montserrat font-bold text-base text-foreground">
+                      <h3 className="font-montserrat font-bold text-base text-foreground mb-0.5">
                         {item.role}
                       </h3>
-                      <p className="font-montserrat text-xs font-semibold text-accent mb-3">
+                      <p className="font-montserrat text-xs font-semibold text-accent mb-4">
                         {item.organization}
                       </p>
 
-                      <ul className="space-y-1.5 font-sans text-xs text-muted-foreground leading-relaxed">
+                      <ul className="space-y-2 font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed">
                         {item.description.map((point, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
+                          <li key={i} className="flex items-start gap-2.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
                             <span>{point}</span>
                           </li>
                         ))}
