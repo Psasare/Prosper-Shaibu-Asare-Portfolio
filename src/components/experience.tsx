@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Reveal } from "./reveal";
-import { TextMaskReveal } from "./animated-text";
+import { EditorialHeading } from "./animated-text";
 
 interface TimelineItem {
   id: string;
@@ -179,20 +179,13 @@ export function Experience() {
     <section id="experience" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
-            Career Journey & Milestones
-          </h2>
-          <TextMaskReveal
-            as="h3"
-            className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
-          >
-            Experience & Education
-          </TextMaskReveal>
-          <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-5 sm:mt-6">
-            A curated timeline of analytical science foundations, hospital systems engineering, University of Ghana studies, and administrative computing at UHAS.
-          </p>
-        </Reveal>
+        <EditorialHeading
+          eyebrow="Career Journey & Milestones"
+          sansText="Experience &"
+          serifText="Academic Foundations"
+          description="A curated timeline of analytical science foundations, hospital systems engineering, University of Ghana studies, and administrative computing at UHAS."
+          className="mb-12 md:mb-16"
+        />
 
         {/* Filter & View Mode Controls */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 max-w-4xl mx-auto">

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Server, Code2, Users2, Smartphone } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
-import { TextMaskReveal } from "./animated-text";
+import { EditorialHeading } from "./animated-text";
 
 export function About() {
   const sectionRef = React.useRef<HTMLElement>(null);
@@ -20,22 +20,26 @@ export function About() {
   const values = [
     {
       icon: Server,
-      title: "Infrastructure & Systems",
+      titleSans: "Infrastructure &",
+      titleSerif: "Systems",
       text: "Practical background managing hospital LAN networks, server facilities, hardware diagnostics, and enterprise database systems.",
     },
     {
       icon: Code2,
-      title: "Full-Stack Architecture",
+      titleSans: "Full-Stack",
+      titleSerif: "Architecture",
       text: "Engineering resilient, maintainable web applications using Next.js, TypeScript, RESTful services, and structured data schemas.",
     },
     {
       icon: Smartphone,
-      title: "Mobile & Responsive UI",
+      titleSans: "Mobile &",
+      titleSerif: "Responsive UI",
       text: "Crafting fluid cross-platform mobile apps and responsive web interfaces designed for intuitive touch and effortless human use.",
     },
     {
       icon: Users2,
-      title: "People & Communication",
+      titleSans: "People &",
+      titleSerif: "Communication",
       text: "Shaped by customer operations and healthcare staff IT training, ensuring complex technical systems serve real human workflows.",
     },
   ];
@@ -46,21 +50,16 @@ export function About() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* Bio text with Parallax */}
           <motion.div style={{ y: bioY }} className="lg:col-span-6 space-y-7">
-            <Reveal direction="up">
-              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
-                About Me
-              </h2>
-              <TextMaskReveal
-                as="h3"
-                className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]"
-              >
-                Bridging dependable infrastructure with modern software engineering.
-              </TextMaskReveal>
-            </Reveal>
+            <EditorialHeading
+              align="left"
+              eyebrow="About Me"
+              sansText="Bridging dependable infrastructure with"
+              serifText="modern software engineering."
+            />
 
             <Reveal direction="up" delay={0.15}>
               <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed">
-                I am an Information Technology professional and scholar at the <span className="font-semibold text-foreground">University of Ghana, Legon</span>, dedicated to building dependable full-stack web platforms, elegant responsive interfaces, and cross-platform mobile applications.
+                I am an Information Technology professional and scholar at the <span className="font-serif italic font-normal text-accent text-lg">University of Ghana, Legon</span>, dedicated to building dependable full-stack web platforms, elegant responsive interfaces, and cross-platform mobile applications.
               </p>
             </Reveal>
 
@@ -106,7 +105,10 @@ export function About() {
                         <Icon className="w-5 h-5" />
                       </div>
                       <h3 className="font-montserrat font-bold text-base text-foreground mb-2">
-                        {v.title}
+                        {v.titleSans}{" "}
+                        <span className="font-serif italic font-normal text-accent">
+                          {v.titleSerif}
+                        </span>
                       </h3>
                       <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed">
                         {v.text}

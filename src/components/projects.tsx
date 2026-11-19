@@ -5,7 +5,7 @@ import { ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GithubIcon } from "./icons";
 import { Reveal } from "./reveal";
-import { TextMaskReveal } from "./animated-text";
+import { EditorialHeading } from "./animated-text";
 
 interface Project {
   title: string;

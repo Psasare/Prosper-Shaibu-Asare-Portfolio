@@ -64,9 +64,9 @@ export function Hero() {
               I architect{" "}
               <RotatingWords
                 words={[
+                  "accessible, modern UI systems",
                   "reliable full-stack web platforms",
                   "performant React Native mobile apps",
-                  "accessible, modern UI systems",
                   "resilient healthcare IT architectures",
                 ]}
               />
