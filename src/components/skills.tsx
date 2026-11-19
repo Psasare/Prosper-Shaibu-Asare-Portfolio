@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
+import { TextMaskReveal } from "./animated-text";
 
 export function Skills() {
   const sectionRef = React.useRef<HTMLElement>(null);
@@ -85,9 +86,12 @@ export function Skills() {
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
             Capabilities & Focus
           </h2>
-          <p className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight">
+          <TextMaskReveal
+            as="h3"
+            className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
+          >
             Technical Stack & Craft
-          </p>
+          </TextMaskReveal>
           <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-5 sm:mt-6">
             A comprehensive engineering toolkit cultivated through enterprise systems administration, academic rigor, and production software delivery.
           </p>

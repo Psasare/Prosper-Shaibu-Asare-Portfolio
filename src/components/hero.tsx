@@ -4,6 +4,7 @@ import * as React from "react";
 import { ArrowRight, Code2, Globe, Smartphone } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { InteractiveCanvas3D } from "./interactive-canvas-3d";
+import { RotatingWords } from "./animated-text";
 
 export function Hero() {
   const sectionRef = React.useRef<HTMLElement>(null);
@@ -57,11 +58,19 @@ export function Hero() {
               .
             </h1>
 
-            {/* Intro Subtitle: Plus Jakarta Sans for reading clarity */}
+            {/* Intro Subtitle: Plus Jakarta Sans with dynamic rotating typography */}
             <p className="font-sans text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
               Hi, I&apos;m <span className="font-semibold text-foreground">Prosper Shaibu Asare</span>.
-              I architect reliable full-stack systems, craft elegant responsive interfaces,
-              and build performant cross-platform mobile applications engineered for precision, speed, and real-world scale.
+              I architect{" "}
+              <RotatingWords
+                words={[
+                  "reliable full-stack web platforms",
+                  "performant React Native mobile apps",
+                  "accessible, modern UI systems",
+                  "resilient healthcare IT architectures",
+                ]}
+              />
+              , engineered for precision, speed, and real-world scale.
             </p>
 
             {/* Action Buttons with Montserrat font */}

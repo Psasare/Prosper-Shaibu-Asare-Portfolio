@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Reveal } from "./reveal";
+import { TextMaskReveal } from "./animated-text";
 
 interface TimelineItem {
   id: string;
@@ -182,9 +183,12 @@ export function Experience() {
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
             Career Journey & Milestones
           </h2>
-          <p className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight">
+          <TextMaskReveal
+            as="h3"
+            className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
+          >
             Experience & Education
-          </p>
+          </TextMaskReveal>
           <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-5 sm:mt-6">
             A curated timeline of analytical science foundations, hospital systems engineering, University of Ghana studies, and administrative computing at UHAS.
           </p>

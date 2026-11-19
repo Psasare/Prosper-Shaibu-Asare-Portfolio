@@ -4,6 +4,7 @@ import * as React from "react";
 import { Server, Code2, Users2, Smartphone } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
+import { TextMaskReveal } from "./animated-text";
 
 export function About() {
   const sectionRef = React.useRef<HTMLElement>(null);
@@ -49,9 +50,12 @@ export function About() {
               <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
                 About Me
               </h2>
-              <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]">
+              <TextMaskReveal
+                as="h3"
+                className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]"
+              >
                 Bridging dependable infrastructure with modern software engineering.
-              </p>
+              </TextMaskReveal>
             </Reveal>
 
             <Reveal direction="up" delay={0.15}>

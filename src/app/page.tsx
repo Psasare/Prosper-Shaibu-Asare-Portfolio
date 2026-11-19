@@ -8,6 +8,7 @@ import { Contact } from "@/components/contact";
 import { Footer } from "@/components/footer";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { LaunchTransition } from "@/components/launch-transition";
+import { TypographicMarquee } from "@/components/animated-text";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Navbar />
         <main className="flex-1">
           <Hero />
+          <TypographicMarquee />
           <About />
           <Skills />
           <Experience />

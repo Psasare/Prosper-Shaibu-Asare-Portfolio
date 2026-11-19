@@ -5,6 +5,7 @@ import { ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GithubIcon } from "./icons";
 import { Reveal } from "./reveal";
+import { TextMaskReveal } from "./animated-text";
 
 interface Project {
   title: string;
@@ -78,9 +79,12 @@ export function Projects() {
             <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
               Featured Work
             </h2>
-            <p className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight">
+            <TextMaskReveal
+              as="h3"
+              className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
+            >
               Projects & Engineering Cases
-            </p>
+            </TextMaskReveal>
             <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mt-5">
               A curated collection of production applications, capstone projects, and institutional platforms engineered with modern TypeScript and resilient system patterns.
             </p>

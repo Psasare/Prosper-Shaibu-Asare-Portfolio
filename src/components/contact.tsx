@@ -4,6 +4,7 @@ import * as React from "react";
 import { Mail, Send, CheckCircle2, MapPin, Phone, MessageSquare } from "lucide-react";
 import { GithubIcon } from "./icons";
 import { Reveal } from "./reveal";
+import { TextMaskReveal } from "./animated-text";
 
 export function Contact() {
   const [submitted, setSubmitted] = React.useState(false);
@@ -28,9 +29,12 @@ export function Contact() {
               <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
                 Get in Touch
               </h2>
-              <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]">
+              <TextMaskReveal
+                as="h3"
+                className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]"
+              >
                 Let&apos;s build something exceptional together.
-              </p>
+              </TextMaskReveal>
             </Reveal>
 
             <Reveal direction="left" delay={0.15}>
