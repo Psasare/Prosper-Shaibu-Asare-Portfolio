@@ -5,6 +5,8 @@ export function GithubIcon({ className = "w-4 h-4" }: { className?: string }) {
     <svg
       role="img"
       viewBox="0 0 24 24"
+      width="16"
+      height="16"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
@@ -23,6 +25,8 @@ export function LinkedinIcon({ className = "w-4 h-4" }: { className?: string }) 
     <svg
       role="img"
       viewBox="0 0 24 24"
+      width="16"
+      height="16"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
