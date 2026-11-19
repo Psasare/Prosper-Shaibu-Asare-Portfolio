@@ -2,16 +2,35 @@
 
 import * as React from "react";
 import { ArrowRight, Code2, Globe, Smartphone } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { InteractiveCanvas3D } from "./interactive-canvas-3d";
 
 export function Hero() {
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Parallax transforms: creates high-end multi-plane depth as user scrolls
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  const canvasY = useTransform(scrollYProgress, [0, 1], [0, 95]);
+  const canvasScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const bgGlowY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+    <section ref={sectionRef} className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      {/* Parallax Ambient Radial Beam */}
+      <motion.div
+        style={{ y: bgGlowY }}
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-accent/8 rounded-full blur-[100px] pointer-events-none -z-10"
+      />
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          {/* Left Column: Text & CTA */}
+          {/* Left Column: Text & CTA with Parallax */}
           <motion.div
+            style={{ y: textY }}
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: "easeOut" }}
@@ -76,8 +95,9 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Right Column: 3D Articulation (Unboxed, transparent, seamlessly fitting page) */}
+          {/* Right Column: 3D Articulation with Parallax */}
           <motion.div
+            style={{ y: canvasY, scale: canvasScale }}
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
@@ -88,5 +108,7 @@ export function Hero() {
         </div>
       </div>
     </section>
+  );
+}
   );
 }
