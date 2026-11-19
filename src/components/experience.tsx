@@ -16,6 +16,18 @@ interface TimelineItem {
 export function Experience() {
   const timeline: TimelineItem[] = [
     {
+      period: "Nov 2026 — Oct 2027 (Expected)",
+      role: "National Service Personnel — Administrative Computing",
+      organization: "University of Health and Allied Sciences (UHAS) — IT Directorate",
+      location: "Ho, Ghana",
+      description: [
+        "Assigned to the Administrative Computing Department under the central IT Directorate, supporting university-wide administrative platforms and student/staff computing systems.",
+        "Assisting in enterprise database administration, campus portal maintenance, and digital workflow automations across academic and administrative departments.",
+        "Collaborating with the IT team to uphold system uptime, data integrity, security policies, and technical support across university directorates.",
+      ],
+      type: "work",
+    },
+    {
       period: "Oct 2025 — Dec 2025",
       role: "Information Technology Intern",
       organization: "Volta Regional Hospital",
@@ -85,7 +97,7 @@ export function Experience() {
             Practical Experience & Milestones
           </p>
           <p className="font-sans text-sm sm:text-base text-muted-foreground">
-            Hands-on IT infrastructure, hospital systems support, and academic foundations from the University of Ghana.
+            National Service at UHAS IT Directorate, clinical hospital systems support, and academic foundations from the University of Ghana.
           </p>
         </Reveal>
 
@@ -117,7 +129,7 @@ export function Experience() {
                     isEven ? "sm:pl-10" : "sm:pr-10 text-left sm:text-right"
                   }`}
                 >
-                  <Reveal delay={index * 0.12} direction={isEven ? "left" : "right"}>
+                  <Reveal delay={index * 0.1} direction={isEven ? "left" : "right"}>
                     <div className="p-6 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs text-left">
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                         <span className="inline-flex items-center gap-1.5 font-montserrat text-xs font-semibold px-2.5 py-0.5 rounded-md bg-secondary text-secondary-foreground border border-border">
