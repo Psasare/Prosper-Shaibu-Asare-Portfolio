@@ -1,30 +1,30 @@
 "use client";
 
 import * as React from "react";
-import { Terminal, Code2, Rocket, Smartphone } from "lucide-react";
+import { Server, Code2, Users2, Smartphone } from "lucide-react";
 import { Reveal } from "./reveal";
 
 export function About() {
   const values = [
     {
-      icon: Terminal,
-      title: "Clean Architecture",
-      text: "Writing modular, testable, and maintainable code built with TypeScript and resilient system patterns.",
-    },
-    {
-      icon: Smartphone,
-      title: "Mobile & Responsive",
-      text: "Crafting fluid cross-platform mobile apps and responsive web interfaces designed for intuitive human touch.",
+      icon: Server,
+      title: "Infrastructure & Systems",
+      text: "Hands-on experience managing hospital LANs, server rooms, hardware diagnostics, and database administration.",
     },
     {
       icon: Code2,
-      title: "User-Centered Thinking",
-      text: "Every interaction, animation curve, and breakpoint is tuned for real human accessibility and speed.",
+      title: "Full-Stack Architecture",
+      text: "Building robust, modular web systems with Next.js, TypeScript, RESTful endpoints, and clean data modeling.",
     },
     {
-      icon: Rocket,
-      title: "Adaptive & Iterative",
-      text: "Rapid prototyping, continuous delivery, and staying ahead of emerging development tools and engineering practices.",
+      icon: Smartphone,
+      title: "Mobile & Responsive UI",
+      text: "Designing tactile cross-platform mobile apps and accessible web interfaces crafted for effortless human interaction.",
+    },
+    {
+      icon: Users2,
+      title: "People & Communication",
+      text: "Grounded by customer operations and hospital staff IT training, ensuring technical solutions serve real human needs.",
     },
   ];
 
@@ -39,20 +39,34 @@ export function About() {
                 About Me
               </h2>
               <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-tight">
-                Passionate about full-stack engineering, web design, and mobile solutions.
+                Bridging reliable IT infrastructure with modern software engineering.
               </p>
             </Reveal>
 
             <Reveal direction="up" delay={0.15}>
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                I am a Software Engineer specializing in full-stack engineering, modern web designing, and mobile application development. My approach combines robust backend systems with refined, accessible user interfaces.
+                I am an Information Technology scholar at the <span className="font-semibold text-foreground">University of Ghana, Legon</span>, specializing in full-stack engineering, web designing, and mobile application development. My perspective unites hands-on technical troubleshooting with modern software craft.
               </p>
             </Reveal>
 
             <Reveal direction="up" delay={0.25}>
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Whether building resilient healthcare platforms, developing machine learning computer vision systems, or engineering mobile applications, I focus on delivering seamless end-to-end user experiences that perform flawlessly across both light and dark environments.
+                From administering hospital local area networks (LANs) and server equipment at <span className="text-foreground font-medium">Volta Regional Hospital</span> and <span className="text-foreground font-medium">Ho Teaching Hospital</span> to designing patient companion portals and computer vision pipelines, I build technology that is structurally resilient, accessible, and user-centered.
               </p>
+            </Reveal>
+
+            <Reveal direction="up" delay={0.3}>
+              <div className="pt-2 flex flex-wrap gap-4 font-montserrat text-xs font-semibold text-foreground/80">
+                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
+                  BSc. IT Candidate &bull; 2026
+                </span>
+                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
+                  University of Ghana, Legon
+                </span>
+                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
+                  Accra & Volta Region
+                </span>
+              </div>
             </Reveal>
           </div>
 

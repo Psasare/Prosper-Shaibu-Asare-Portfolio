@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Mail, Send, CheckCircle2, MapPin } from "lucide-react";
+import { Mail, Send, CheckCircle2, MapPin, Phone } from "lucide-react";
 import { GithubIcon } from "./icons";
 import { Reveal } from "./reveal";
 
@@ -35,29 +35,46 @@ export function Contact() {
 
             <Reveal direction="left" delay={0.15}>
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Have an upcoming web project, mobile app, or full-stack engineering opening? Feel free to reach out directly or send a message.
+                Have an upcoming web project, mobile app, software engineering contract, or technical infrastructure need? Feel free to reach out directly.
               </p>
             </Reveal>
 
-            <div className="space-y-4 pt-4">
+            <div className="space-y-3.5 pt-2">
               <Reveal direction="left" delay={0.2}>
                 <a
-                  href="mailto:prosper.shaibu.asare@gmail.com"
+                  href="mailto:asareprosper143@gmail.com"
                   className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
                   <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Email Me</div>
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Email</div>
                     <div className="font-montserrat text-sm font-bold text-foreground">
-                      Connect via Email
+                      asareprosper143@gmail.com
                     </div>
                   </div>
                 </a>
               </Reveal>
 
               <Reveal direction="left" delay={0.25}>
+                <a
+                  href="tel:+233505695047"
+                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Phone & WhatsApp</div>
+                    <div className="font-montserrat text-sm font-bold text-foreground">
+                      +233 50 569 5047 / 055 119 3833
+                    </div>
+                  </div>
+                </a>
+              </Reveal>
+
+              <Reveal direction="left" delay={0.3}>
                 <a
                   href="https://github.com/Psasare"
                   target="_blank"
@@ -76,15 +93,15 @@ export function Contact() {
                 </a>
               </Reveal>
 
-              <Reveal direction="left" delay={0.3}>
+              <Reveal direction="left" delay={0.35}>
                 <div className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card shadow-xs">
                   <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Location & Work Style</div>
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Location & Education</div>
                     <div className="font-montserrat text-sm font-bold text-foreground">
-                      Remote & Worldwide Collaboration
+                      Accra, Ghana &bull; Univ. of Ghana, Legon
                     </div>
                   </div>
                 </div>
@@ -105,7 +122,7 @@ export function Contact() {
                       Message Received!
                     </h3>
                     <p className="font-sans text-sm text-muted-foreground max-w-sm mx-auto">
-                      Thank you for reaching out. I&apos;ll review your message and reply as soon as possible.
+                      Thank you for reaching out, Prosper will review your message and reply as soon as possible.
                     </p>
                     <button
                       onClick={() => setSubmitted(false)}
@@ -148,7 +165,7 @@ export function Contact() {
                       <input
                         required
                         type="text"
-                        placeholder="Project discussion, contract opening, or technical question"
+                        placeholder="Web design, mobile app, full-stack opening, or IT infrastructure"
                         className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors"
                       />
                     </div>

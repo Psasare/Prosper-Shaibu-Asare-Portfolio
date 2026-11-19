@@ -16,37 +16,59 @@ interface TimelineItem {
 export function Experience() {
   const timeline: TimelineItem[] = [
     {
-      period: "2024 — Present",
-      role: "Full-Stack Software Engineer",
-      organization: "Independent & Open Source",
-      location: "Remote",
+      period: "Oct 2025 — Dec 2025",
+      role: "Information Technology Intern",
+      organization: "Volta Regional Hospital",
+      location: "Hohoe, Ghana",
       description: [
-        "Architecting resilient web systems and full-stack solutions using Next.js, TypeScript, React, and Node.js.",
-        "Engineering computer vision pipelines (FastAPI, OpenCV) and responsive full-stack applications with modern web architectures.",
-        "Collaborating on community-driven healthcare initiatives including patient-centric maternal health tools.",
+        "Administered and maintained the hospital's local area network (LAN), ensuring high uptime and reliable connectivity across clinical departments.",
+        "Diagnosed and resolved hardware and software faults on clinical workstations, printers, and critical peripheral equipment.",
+        "Delivered hands-on training sessions to healthcare personnel on office software productivity and modern digital IT tools.",
       ],
       type: "work",
     },
     {
-      period: "2023 — 2024",
-      role: "Frontend & Mobile Application Developer",
-      organization: "Software Development Projects",
-      location: "Hybrid",
+      period: "Sep 2024 — Dec 2024",
+      role: "Information Technology Intern",
+      organization: "Ho Teaching Hospital",
+      location: "Ho, Ghana",
       description: [
-        "Built responsive mobile and web interfaces with React Native, Tailwind CSS, and state management architectures.",
-        "Designed and implemented RESTful API integrations and authenticated user flows with high test coverage.",
-        "Focused on performance tuning, accessible UI patterns, and fluid cross-platform animations.",
+        "Supported the deployment, installation, and network configuration of new computing systems and hospital network infrastructure.",
+        "Maintained IT asset records and contributed to standard operating procedure documentation for internal technical workflows.",
+        "Conducted preventive maintenance routines to minimize hospital operational downtime; monitored and maintained server room equipment for thermal and performance reliability.",
       ],
       type: "work",
     },
     {
-      period: "2021 — 2024",
-      role: "B.Sc. in Computer Science / Software Engineering",
-      organization: "University Education",
-      location: "On-Campus",
+      period: "Jan 2022 — Jan 2023",
+      role: "Customer Operations & Support",
+      organization: "Solidere Ghana Limited (PremierBet Ghana)",
+      location: "Farrar Avenue, Adabraka Accra",
       description: [
-        "Focused coursework in Data Structures, Algorithms, Software Engineering, Database Systems, and Network Architecture.",
-        "Lead capstone projects involving automated recognition systems and institutional management platforms.",
+        "Delivered responsive user assistance across phone, email, chat, and in-person channels with high satisfaction rates.",
+        "Explained products, services, promotions, and account procedures clearly and evidently to clients.",
+        "Handled orders, account verification, and transaction processing accurately while maintaining thorough interaction logs.",
+      ],
+      type: "work",
+    },
+    {
+      period: "2022 — 2026 (Expected)",
+      role: "B.Sc. in Information Technology",
+      organization: "University of Ghana",
+      location: "Accra, Legon",
+      description: [
+        "Rigorous coursework in Software Development, Database Administration, Systems Architecture, and Network Engineering.",
+        "Applied software engineering principles to full-stack web and mobile application projects, combining software logic with infrastructure.",
+      ],
+      type: "education",
+    },
+    {
+      period: "Secondary Education",
+      role: "General Science",
+      organization: "Kpando Senior High School",
+      location: "Kpando, Volta Region",
+      description: [
+        "Strong foundation in physics, mathematics, chemistry, and elective sciences establishing analytical problem-solving skills.",
       ],
       type: "education",
     },
@@ -57,13 +79,13 @@ export function Experience() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal direction="up" className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent">
-            Career & Milestones
+            Career & Education
           </h2>
           <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground">
-            Experience & Education
+            Practical Experience & Milestones
           </p>
           <p className="font-sans text-sm sm:text-base text-muted-foreground">
-            A track record of engineering scalable applications, continuous learning, and software delivery.
+            Hands-on IT infrastructure, hospital systems support, and academic foundations from the University of Ghana.
           </p>
         </Reveal>
 
@@ -95,7 +117,7 @@ export function Experience() {
                     isEven ? "sm:pl-10" : "sm:pr-10 text-left sm:text-right"
                   }`}
                 >
-                  <Reveal delay={index * 0.15} direction={isEven ? "left" : "right"}>
+                  <Reveal delay={index * 0.12} direction={isEven ? "left" : "right"}>
                     <div className="p-6 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs text-left">
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                         <span className="inline-flex items-center gap-1.5 font-montserrat text-xs font-semibold px-2.5 py-0.5 rounded-md bg-secondary text-secondary-foreground border border-border">
