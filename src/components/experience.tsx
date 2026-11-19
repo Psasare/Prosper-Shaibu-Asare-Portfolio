@@ -8,7 +8,6 @@ import {
   MapPin,
   ChevronLeft,
   ChevronRight,
-  Layers,
   SlidersHorizontal,
 } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
@@ -25,106 +24,109 @@ interface TimelineItem {
   type: "work" | "education";
 }
 
-export function Experience() {
-  const timeline: TimelineItem[] = [
-    {
-      id: "kpando",
-      period: "Secondary Education",
-      role: "General Science",
-      organization: "Kpando Senior High School",
-      shortOrg: "Kpando SHS",
-      location: "Kpando, Volta Region",
-      description: [
-        "Built rigorous analytical and quantitative problem-solving foundations through advanced coursework in physics, elective mathematics, and chemistry.",
-        "Cultivated the scientific curiosity, disciplined inquiry, and computational thinking that underpin my approach to software engineering.",
-      ],
-      type: "education",
-    },
-    {
-      id: "solidere",
-      period: "Jan 2022 - Jan 2023",
-      role: "Customer Operations & Support",
-      organization: "Solidere Ghana Limited (PremierBet Ghana)",
-      shortOrg: "Solidere Ghana",
-      location: "Farrar Avenue, Adabraka Accra",
-      description: [
-        "Provided responsive, client-centered assistance across digital chat, telephone, email, and direct in-person inquiries with consistent satisfaction ratings.",
-        "Facilitated account verifications, processed transaction workflows accurately, and maintained structured documentation within collaborative shift teams.",
-      ],
-      type: "work",
-    },
-    {
-      id: "ug-legon",
-      period: "2022 - 2026 (Expected)",
-      role: "B.Sc. in Information Technology",
-      organization: "University of Ghana",
-      shortOrg: "UG Legon",
-      location: "Accra, Legon",
-      description: [
-        "Pursuing advanced studies in software development, relational database administration, computer network engineering, and system architectures.",
-        "Applying modern software engineering principles to full-stack web and mobile application projects, combining backend logic with accessible interface design.",
-      ],
-      type: "education",
-    },
-    {
-      id: "ho-teaching",
-      period: "Sep 2024 - Dec 2024",
-      role: "Information Technology Intern",
-      organization: "Ho Teaching Hospital",
-      shortOrg: "Ho Teaching Hosp.",
-      location: "Ho, Ghana",
-      description: [
-        "Supported the deployment, installation, and network configuration of hospital workstations and clinical communications infrastructure.",
-        "Maintained IT asset documentation, assisted in standardizing technical procedures, and performed preventive maintenance on server room cooling and power systems.",
-      ],
-      type: "work",
-    },
-    {
-      id: "volta-regional",
-      period: "Oct 2025 - Dec 2025",
-      role: "Information Technology Intern",
-      organization: "Volta Regional Hospital",
-      shortOrg: "Volta Regional Hosp.",
-      location: "Hohoe, Ghana",
-      description: [
-        "Administered the hospital Local Area Network (LAN) to ensure continuous connectivity and uninterrupted uptime across clinical wards and administrative units.",
-        "Diagnosed and resolved critical hardware and software faults across medical workstations, network switches, and peripheral devices.",
-        "Conducted digital literacy training sessions for healthcare personnel, improving their proficiency with modern office software and digital records.",
-      ],
-      type: "work",
-    },
-    {
-      id: "uhas",
-      period: "Nov 2026 - Oct 2027 (Expected)",
-      role: "National Service Personnel - Administrative Computing",
-      organization: "University of Health and Allied Sciences (UHAS) - ICT Directorate",
-      shortOrg: "UHAS ICT Directorate",
-      location: "Ho, Ghana",
-      description: [
-        "Entrusted with the maintenance, support, and ongoing evolution of university administrative information systems, ERP platforms, and central databases.",
-        "Collaborating with academic and administrative stakeholders to evaluate functional requirements, optimize digital workflows, and guarantee institutional data accuracy.",
-        "Participating in cross-system integration, quality assurance, performance monitoring, and security management to uphold high-availability enterprise services.",
-      ],
-      type: "work",
-    },
-  ];
+const TIMELINE_DATA: TimelineItem[] = [
+  {
+    id: "kpando",
+    period: "Secondary Education",
+    role: "General Science",
+    organization: "Kpando Senior High School",
+    shortOrg: "Kpando SHS",
+    location: "Kpando, Volta Region",
+    description: [
+      "Built rigorous analytical and quantitative problem-solving foundations through advanced coursework in physics, elective mathematics, and chemistry.",
+      "Cultivated the scientific curiosity, disciplined inquiry, and computational thinking that underpin my approach to software engineering.",
+    ],
+    type: "education",
+  },
+  {
+    id: "solidere",
+    period: "Jan 2022 - Jan 2023",
+    role: "Customer Operations & Support",
+    organization: "Solidere Ghana Limited (PremierBet Ghana)",
+    shortOrg: "Solidere Ghana",
+    location: "Farrar Avenue, Adabraka Accra",
+    description: [
+      "Provided responsive, client-centered assistance across digital chat, telephone, email, and direct in-person inquiries with consistent satisfaction ratings.",
+      "Facilitated account verifications, processed transaction workflows accurately, and maintained structured documentation within collaborative shift teams.",
+    ],
+    type: "work",
+  },
+  {
+    id: "ug-legon",
+    period: "2022 - 2026 (Expected)",
+    role: "B.Sc. in Information Technology",
+    organization: "University of Ghana",
+    shortOrg: "UG Legon",
+    location: "Accra, Legon",
+    description: [
+      "Pursuing advanced studies in software development, relational database administration, computer network engineering, and system architectures.",
+      "Applying modern software engineering principles to full-stack web and mobile application projects, combining backend logic with accessible interface design.",
+    ],
+    type: "education",
+  },
+  {
+    id: "ho-teaching",
+    period: "Sep 2024 - Dec 2024",
+    role: "Information Technology Intern",
+    organization: "Ho Teaching Hospital",
+    shortOrg: "Ho Teaching Hosp.",
+    location: "Ho, Ghana",
+    description: [
+      "Supported the deployment, installation, and network configuration of hospital workstations and clinical communications infrastructure.",
+      "Maintained IT asset documentation, assisted in standardizing technical procedures, and performed preventive maintenance on server room cooling and power systems.",
+    ],
+    type: "work",
+  },
+  {
+    id: "volta-regional",
+    period: "Oct 2025 - Dec 2025",
+    role: "Information Technology Intern",
+    organization: "Volta Regional Hospital",
+    shortOrg: "Volta Regional Hosp.",
+    location: "Hohoe, Ghana",
+    description: [
+      "Administered the hospital Local Area Network (LAN) to ensure continuous connectivity and uninterrupted uptime across clinical wards and administrative units.",
+      "Diagnosed and resolved critical hardware and software faults across medical workstations, network switches, and peripheral devices.",
+      "Conducted digital literacy training sessions for healthcare personnel, improving their proficiency with modern office software and digital records.",
+    ],
+    type: "work",
+  },
+  {
+    id: "uhas",
+    period: "Nov 2026 - Oct 2027 (Expected)",
+    role: "National Service Personnel - Administrative Computing",
+    organization: "University of Health and Allied Sciences (UHAS) - ICT Directorate",
+    shortOrg: "UHAS ICT Directorate",
+    location: "Ho, Ghana",
+    description: [
+      "Entrusted with the maintenance, support, and ongoing evolution of university administrative information systems, ERP platforms, and central databases.",
+      "Collaborating with academic and administrative stakeholders to evaluate functional requirements, optimize digital workflows, and guarantee institutional data accuracy.",
+      "Participating in cross-system integration, quality assurance, performance monitoring, and security management to uphold high-availability enterprise services.",
+    ],
+    type: "work",
+  },
+];
 
+export function Experience() {
   const [activeFilter, setActiveFilter] = React.useState<"all" | "work" | "education">("all");
-  const [currentIndex, setCurrentIndex] = React.useState(timeline.length - 1); // Default to apex enterprise milestone (UHAS)
+  const [currentIndex, setCurrentIndex] = React.useState(TIMELINE_DATA.length - 1);
   const [direction, setDirection] = React.useState(0);
   const [viewMode, setViewMode] = React.useState<"slide" | "list">("slide");
 
   const filteredItems = React.useMemo(() => {
-    if (activeFilter === "all") return timeline;
-    return timeline.filter((item) => item.type === activeFilter);
-  }, [activeFilter, timeline]);
+    if (activeFilter === "all") return TIMELINE_DATA;
+    return TIMELINE_DATA.filter((item) => item.type === activeFilter);
+  }, [activeFilter]);
 
-  // Keep index in bounds when filter changes
-  React.useEffect(() => {
-    setCurrentIndex(filteredItems.length - 1);
-  }, [filteredItems]);
+  const handleFilterChange = (filter: "all" | "work" | "education") => {
+    setActiveFilter(filter);
+    const newItems = filter === "all" ? TIMELINE_DATA : TIMELINE_DATA.filter((i) => i.type === filter);
+    setDirection(0);
+    setCurrentIndex(newItems.length - 1);
+  };
 
-  const activeItem = filteredItems[currentIndex] || filteredItems[0];
+  const safeIndex = Math.min(currentIndex, Math.max(0, filteredItems.length - 1));
+  const activeItem = filteredItems[safeIndex] || filteredItems[0];
 
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
@@ -137,17 +139,16 @@ export function Experience() {
   };
 
   const handleSelectIndex = (idx: number) => {
-    setDirection(idx > currentIndex ? 1 : -1);
+    setDirection(idx > safeIndex ? 1 : -1);
     setCurrentIndex(idx);
   };
 
-  // Keyboard navigation when hovering or focused
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") paginate(-1);
     if (e.key === "ArrowRight") paginate(1);
   };
 
-  const slideVariants = {
+  const slideVariants: Variants = {
     enter: (dir: number) => ({
       x: dir > 0 ? 80 : -80,
       opacity: 0,
@@ -159,7 +160,7 @@ export function Experience() {
       scale: 1,
       transition: {
         duration: 0.45,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       },
     },
     exit: (dir: number) => ({
@@ -168,7 +169,7 @@ export function Experience() {
       scale: 0.98,
       transition: {
         duration: 0.35,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       },
     }),
   };
@@ -194,17 +195,17 @@ export function Experience() {
           {/* Category Filter Tabs */}
           <div className="flex items-center gap-1.5 p-1 rounded-xl bg-card border border-border shadow-xs">
             <button
-              onClick={() => setActiveFilter("all")}
+              onClick={() => handleFilterChange("all")}
               className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                 activeFilter === "all"
                   ? "bg-primary text-primary-foreground shadow-xs"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              All Milestones ({timeline.length})
+              All Milestones ({TIMELINE_DATA.length})
             </button>
             <button
-              onClick={() => setActiveFilter("work")}
+              onClick={() => handleFilterChange("work")}
               className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                 activeFilter === "work"
                   ? "bg-primary text-primary-foreground shadow-xs"
@@ -214,7 +215,7 @@ export function Experience() {
               Work & Clinical (4)
             </button>
             <button
-              onClick={() => setActiveFilter("education")}
+              onClick={() => handleFilterChange("education")}
               className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                 activeFilter === "education"
                   ? "bg-primary text-primary-foreground shadow-xs"
@@ -254,8 +255,8 @@ export function Experience() {
               {/* Steps */}
               <div className="relative z-10 flex items-center justify-between">
                 {filteredItems.map((item, idx) => {
-                  const isActive = idx === currentIndex;
-                  const isPassed = idx < currentIndex;
+                  const isActive = idx === safeIndex;
+                  const isPassed = idx < safeIndex;
                   const isWork = item.type === "work";
 
                   return (
@@ -338,7 +339,7 @@ export function Experience() {
                         {activeItem.type === "work" ? "Professional Systems" : "Academic Degree"}
                       </span>
                       <span className="font-mono text-xs font-bold text-muted-foreground ml-1">
-                        {String(currentIndex + 1).padStart(2, "0")} / {String(filteredItems.length).padStart(2, "0")}
+                        {String(safeIndex + 1).padStart(2, "0")} / {String(filteredItems.length).padStart(2, "0")}
                       </span>
                     </div>
                   </div>
@@ -358,7 +359,7 @@ export function Experience() {
                     {activeItem.description.map((point, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <span className="w-2 h-2 rounded-full bg-accent mt-2 shrink-0" />
-                        <span className="text-foreground/90 font-normal">{point}</span>
+                        <span className="text-foreground font-normal">{point}</span>
                       </li>
                     ))}
                   </ul>
@@ -384,7 +385,7 @@ export function Experience() {
                     key={i}
                     onClick={() => handleSelectIndex(i)}
                     className={`h-2 rounded-full transition-all cursor-pointer ${
-                      i === currentIndex
+                      i === safeIndex
                         ? "w-8 bg-accent"
                         : "w-2 bg-border hover:bg-muted-foreground/60"
                     }`}
@@ -406,7 +407,7 @@ export function Experience() {
         ) : (
           /* VIEW 2: EXPANDED COMPACT TIMELINE (All 6 displayed cleanly side-by-side) */
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
-            {filteredItems.map((item, index) => {
+            {filteredItems.map((item) => {
               const isWork = item.type === "work";
               return (
                 <div
