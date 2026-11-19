@@ -116,6 +116,12 @@ export function InteractiveCanvas3D() {
 
     window.addEventListener("mousemove", onMouseMove);
 
+    let scrollY = 0;
+    const onScroll = () => {
+      scrollY = window.scrollY;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     // 8. Animation loop
     let animationFrameId: number;
     const clock = new THREE.Clock();
@@ -129,9 +135,10 @@ export function InteractiveCanvas3D() {
       mouse.x += (mouse.targetX - mouse.x) * 0.045;
       mouse.y += (mouse.targetY - mouse.y) * 0.045;
 
-      // Group rotation (continuous base rotation + mouse influence)
+      // Group rotation (continuous base rotation + mouse influence + subtle scroll parallax)
       group.rotation.x = elapsedTime * 0.22 + mouse.y * 0.55;
       group.rotation.y = elapsedTime * 0.3 + mouse.x * 0.7;
+      group.rotation.z = scrollY * 0.0004;
 
       // Gentle floating breathing oscillation
       group.position.y = Math.sin(elapsedTime * 1.4) * 0.1;
@@ -166,6 +173,7 @@ export function InteractiveCanvas3D() {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("scroll", onScroll);
       resizeObserver.disconnect();
 
       coreGeometry.dispose();

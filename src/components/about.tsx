@@ -2,9 +2,20 @@
 
 import * as React from "react";
 import { Server, Code2, Users2, Smartphone } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
 
 export function About() {
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Parallax subtle counter-drift between bio narrative and pillars grid
+  const bioY = useTransform(scrollYProgress, [0, 1], [22, -22]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+
   const values = [
     {
       icon: Server,
@@ -29,11 +40,11 @@ export function About() {
   ];
 
   return (
-    <section id="about" className="py-24 md:py-28 border-t border-border relative">
+    <section ref={sectionRef} id="about" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Bio text with Reveal */}
-          <div className="lg:col-span-6 space-y-7">
+          {/* Bio text with Parallax */}
+          <motion.div style={{ y: bioY }} className="lg:col-span-6 space-y-7">
             <Reveal direction="up">
               <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
                 About Me
@@ -77,10 +88,10 @@ export function About() {
                 </span>
               </div>
             </Reveal>
-          </div>
+          </motion.div>
 
-          {/* Pillars grid with staggered reveal */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {/* Pillars grid with Parallax */}
+          <motion.div style={{ y: gridY }} className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {values.map((v, i) => {
               const Icon = v.icon;
               return (
@@ -101,7 +112,7 @@ export function About() {
                 </Reveal>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

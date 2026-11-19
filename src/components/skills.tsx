@@ -8,9 +8,17 @@ import {
   Workflow,
   CheckCircle2,
 } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
 
 export function Skills() {
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const cardsY = useTransform(scrollYProgress, [0, 1], [20, -20]);
   const categories = [
     {
       title: "Frontend & Web Design",
@@ -71,7 +79,7 @@ export function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-24 md:py-28 border-t border-border relative">
+    <section ref={sectionRef} id="skills" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
@@ -85,7 +93,7 @@ export function Skills() {
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
@@ -123,7 +131,7 @@ export function Skills() {
               </Reveal>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

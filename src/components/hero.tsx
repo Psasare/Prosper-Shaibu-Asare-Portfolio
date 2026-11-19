@@ -110,5 +110,3 @@ export function Hero() {
     </section>
   );
 }
-  );
-}

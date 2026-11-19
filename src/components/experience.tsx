@@ -9,10 +9,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Layers,
-  Sparkles,
   SlidersHorizontal,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Reveal } from "./reveal";
 
 interface TimelineItem {
