@@ -357,9 +357,12 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
                         <span>{activeManifesto.category}</span>
                       </div>
 
-                      {/* Main Title: Bold, Crisp, High Contrast */}
+                      {/* Main Title: Bold, Crisp, High Contrast with Editorial Serif Accent */}
                       <h2 className="font-montserrat text-xl sm:text-2xl md:text-3xl font-extrabold text-foreground tracking-tight leading-snug uppercase">
-                        {activeManifesto.title}
+                        {activeManifesto.titleSans}{" "}
+                        <span className="font-serif italic font-normal text-accent normal-case">
+                          {activeManifesto.titleSerif}
+                        </span>
                       </h2>
 
                       {/* Subtitle: High-Contrast Slate text (NOT washed-out faint brown!) */}
