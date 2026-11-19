@@ -14,42 +14,17 @@ interface TimelineItem {
 }
 
 export function Experience() {
+  // Chronological order: from lower foundational education & early experience up to tertiary degree and national service
   const timeline: TimelineItem[] = [
     {
-      period: "Nov 2026 — Oct 2027 (Expected)",
-      role: "National Service Personnel — Administrative Computing",
-      organization: "University of Health and Allied Sciences (UHAS) — IT Directorate",
-      location: "Ho, Ghana",
+      period: "Secondary Education",
+      role: "General Science",
+      organization: "Kpando Senior High School",
+      location: "Kpando, Volta Region",
       description: [
-        "Assigned to the Administrative Computing Department under the central IT Directorate, supporting university-wide administrative platforms and student/staff computing systems.",
-        "Assisting in enterprise database administration, campus portal maintenance, and digital workflow automations across academic and administrative departments.",
-        "Collaborating with the IT team to uphold system uptime, data integrity, security policies, and technical support across university directorates.",
+        "Built a strong foundation in physics, mathematics, chemistry, and elective sciences establishing analytical problem-solving skills.",
       ],
-      type: "work",
-    },
-    {
-      period: "Oct 2025 — Dec 2025",
-      role: "Information Technology Intern",
-      organization: "Volta Regional Hospital",
-      location: "Hohoe, Ghana",
-      description: [
-        "Administered and maintained the hospital's local area network (LAN), ensuring high uptime and reliable connectivity across clinical departments.",
-        "Diagnosed and resolved hardware and software faults on clinical workstations, printers, and critical peripheral equipment.",
-        "Delivered hands-on training sessions to healthcare personnel on office software productivity and modern digital IT tools.",
-      ],
-      type: "work",
-    },
-    {
-      period: "Sep 2024 — Dec 2024",
-      role: "Information Technology Intern",
-      organization: "Ho Teaching Hospital",
-      location: "Ho, Ghana",
-      description: [
-        "Supported the deployment, installation, and network configuration of new computing systems and hospital network infrastructure.",
-        "Maintained IT asset records and contributed to standard operating procedure documentation for internal technical workflows.",
-        "Conducted preventive maintenance routines to minimize hospital operational downtime; monitored and maintained server room equipment for thermal and performance reliability.",
-      ],
-      type: "work",
+      type: "education",
     },
     {
       period: "Jan 2022 — Jan 2023",
@@ -75,14 +50,40 @@ export function Experience() {
       type: "education",
     },
     {
-      period: "Secondary Education",
-      role: "General Science",
-      organization: "Kpando Senior High School",
-      location: "Kpando, Volta Region",
+      period: "Sep 2024 — Dec 2024",
+      role: "Information Technology Intern",
+      organization: "Ho Teaching Hospital",
+      location: "Ho, Ghana",
       description: [
-        "Strong foundation in physics, mathematics, chemistry, and elective sciences establishing analytical problem-solving skills.",
+        "Supported the deployment, installation, and network configuration of new computing systems and hospital network infrastructure.",
+        "Maintained IT asset records and contributed to standard operating procedure documentation for internal technical workflows.",
+        "Conducted preventive maintenance routines to minimize hospital operational downtime; monitored and maintained server room equipment for thermal and performance reliability.",
       ],
-      type: "education",
+      type: "work",
+    },
+    {
+      period: "Oct 2025 — Dec 2025",
+      role: "Information Technology Intern",
+      organization: "Volta Regional Hospital",
+      location: "Hohoe, Ghana",
+      description: [
+        "Administered and maintained the hospital's local area network (LAN), ensuring high uptime and reliable connectivity across clinical departments.",
+        "Diagnosed and resolved hardware and software faults on clinical workstations, printers, and critical peripheral equipment.",
+        "Delivered hands-on training sessions to healthcare personnel on office software productivity and modern digital IT tools.",
+      ],
+      type: "work",
+    },
+    {
+      period: "Nov 2026 — Oct 2027 (Expected)",
+      role: "National Service Personnel — Administrative Computing",
+      organization: "University of Health and Allied Sciences (UHAS) — IT Directorate",
+      location: "Ho, Ghana",
+      description: [
+        "Assigned to the Administrative Computing Department under the central IT Directorate, supporting university-wide administrative platforms and student/staff computing systems.",
+        "Assisting in enterprise database administration, campus portal maintenance, and digital workflow automations across academic and administrative departments.",
+        "Collaborating with the IT team to uphold system uptime, data integrity, security policies, and technical support across university directorates.",
+      ],
+      type: "work",
     },
   ];
 
@@ -91,13 +92,13 @@ export function Experience() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal direction="up" className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent">
-            Career & Education
+            Milestones & Career Journey
           </h2>
           <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground">
-            Practical Experience & Milestones
+            Experience & Education
           </p>
           <p className="font-sans text-sm sm:text-base text-muted-foreground">
-            National Service at UHAS IT Directorate, clinical hospital systems support, and academic foundations from the University of Ghana.
+            From foundational science education up to University of Ghana IT studies, hospital systems engineering, and administrative computing at UHAS.
           </p>
         </Reveal>
 
