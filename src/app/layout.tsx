@@ -3,19 +3,20 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "Prosper Shaibu Asare | Web Designing & Mobile Application Development",
+  title: "Prosper Shaibu Asare | Full-Stack Engineering, Web Design & Mobile App Development",
   description:
-    "Portfolio of Prosper Shaibu Asare — Specializing in modern web designing, intuitive UI/UX, and high-performance cross-platform mobile application development.",
+    "Portfolio of Prosper Shaibu Asare — Full-Stack Software Engineer specializing in modern web design, scalable backend systems, and cross-platform mobile application development.",
   keywords: [
     "Prosper Shaibu Asare",
     "Portfolio",
+    "Full-Stack Engineering",
     "Web Designing",
     "Mobile Application Development",
     "Next.js",
     "React Native",
+    "Node.js",
     "TypeScript",
     "Tailwind CSS",
-    "UI/UX Design",
   ],
 };
 
