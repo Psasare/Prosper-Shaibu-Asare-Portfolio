@@ -182,7 +182,7 @@ export function InteractiveCanvas3D() {
     };
   }, [resolvedTheme]);
 
-  // Completely uncontained — pure transparent canvas blending seamlessly into the page structure
+  // Completely uncontained - pure transparent canvas blending seamlessly into the page structure
   return (
     <div className="relative w-full h-[420px] sm:h-[480px] lg:h-[520px] flex items-center justify-center">
       <div

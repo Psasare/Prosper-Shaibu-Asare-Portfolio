@@ -27,7 +27,7 @@ export function Experience() {
       type: "education",
     },
     {
-      period: "Jan 2022 — Jan 2023",
+      period: "Jan 2022 - Jan 2023",
       role: "Customer Operations & Support",
       organization: "Solidere Ghana Limited (PremierBet Ghana)",
       location: "Farrar Avenue, Adabraka Accra",
@@ -39,7 +39,7 @@ export function Experience() {
       type: "work",
     },
     {
-      period: "2022 — 2026 (Expected)",
+      period: "2022 - 2026 (Expected)",
       role: "B.Sc. in Information Technology",
       organization: "University of Ghana",
       location: "Accra, Legon",
@@ -50,7 +50,7 @@ export function Experience() {
       type: "education",
     },
     {
-      period: "Sep 2024 — Dec 2024",
+      period: "Sep 2024 - Dec 2024",
       role: "Information Technology Intern",
       organization: "Ho Teaching Hospital",
       location: "Ho, Ghana",
@@ -62,7 +62,7 @@ export function Experience() {
       type: "work",
     },
     {
-      period: "Oct 2025 — Dec 2025",
+      period: "Oct 2025 - Dec 2025",
       role: "Information Technology Intern",
       organization: "Volta Regional Hospital",
       location: "Hohoe, Ghana",
@@ -74,9 +74,9 @@ export function Experience() {
       type: "work",
     },
     {
-      period: "Nov 2026 — Oct 2027 (Expected)",
-      role: "National Service Personnel — Administrative Computing",
-      organization: "University of Health and Allied Sciences (UHAS) — IT Directorate",
+      period: "Nov 2026 - Oct 2027 (Expected)",
+      role: "National Service Personnel - Administrative Computing",
+      organization: "University of Health and Allied Sciences (UHAS) - IT Directorate",
       location: "Ho, Ghana",
       description: [
         "Assigned to the Administrative Computing Department under the central IT Directorate, supporting university-wide administrative platforms and student/staff computing systems.",

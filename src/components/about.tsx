@@ -45,7 +45,7 @@ export function About() {
 
             <Reveal direction="up" delay={0.15}>
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                I am an Information Technology scholar at the <span className="font-semibold text-foreground">University of Ghana, Legon</span>, specializing in full-stack engineering, web designing, and mobile application development. My perspective unites hands-on technical troubleshooting with modern software craft.
+                I am an Information Technology scholar at the <span className="font-semibold text-foreground">University of Ghana, Legon</span>, specializing in full-stack engineering, web designing, and mobile application development. Built on a strong foundation in physics, mathematics, chemistry, and elective sciences from Kpando Senior High, my perspective unites rigorous analytical problem-solving skills with hands-on systems troubleshooting.
               </p>
             </Reveal>
 
@@ -67,7 +67,7 @@ export function About() {
                   Administrative Computing
                 </span>
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  Accra &bull; Ho &bull; Volta Region
+                  General Science &bull; Kpando SHS
                 </span>
               </div>
             </Reveal>

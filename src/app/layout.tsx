@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 export const metadata: Metadata = {
   title: "Prosper Shaibu Asare | Full-Stack Engineering, Web Design & Mobile App Development",
   description:
-    "Portfolio of Prosper Shaibu Asare — Full-Stack Software Engineer specializing in modern web design, scalable backend systems, and cross-platform mobile application development.",
+    "Portfolio of Prosper Shaibu Asare - Full-Stack Software Engineer specializing in modern web design, scalable backend systems, and cross-platform mobile application development.",
   keywords: [
     "Prosper Shaibu Asare",
     "Portfolio",

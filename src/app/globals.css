@@ -2,6 +2,16 @@
 @import "tailwindcss";
 
 :root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --accent: #3b82f6;
   /* Parchment scale */
   --parchment: #edede9;
   --parchment-100: #34342a;
@@ -79,6 +89,16 @@
 }
 
 .dark {
+  --background: #090d16;
+  --foreground: #f8fafc;
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+  --primary: #60a5fa;
+  --primary-foreground: #090d16;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --border: #1e293b;
+  --accent: #60a5fa;
   /* Semantic UI Tokens for Dark Theme */
   --background: #141210;
   --foreground: #f5ebe0;
@@ -223,6 +243,8 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
   font-family: var(--font-sans);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
