@@ -98,7 +98,7 @@ export function About() {
             {values.map((v, i) => {
               const Icon = v.icon;
               return (
-                <Reveal key={v.title} delay={i * 0.1} direction="up">
+                <Reveal key={v.titleSans} delay={i * 0.1} direction="up">
                   <div className="p-7 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs group h-full flex flex-col justify-between">
                     <div>
                       <div className="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent mb-4 group-hover:scale-105 transition-transform">

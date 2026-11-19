@@ -4,7 +4,6 @@ import * as React from "react";
 import { ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GithubIcon } from "./icons";
-import { Reveal } from "./reveal";
 import { EditorialHeading } from "./animated-text";
 
 interface Project {

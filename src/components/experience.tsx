@@ -11,7 +11,6 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { Reveal } from "./reveal";
 import { EditorialHeading } from "./animated-text";
 
 interface TimelineItem {
