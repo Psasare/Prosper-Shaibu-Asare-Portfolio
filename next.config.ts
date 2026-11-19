@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    turbopackPluginRuntimeStrategy: "workerThreads",
-  },
+  /* config options here */
 };
 
 export default nextConfig;
