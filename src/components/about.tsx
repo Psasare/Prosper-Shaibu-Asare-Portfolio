@@ -64,7 +64,7 @@ export function About() {
             <Reveal direction="up" delay={0.34}>
               <div className="pt-3 flex flex-wrap gap-2.5 font-montserrat text-xs font-semibold text-foreground/80">
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  BSc. IT Candidate &bull; 2026 (UG Legon)
+                  BSc. IT Graduate &bull; 2026 (UG Legon)
                 </span>
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
                   UHAS ICT Directorate &bull; NSS &apos;27

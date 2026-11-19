@@ -19,38 +19,38 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 border-t border-border relative">
+    <section id="contact" className="py-24 md:py-28 border-t border-border relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14">
           {/* Contact Details */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-7">
             <Reveal direction="left">
-              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
+              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
                 Get in Touch
               </h2>
-              <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-tight">
+              <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]">
                 Let&apos;s build something exceptional together.
               </p>
             </Reveal>
 
             <Reveal direction="left" delay={0.15}>
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Have an upcoming web project, mobile app, software engineering contract, or technical infrastructure need? Feel free to reach out directly.
+                Whether you are launching an upcoming digital product, exploring a full-stack engineering hire, or seeking technical collaboration on web and mobile architectures, I welcome your message.
               </p>
             </Reveal>
 
-            <div className="space-y-3.5 pt-2">
+            <div className="space-y-4 pt-2">
               <Reveal direction="left" delay={0.2}>
                 <a
                   href="mailto:asareprosper143@gmail.com"
-                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                  className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
-                  <div>
+                  <div className="truncate">
                     <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Email</div>
-                    <div className="font-montserrat text-sm font-bold text-foreground">
+                    <div className="font-montserrat text-sm font-bold text-foreground truncate">
                       asareprosper143@gmail.com
                     </div>
                   </div>
@@ -62,9 +62,9 @@ export function Contact() {
                   href="https://wa.me/233257560039"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                  className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
                     <MessageSquare className="w-4 h-4" />
                   </div>
                   <div>
@@ -79,9 +79,9 @@ export function Contact() {
               <Reveal direction="left" delay={0.28}>
                 <a
                   href="tel:+233505695047"
-                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                  className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
@@ -93,14 +93,14 @@ export function Contact() {
                 </a>
               </Reveal>
 
-              <Reveal direction="left" delay={0.3}>
+              <Reveal direction="left" delay={0.32}>
                 <a
                   href="https://github.com/Psasare"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                  className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
                     <GithubIcon className="w-4 h-4" />
                   </div>
                   <div>
@@ -112,9 +112,9 @@ export function Contact() {
                 </a>
               </Reveal>
 
-              <Reveal direction="left" delay={0.35}>
-                <div className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card shadow-xs">
-                  <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
+              <Reveal direction="left" delay={0.36}>
+                <div className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card shadow-xs">
+                  <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
@@ -131,30 +131,30 @@ export function Contact() {
           {/* Form */}
           <div className="lg:col-span-7">
             <Reveal direction="right" delay={0.15}>
-              <div className="p-8 rounded-3xl border border-border bg-card shadow-xs">
+              <div className="p-8 sm:p-9 rounded-3xl border border-border bg-card shadow-xs">
                 {submitted ? (
-                  <div className="py-12 text-center space-y-4">
+                  <div className="py-14 text-center space-y-4">
                     <div className="w-12 h-12 rounded-full bg-accent/20 text-accent flex items-center justify-center mx-auto">
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
                     <h3 className="font-montserrat text-xl font-bold text-foreground">
                       Message Received!
                     </h3>
-                    <p className="font-sans text-sm text-muted-foreground max-w-sm mx-auto">
-                      Thank you for reaching out, Prosper will review your message and reply as soon as possible.
+                    <p className="font-sans text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
+                      Thank you for reaching out, Prosper will review your message and reply promptly.
                     </p>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="px-5 py-2.5 rounded-xl bg-secondary text-secondary-foreground font-montserrat text-xs font-semibold uppercase tracking-wider hover:bg-muted transition-colors cursor-pointer"
+                      className="px-6 py-2.5 rounded-xl bg-secondary text-secondary-foreground font-montserrat text-xs font-semibold uppercase tracking-wider hover:bg-muted transition-colors cursor-pointer"
                     >
                       Send Another Message
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
-                        <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/80">
+                      <div className="space-y-2">
+                        <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/85">
                           Your Name
                         </label>
                         <input
@@ -164,8 +164,8 @@ export function Contact() {
                           className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors"
                         />
                       </div>
-                      <div className="space-y-1.5">
-                        <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/80">
+                      <div className="space-y-2">
+                        <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/85">
                           Email Address
                         </label>
                         <input
@@ -177,34 +177,34 @@ export function Contact() {
                       </div>
                     </div>
 
-                    <div className="space-y-1.5">
-                      <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/80">
-                        Subject / Focus Area
+                    <div className="space-y-2">
+                      <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/85">
+                        Subject / Project Scope
                       </label>
                       <input
                         required
                         type="text"
-                        placeholder="Web design, mobile app, full-stack opening, or IT infrastructure"
+                        placeholder="Web platform, mobile app development, or software engineering opening"
                         className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors"
                       />
                     </div>
 
-                    <div className="space-y-1.5">
-                      <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/80">
+                    <div className="space-y-2">
+                      <label className="font-montserrat text-[11px] uppercase tracking-wider font-semibold text-foreground/85">
                         Message
                       </label>
                       <textarea
                         required
                         rows={4}
-                        placeholder="Tell me about your project, timeline, or requirements..."
-                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors resize-none"
+                        placeholder="Tell me about your project, timeline, or engineering goals..."
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors resize-none leading-relaxed"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-montserrat font-bold text-xs uppercase tracking-wider shadow-sm hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50"
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-primary text-primary-foreground font-montserrat font-bold text-xs uppercase tracking-wider shadow-sm hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 mt-2"
                     >
                       <span>{loading ? "Sending..." : "Send Message"}</span>
                       <Send className="w-4 h-4" />
