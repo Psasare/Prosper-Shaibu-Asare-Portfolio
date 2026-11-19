@@ -76,12 +76,12 @@ export function Experience() {
     {
       period: "Nov 2026 - Oct 2027 (Expected)",
       role: "National Service Personnel - Administrative Computing",
-      organization: "University of Health and Allied Sciences (UHAS) - IT Directorate",
+      organization: "University of Health and Allied Sciences (UHAS) - ICT Directorate",
       location: "Ho, Ghana",
       description: [
-        "Assigned to the Administrative Computing Department under the central IT Directorate, supporting university-wide administrative platforms and student/staff computing systems.",
-        "Assisting in enterprise database administration, campus portal maintenance, and digital workflow automations across academic and administrative departments.",
-        "Collaborating with the IT team to uphold system uptime, data integrity, security policies, and technical support across university directorates.",
+        "Support the development, implementation, management, and maintenance of university administrative information systems, including ERP platforms, HR systems, financial systems, and core databases.",
+        "Collaborate with stakeholders to analyze functional requirements, improve digital workflows, ensure data accuracy, and support seamless system integration across university directorates.",
+        "Assist in quality assurance, performance monitoring, and security management to ensure institutional administrative platforms remain secure, reliable, and operationally aligned.",
       ],
       type: "work",
     },

@@ -51,7 +51,7 @@ export function About() {
 
             <Reveal direction="up" delay={0.25}>
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                From administering hospital local area networks (LANs) and server equipment at <span className="text-foreground font-medium">Volta Regional Hospital</span> and <span className="text-foreground font-medium">Ho Teaching Hospital</span>, to serving in the <span className="text-foreground font-medium">Administrative Computing Department</span> at the <span className="text-foreground font-medium">UHAS IT Directorate</span> and engineering full-stack platforms, I build technology that is structurally resilient, accessible, and user-centered.
+                From administering hospital local area networks (LANs) and server equipment at <span className="text-foreground font-medium">Volta Regional Hospital</span> and <span className="text-foreground font-medium">Ho Teaching Hospital</span>, to serving in the <span className="text-foreground font-medium">Administrative Computing Department</span> at the <span className="text-foreground font-medium">UHAS ICT Directorate</span> and engineering full-stack platforms, I build technology that is structurally resilient, accessible, and user-centered.
               </p>
             </Reveal>
 
@@ -61,7 +61,7 @@ export function About() {
                   BSc. IT Candidate &bull; 2026 (UG Legon)
                 </span>
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  UHAS IT Directorate &bull; NSS &apos;27
+                  UHAS ICT Directorate &bull; NSS &apos;27
                 </span>
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
                   Administrative Computing
