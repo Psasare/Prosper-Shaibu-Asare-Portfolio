@@ -96,11 +96,10 @@ export function Projects() {
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-2 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                  activeFilter === cat
-                    ? "bg-primary text-primary-foreground shadow-xs"
-                    : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
+                className={`px-4 py-2 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === cat
+                  ? "bg-primary text-primary-foreground shadow-xs"
+                  : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
               >
                 {cat}
               </button>

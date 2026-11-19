@@ -200,31 +200,28 @@ export function Experience() {
           <div className="flex items-center gap-1.5 p-1 rounded-xl bg-card border border-border shadow-xs">
             <button
               onClick={() => handleFilterChange("all")}
-              className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                activeFilter === "all"
-                  ? "bg-primary text-primary-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === "all"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "text-muted-foreground hover:text-foreground"
+                }`}
             >
               All Milestones ({TIMELINE_DATA.length})
             </button>
             <button
               onClick={() => handleFilterChange("work")}
-              className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                activeFilter === "work"
-                  ? "bg-primary text-primary-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === "work"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "text-muted-foreground hover:text-foreground"
+                }`}
             >
               Work & Clinical (4)
             </button>
             <button
               onClick={() => handleFilterChange("education")}
-              className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
-                activeFilter === "education"
-                  ? "bg-primary text-primary-foreground shadow-xs"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`px-3.5 py-1.5 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === "education"
+                ? "bg-primary text-primary-foreground shadow-xs"
+                : "text-muted-foreground hover:text-foreground"
+                }`}
             >
               Education (2)
             </button>
@@ -271,13 +268,12 @@ export function Experience() {
                     >
                       {/* Node Circle */}
                       <div
-                        className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 border-2 ${
-                          isActive
-                            ? "bg-accent text-accent-foreground border-accent scale-110 shadow-md ring-4 ring-accent/20"
-                            : isPassed
+                        className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 border-2 ${isActive
+                          ? "bg-accent text-accent-foreground border-accent scale-110 shadow-md ring-4 ring-accent/20"
+                          : isPassed
                             ? "bg-card text-accent border-accent hover:scale-105"
                             : "bg-card text-muted-foreground border-border hover:border-accent hover:text-foreground"
-                        }`}
+                          }`}
                       >
                         {isWork ? (
                           <Briefcase className="w-4 h-4" />
@@ -288,11 +284,10 @@ export function Experience() {
 
                       {/* Label under node (responsive) */}
                       <span
-                        className={`hidden sm:block mt-2 font-montserrat text-[11px] font-bold tracking-tight max-w-[100px] text-center truncate transition-colors ${
-                          isActive
-                            ? "text-foreground font-black"
-                            : "text-muted-foreground group-hover:text-foreground"
-                        }`}
+                        className={`hidden sm:block mt-2 font-montserrat text-[11px] font-bold tracking-tight max-w-[100px] text-center truncate transition-colors ${isActive
+                          ? "text-foreground font-black"
+                          : "text-muted-foreground group-hover:text-foreground"
+                          }`}
                       >
                         {item.shortOrg}
                       </span>
@@ -388,11 +383,10 @@ export function Experience() {
                   <button
                     key={i}
                     onClick={() => handleSelectIndex(i)}
-                    className={`h-2 rounded-full transition-all cursor-pointer ${
-                      i === safeIndex
-                        ? "w-8 bg-accent"
-                        : "w-2 bg-border hover:bg-muted-foreground/60"
-                    }`}
+                    className={`h-2 rounded-full transition-all cursor-pointer ${i === safeIndex
+                      ? "w-8 bg-accent"
+                      : "w-2 bg-border hover:bg-muted-foreground/60"
+                      }`}
                     aria-label={`Go to milestone ${i + 1}`}
                   />
                 ))}
