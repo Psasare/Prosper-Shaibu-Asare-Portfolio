@@ -79,10 +79,11 @@ export function Projects() {
               Featured Work
             </h2>
             <p className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground">
-              Real GitHub Projects
+              Projects & Engineering Cases
             </p>
             <p className="font-sans text-sm sm:text-base text-muted-foreground max-w-xl">
-              Authentic open-source repositories spanning mobile health applications, academic portals, and institutional systems.
+              Selected projects highlighting systems architecture, practical user utility,
+              and modern interactive aesthetics.
             </p>
           </Reveal>
 
