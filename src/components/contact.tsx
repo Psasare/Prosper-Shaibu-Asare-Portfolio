@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Mail, Send, CheckCircle2, MapPin, Phone } from "lucide-react";
+import { Mail, Send, CheckCircle2, MapPin, Phone, MessageSquare } from "lucide-react";
 import { GithubIcon } from "./icons";
 import { Reveal } from "./reveal";
 
@@ -57,7 +57,26 @@ export function Contact() {
                 </a>
               </Reveal>
 
-              <Reveal direction="left" delay={0.25}>
+              <Reveal direction="left" delay={0.24}>
+                <a
+                  href="https://wa.me/233257560039"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform">
+                    <MessageSquare className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">WhatsApp</div>
+                    <div className="font-montserrat text-sm font-bold text-foreground">
+                      025 756 0039
+                    </div>
+                  </div>
+                </a>
+              </Reveal>
+
+              <Reveal direction="left" delay={0.28}>
                 <a
                   href="tel:+233505695047"
                   className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
@@ -66,7 +85,7 @@ export function Contact() {
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Phone & WhatsApp</div>
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Phone (Calls)</div>
                     <div className="font-montserrat text-sm font-bold text-foreground">
                       +233 50 569 5047 / 055 119 3833
                     </div>
