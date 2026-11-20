@@ -3,28 +3,25 @@
 import * as React from "react";
 import * as THREE from "three";
 import { useTheme } from "next-themes";
-import { Rotate3D, ZoomIn } from "lucide-react";
 
 /**
  * Interactive 3D Multi-Device Architecture Scene
  *
  * Renders high-fidelity 3D procedural models of a MacBook Pro and iPhone 16 Pro
- * alongside floating architectural data wafers and particle field using Three.js WebGL.
+ * floating completely unboxed directly on the page background.
  *
- * Features:
- * - Unboxed: Renders on transparent canvas with zero card borders or dock buttons
- * - Free 3D Drag-to-Rotate: Full 360° yaw and clamped pitch with silky inertia momentum
- * - Smooth Wheel / Pinch Zoom: Dynamic camera distance scaling
- * - Gentle Idle Auto-Rotation & Zero-Gravity Float
- * - Double-click / Recenter button to smoothly reset perspective
+ * Highlights:
+ * - 100% Unboxed: Zero cards, zero wafer outlines, zero docks, zero bottom toolbar pills
+ * - No Edge Clipping: Generous camera frustum and scaling ensure device geometries never slice at canvas edges
+ * - Free 3D Orbit: Drag 360° horizontally & vertically with realistic momentum inertia
+ * - Smooth Wheel / Pinch Zoom (safely clamped)
+ * - Gentle Idle Floating Zero-Gravity Motion
+ * - Double-click anywhere to reset perspective
  * - Zero THREE.Clock deprecation warnings (uses performance.now())
- * - Responsive High-DPI Retina rendering with proper cleanup
  */
 export function InteractiveCanvas3D() {
   const mountRef = React.useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
-  const [hasInteracted, setHasInteracted] = React.useState(false);
-  const resetViewRef = React.useRef<(() => void) | null>(null);
 
   React.useEffect(() => {
     const currentMount = mountRef.current;
@@ -33,15 +30,15 @@ export function InteractiveCanvas3D() {
     let width = currentMount.clientWidth;
     let height = currentMount.clientHeight;
 
-    // 1. Scene & Camera
+    // 1. Scene & Camera with expansive safety margins (eliminating any edge clipping)
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(34, width / height, 0.1, 100);
 
-    const defaultCameraDist = 5.2;
+    const defaultCameraDist = 5.5;
     let targetCameraDist = defaultCameraDist;
-    camera.position.set(0, 0.25, defaultCameraDist);
+    camera.position.set(0, 0.2, defaultCameraDist);
 
-    // 2. Renderer with transparent background (unboxed)
+    // 2. Renderer with transparent background (pure alpha)
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
@@ -55,10 +52,10 @@ export function InteractiveCanvas3D() {
 
     const isDark = resolvedTheme === "dark";
 
-    // 3. Studio Lighting
+    // 3. Studio Lighting: Crisp metallic reflections on chassis and glass
     const ambientLight = new THREE.AmbientLight(
       isDark ? 0x1e2433 : 0xffffff,
-      isDark ? 2.4 : 2.7
+      isDark ? 2.5 : 2.8
     );
     scene.add(ambientLight);
 
@@ -103,7 +100,7 @@ export function InteractiveCanvas3D() {
     // Window top bar
     lCtx.fillStyle = isDark ? "#10131d" : "#e2e8f0";
     lCtx.fillRect(0, 0, 1024, 48);
-    // Dots
+    // Window control dots
     lCtx.fillStyle = "#ef4444";
     lCtx.beginPath();
     lCtx.arc(28, 24, 6, 0, Math.PI * 2);
@@ -117,7 +114,7 @@ export function InteractiveCanvas3D() {
     lCtx.arc(68, 24, 6, 0, Math.PI * 2);
     lCtx.fill();
 
-    // URL bar
+    // URL address bar
     lCtx.fillStyle = cardBg;
     lCtx.roundRect(110, 12, 440, 24, 6);
     lCtx.fill();
@@ -283,11 +280,12 @@ export function InteractiveCanvas3D() {
 
     const phoneTexture = new THREE.CanvasTexture(phoneCanvas);
 
-    // 5. Assemble 3D Device Models & Stage Group
+    // 5. Assemble 3D Device Models
     const masterGroup = new THREE.Group();
+    // Calibrated scale so entire composition fits comfortably with ample breathing room
+    masterGroup.scale.set(0.9, 0.9, 0.9);
     scene.add(masterGroup);
 
-    // Device Master Node inside masterGroup (for independent breathing float)
     const deviceStage = new THREE.Group();
     masterGroup.add(deviceStage);
 
@@ -308,7 +306,7 @@ export function InteractiveCanvas3D() {
     // A. 3D LAPTOP MODEL
     // ---------------------------
     const laptopGroup = new THREE.Group();
-    laptopGroup.position.set(-0.35, -0.15, -0.1);
+    laptopGroup.position.set(-0.35, -0.12, -0.1);
     laptopGroup.rotation.set(0.18, 0.45, -0.06);
 
     // Laptop Base
@@ -343,7 +341,7 @@ export function InteractiveCanvas3D() {
     // Laptop Lid (Angled Screen)
     const lidGroup = new THREE.Group();
     lidGroup.position.set(0, 0.03, -0.72);
-    lidGroup.rotation.x = -Math.PI * 0.16; // Tilted screen
+    lidGroup.rotation.x = -Math.PI * 0.16;
 
     const lidGeo = new THREE.BoxGeometry(2.3, 1.45, 0.04);
     const lidMesh = new THREE.Mesh(lidGeo, chassisMaterial);
@@ -374,7 +372,7 @@ export function InteractiveCanvas3D() {
     // B. 3D SMARTPHONE MODEL
     // ---------------------------
     const phoneGroup = new THREE.Group();
-    phoneGroup.position.set(1.05, -0.25, 0.65);
+    phoneGroup.position.set(1.05, -0.22, 0.65);
     phoneGroup.rotation.set(-0.12, -0.38, 0.06);
 
     // Phone Body
@@ -395,85 +393,9 @@ export function InteractiveCanvas3D() {
 
     deviceStage.add(phoneGroup);
 
-    // ---------------------------
-    // C. FLOATING BACKEND DATA WAFERS (Glass Layers)
-    // ---------------------------
-    const waferGroup = new THREE.Group();
-
-    // Wafer 1: Database & Relational Schema Glass
-    const wafer1Geo = new THREE.BoxGeometry(1.1, 0.75, 0.015);
-    const waferMat = new THREE.MeshPhysicalMaterial({
-      color: isDark ? 0x2563eb : 0x3b82f6,
-      transparent: true,
-      opacity: isDark ? 0.45 : 0.35,
-      roughness: 0.1,
-      metalness: 0.3,
-      transmission: 0.6,
-    });
-    const wafer1 = new THREE.Mesh(wafer1Geo, waferMat);
-    wafer1.position.set(-1.25, 0.85, 0.1);
-    wafer1.rotation.set(0.15, 0.35, -0.12);
-    waferGroup.add(wafer1);
-
-    const wafer1Edge = new THREE.LineSegments(
-      new THREE.EdgesGeometry(wafer1Geo),
-      new THREE.LineBasicMaterial({
-        color: isDark ? 0x93c5fd : 0x2563eb,
-        transparent: true,
-        opacity: 0.6,
-      })
-    );
-    wafer1.add(wafer1Edge);
-
-    // Wafer 2: API Gateway & Security Matrix
-    const wafer2Geo = new THREE.BoxGeometry(0.9, 0.6, 0.015);
-    const wafer2 = new THREE.Mesh(wafer2Geo, waferMat);
-    wafer2.position.set(0.5, 1.05, -0.4);
-    wafer2.rotation.set(-0.1, -0.25, 0.08);
-    waferGroup.add(wafer2);
-
-    const wafer2Edge = new THREE.LineSegments(
-      new THREE.EdgesGeometry(wafer2Geo),
-      new THREE.LineBasicMaterial({
-        color: isDark ? 0xd5bdaf : 0x8e5f2e,
-        transparent: true,
-        opacity: 0.6,
-      })
-    );
-    wafer2.add(wafer2Edge);
-
-    deviceStage.add(waferGroup);
-
-    // ---------------------------
-    // D. CONNECTING DATA STREAM PARTICLES
-    // ---------------------------
-    const particleCount = 45;
-    const particleGeometry = new THREE.BufferGeometry();
-    const particlePositions = new Float32Array(particleCount * 3);
-
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      particlePositions[i] = (Math.random() - 0.5) * 4.2;
-      particlePositions[i + 1] = (Math.random() - 0.5) * 2.8 + 0.2;
-      particlePositions[i + 2] = (Math.random() - 0.5) * 2.5;
-    }
-    particleGeometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(particlePositions, 3)
-    );
-
-    const particleMaterial = new THREE.PointsMaterial({
-      color: isDark ? 0xd5bdaf : 0x8e5f2e,
-      size: 0.045,
-      transparent: true,
-      opacity: 0.75,
-    });
-    const particles = new THREE.Points(particleGeometry, particleMaterial);
-    deviceStage.add(particles);
-
     // -------------------------------------------------------------
-    // 6. 3D Interaction: Orbit Yaw/Pitch, Momentum Physics & Zoom
+    // 6. Smooth 360° Drag-to-Orbit, Inertia Physics & Scroll Zoom
     // -------------------------------------------------------------
-    // Initial canonical angles
     const defaultYaw = 0.12;
     const defaultPitch = -0.06;
 
@@ -490,22 +412,12 @@ export function InteractiveCanvas3D() {
     let lastPointerY = 0;
     let lastPinchDist = 0;
 
-    // Reset function exposed to outside React button
-    resetViewRef.current = () => {
-      targetYaw = defaultYaw;
-      targetPitch = defaultPitch;
-      targetCameraDist = defaultCameraDist;
-      velocityYaw = 0;
-      velocityPitch = 0;
-    };
-
     const handlePointerDown = (clientX: number, clientY: number) => {
       isPointerDown = true;
       lastPointerX = clientX;
       lastPointerY = clientY;
       velocityYaw = 0;
       velocityPitch = 0;
-      setHasInteracted(true);
     };
 
     const handlePointerMove = (clientX: number, clientY: number) => {
@@ -513,11 +425,10 @@ export function InteractiveCanvas3D() {
       const deltaX = clientX - lastPointerX;
       const deltaY = clientY - lastPointerY;
 
-      const sensitivity = 0.007;
+      const sensitivity = 0.0065;
       targetYaw += deltaX * sensitivity;
       targetPitch += deltaY * sensitivity;
 
-      // Track instantaneous velocity for coasting inertia
       velocityYaw = deltaX * sensitivity;
       velocityPitch = deltaY * sensitivity;
 
@@ -529,7 +440,7 @@ export function InteractiveCanvas3D() {
       isPointerDown = false;
     };
 
-    // DOM Mouse Events (bound to container for targeted interaction)
+    // DOM Mouse Events
     const onMouseDown = (e: MouseEvent) => {
       handlePointerDown(e.clientX, e.clientY);
     };
@@ -542,12 +453,11 @@ export function InteractiveCanvas3D() {
       handlePointerUp();
     };
 
-    // Wheel to Zoom
+    // Wheel to Zoom (clamped to prevent clipping)
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      setHasInteracted(true);
       const zoomDelta = e.deltaY * 0.003;
-      targetCameraDist = Math.max(3.4, Math.min(7.2, targetCameraDist + zoomDelta));
+      targetCameraDist = Math.max(4.6, Math.min(6.8, targetCameraDist + zoomDelta));
     };
 
     // Touch Events for Mobile / Tablet
@@ -555,7 +465,6 @@ export function InteractiveCanvas3D() {
       if (e.touches.length === 1) {
         handlePointerDown(e.touches[0].clientX, e.touches[0].clientY);
       } else if (e.touches.length === 2) {
-        // Pinch to zoom start
         const dx = e.touches[0].clientX - e.touches[1].clientX;
         const dy = e.touches[0].clientY - e.touches[1].clientY;
         lastPinchDist = Math.hypot(dx, dy);
@@ -566,13 +475,12 @@ export function InteractiveCanvas3D() {
       if (e.touches.length === 1) {
         handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
       } else if (e.touches.length === 2) {
-        // Pinch zoom
         const dx = e.touches[0].clientX - e.touches[1].clientX;
         const dy = e.touches[0].clientY - e.touches[1].clientY;
         const dist = Math.hypot(dx, dy);
         if (lastPinchDist > 0) {
           const pinchDelta = (lastPinchDist - dist) * 0.008;
-          targetCameraDist = Math.max(3.4, Math.min(7.2, targetCameraDist + pinchDelta));
+          targetCameraDist = Math.max(4.6, Math.min(6.8, targetCameraDist + pinchDelta));
         }
         lastPinchDist = dist;
       }
@@ -593,14 +501,18 @@ export function InteractiveCanvas3D() {
     window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("touchend", onTouchEnd);
 
-    // Double-click to reset view
+    // Double-click to smoothly reset view to home perspective
     const onDoubleClick = () => {
-      resetViewRef.current?.();
+      targetYaw = defaultYaw;
+      targetPitch = defaultPitch;
+      targetCameraDist = defaultCameraDist;
+      velocityYaw = 0;
+      velocityPitch = 0;
     };
     domElement.addEventListener("dblclick", onDoubleClick);
 
     // -------------------------------------------------------------
-    // 7. Render Loop with Inertia, Auto-Rotation & Zero-Gravity Float
+    // 7. Render Loop with Momentum, Idle Float & Zero Warnings
     // -------------------------------------------------------------
     let animationFrameId: number;
     const startTime = performance.now();
@@ -616,16 +528,16 @@ export function InteractiveCanvas3D() {
         if (Math.abs(velocityYaw) > 0.0001 || Math.abs(velocityPitch) > 0.0001) {
           targetYaw += velocityYaw;
           targetPitch += velocityPitch;
-          velocityYaw *= 0.93; // Inertial decay
+          velocityYaw *= 0.93; // Smooth inertial decay
           velocityPitch *= 0.93;
         } else {
-          // Slow ambient idle auto-rotation
-          targetYaw += 0.0022;
+          // Subtle idle ambient rotation
+          targetYaw += 0.002;
         }
       }
 
-      // Clamp pitch to prevent flipping upside down
-      targetPitch = Math.max(-0.65, Math.min(0.65, targetPitch));
+      // Safe pitch clamp prevents upside-down flip and keeps models comfortably in frame
+      targetPitch = Math.max(-0.48, Math.min(0.48, targetPitch));
 
       // Silky smooth interpolation (Lerp)
       currentYaw += (targetYaw - currentYaw) * 0.085;
@@ -637,20 +549,16 @@ export function InteractiveCanvas3D() {
       // Smooth camera zoom lerp
       camera.position.z += (targetCameraDist - camera.position.z) * 0.08;
 
-      // Zero-Gravity Organic Breathing Float for Devices
-      laptopGroup.position.y = -0.15 + Math.sin(elapsedTime * 1.3) * 0.035;
-      phoneGroup.position.y = -0.25 + Math.cos(elapsedTime * 1.5) * 0.045;
-      waferGroup.position.y = Math.sin(elapsedTime * 1.0) * 0.04;
-
-      // Rotating particle data constellation
-      particles.rotation.y = elapsedTime * 0.05;
+      // Organic Zero-Gravity Floating for Devices
+      laptopGroup.position.y = -0.12 + Math.sin(elapsedTime * 1.3) * 0.035;
+      phoneGroup.position.y = -0.22 + Math.cos(elapsedTime * 1.5) * 0.045;
 
       renderer.render(scene, camera);
     };
 
     animate();
 
-    // 8. Resize Observer
+    // 8. Dynamic High-DPI Resize Observer
     const handleResize = () => {
       if (!currentMount) return;
       width = currentMount.clientWidth;
@@ -686,15 +594,10 @@ export function InteractiveCanvas3D() {
       screenGeo.dispose();
       phoneGeo.dispose();
       phoneScreenGeo.dispose();
-      wafer1Geo.dispose();
-      wafer2Geo.dispose();
-      particleGeometry.dispose();
       chassisMaterial.dispose();
       borderMaterial.dispose();
       screenMat.dispose();
       phoneScreenMat.dispose();
-      waferMat.dispose();
-      particleMaterial.dispose();
       renderer.dispose();
 
       if (currentMount.contains(renderer.domElement)) {
@@ -704,38 +607,13 @@ export function InteractiveCanvas3D() {
   }, [resolvedTheme]);
 
   return (
-    <div className="relative w-full max-w-[620px] lg:max-w-[680px] h-[460px] sm:h-[520px] lg:h-[580px] flex items-center justify-center select-none group">
-      {/* 3D WebGL Canvas Container: Completely Unboxed (transparent background, no borders) */}
+    <div className="relative w-full max-w-[680px] xl:max-w-[740px] h-[500px] sm:h-[560px] lg:h-[620px] xl:h-[660px] flex items-center justify-center select-none overflow-visible pointer-events-auto">
+      {/* 3D WebGL Canvas: 100% Unboxed (transparent background, zero borders, zero docks/cards) */}
       <div
         ref={mountRef}
         className="w-full h-full cursor-grab active:cursor-grabbing"
-        title="Interactive 3D Multi-Device Architecture - Drag to orbit 360°, scroll to zoom"
+        title="Interactive 3D Devices - Drag to orbit 360°, scroll to zoom, double-click to reset"
       />
-
-      {/* Floating Interactive Micro-Controls & Interaction Hint */}
-      <div
-        className={`absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2.5 px-4 py-2 rounded-full bg-background/85 backdrop-blur-md border border-border/80 text-[11px] font-montserrat font-medium text-muted-foreground shadow-xs transition-opacity duration-500 pointer-events-auto ${
-          hasInteracted ? "opacity-35 hover:opacity-100" : "opacity-90"
-        }`}
-      >
-        <span className="flex items-center gap-1.5 text-foreground font-semibold">
-          <Rotate3D className="w-3.5 h-3.5 text-accent" />
-          <span>Drag to orbit 360°</span>
-        </span>
-        <span className="text-border">•</span>
-        <span className="flex items-center gap-1.5">
-          <ZoomIn className="w-3.5 h-3.5 text-accent" />
-          <span>Scroll to zoom</span>
-        </span>
-        <button
-          type="button"
-          onClick={() => resetViewRef.current?.()}
-          className="ml-1 px-2 py-0.5 rounded-md bg-muted/80 hover:bg-accent/15 hover:text-accent border border-border/60 transition-colors text-[10px] font-bold cursor-pointer"
-          title="Recenter 3D view (or double-click canvas)"
-        >
-          Recenter
-        </button>
-      </div>
     </div>
   );
 }

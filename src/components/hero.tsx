@@ -107,7 +107,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-            className="lg:col-span-5 w-full flex items-center justify-center relative pointer-events-auto"
+            className="lg:col-span-5 w-full flex items-center justify-center relative pointer-events-auto overflow-visible"
           >
             <InteractiveCanvas3D />
           </motion.div>
