@@ -1,14 +1,24 @@
 "use client";
 
+import * as React from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useRef, useState, useLayoutEffect, useCallback } from "react";
-import gsap from "gsap";
-import { ChevronLeft, ChevronRight, Calendar, MapPin } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
+  MapPin,
+  GraduationCap,
+  Award,
+  BookOpen,
+  CheckCircle2,
+} from "lucide-react";
 
 export interface MenuItem {
   num: string;
   name: string;
-  clipId: string;
+  clipId?: string;
   image: string;
   subtitle?: string;
   period?: string;
@@ -20,204 +30,205 @@ export interface MenuItem {
 const defaultItems: MenuItem[] = [
   {
     num: "01",
-    name: "Gourmet Burgers",
-    clipId: "clip-original",
-    image: "https://cdn.21st.dev/assets/mirror/53/534bb84332e13a8595670521bdcc71acd40fabbf589c1775f4028df1ca1ea96a.jpg"
+    name: "University of Ghana",
+    subtitle: "B.Sc. in Information Technology",
+    period: "2022 - 2026 (Expected)",
+    location: "Accra, Legon",
+    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80",
+    description: [
+      "Pursuing comprehensive advanced studies in software development methodologies, database administration, networking principles, and enterprise system architectures.",
+      "Engineering full-stack web and mobile capstones, bridging dependable distributed backend logic with accessible, fluid user interfaces.",
+      "Conducting practical laboratories across Linux systems administration, relational schema modeling, and client-server network topologies.",
+    ],
+    skills: ["Software Engineering", "Relational Databases", "Computer Networks", "System Architecture"],
   },
   {
     num: "02",
-    name: "Fresh Desserts",
-    clipId: "clip-hexagons",
-    image: "https://cdn.21st.dev/assets/mirror/be/bec9c493cadbcd53fd0e00a0cf98f1dbb7813141c9c461b8c1b7920f6b7fa721.jpg"
+    name: "Kpando Senior High",
+    subtitle: "General Science Foundations",
+    period: "Secondary Education",
+    location: "Kpando, Volta Region",
+    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
+    description: [
+      "Built rigorous quantitative problem-solving foundations through advanced coursework in elective mathematics, physics, and chemistry.",
+      "Cultivated the disciplined scientific inquiry, empirical analysis, and structured computational thinking that directly underpin software engineering.",
+      "Engaged in laboratory experimentation, data collection, and rigorous theoretical problem modeling.",
+    ],
+    skills: ["Elective Mathematics", "Physics", "Chemistry", "Quantitative Problem Solving"],
   },
-  {
-    num: "03",
-    name: "Artisan Waffles",
-    clipId: "clip-pixels",
-    image: "https://cdn.21st.dev/assets/mirror/b0/b05848f9ad0d993c69b9c21c3793b3b5507eff7064b01540d196cac068101729.jpg"
-  }
 ];
 
-export const Component = ({
+/**
+ * Apple-Minimalist Academic & Scientific Foundations Showcase
+ *
+ * Replaces gimmicky SVG clip-paths and burger templates with an executive,
+ * architectural institution showcase featuring fluid transitions, dignified
+ * typography, and high-resolution academic photography.
+ */
+export function ConnoisseurStackInteractor({
   items = defaultItems,
-  className
-}: { items?: MenuItem[]; className?: string }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<SVGImageElement>(null);
-  const mainGroupRef = useRef<SVGGElement>(null);
-  const masterTl = useRef<gsap.core.Timeline | null>(null);
+  className,
+}: {
+  items?: MenuItem[];
+  className?: string;
+}) {
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [direction, setDirection] = React.useState(0);
 
-  const createLoop = useCallback((index: number) => {
-    if (!items[index]) return;
-    const item = items[index];
-    const selector = `#${item.clipId} .path`;
-
-    if (masterTl.current) masterTl.current.kill();
-
-    if (imageRef.current) imageRef.current.setAttribute("href", item.image);
-    if (mainGroupRef.current) mainGroupRef.current.setAttribute("clip-path", `url(#${item.clipId})`);
-    
-    gsap.set(selector, { scale: 0, transformOrigin: "50% 50%" });
-
-    const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
-
-    // 1. IN (Expo Out)
-    tl.to(selector, {
-      scale: 1,
-      duration: 0.8,
-      stagger: { amount: 0.4, from: "random" },
-      ease: "expo.out",
-    })
-    // 2. IDLE (Sine Breath)
-    .to(selector, {
-      scale: 1.05,
-      duration: 1.5,
-      yoyo: true,
-      repeat: 1,
-      ease: "sine.inOut",
-      stagger: { amount: 0.2, from: "center" }
-    })
-    // 3. OUT (Expo In)
-    .to(selector, {
-      scale: 0,
-      duration: 0.6,
-      stagger: { amount: 0.3, from: "edges" },
-      ease: "expo.in",
-    });
-
-    masterTl.current = tl;
-  }, [items]);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      createLoop(0);
-    }, containerRef);
-    return () => ctx.revert();
-  }, [createLoop]);
-
-  const handleItemSelect = (index: number) => {
+  const handleSelect = (index: number) => {
     if (index === activeIndex) return;
+    setDirection(index > activeIndex ? 1 : -1);
     setActiveIndex(index);
-    createLoop(index);
   };
 
   const handlePrev = () => {
-    const prevIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-    handleItemSelect(prevIndex);
+    setDirection(-1);
+    setActiveIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-    handleItemSelect(nextIndex);
+    setDirection(1);
+    setActiveIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
   };
 
   const currentItem = items[activeIndex] || items[0];
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
       className={cn(
-        "flex flex-col lg:flex-row items-center justify-between w-full py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-16 overflow-hidden transition-colors duration-500 rounded-3xl bg-card border border-border",
+        "relative rounded-3xl bg-card border border-border p-6 sm:p-10 lg:p-12 overflow-hidden shadow-2xl transition-all",
         className
       )}
     >
-      {/* LEFT SIDE: HIGH CONTRAST MENU & DETAILS */}
-      <div className="z-20 w-full lg:w-1/2 flex flex-col justify-between">
-        <nav className="w-full">
-          <ul className="flex flex-col gap-6 sm:gap-10">
-            {items.map((item, index) => {
-              const nameParts = item.name.split(" ");
-              const firstWord = nameParts[0];
-              const restWords = nameParts.slice(1).join(" ");
+      {/* Background Soft Glow */}
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-accent/10 blur-[130px] rounded-full pointer-events-none" />
 
-              return (
-                <li
-                  key={item.num + item.name}
-                  onMouseEnter={() => handleItemSelect(index)}
-                  onClick={() => handleItemSelect(index)}
-                  className="group cursor-pointer select-none"
-                >
-                  <div className="flex items-start gap-4 sm:gap-6">
-                    {/* Numbers: Increased visibility for non-hover state */}
-                    <span className={cn(
-                      "text-2xl sm:text-3xl font-montserrat font-bold transition-all duration-500 mt-1 sm:mt-2",
-                      activeIndex === index 
-                        ? "text-accent scale-110" 
-                        : "text-muted-foreground/50 hover:text-muted-foreground" 
-                    )}>
-                      {item.num}
-                    </span>
-                    
-                    {/* Main Text */}
-                    <div className="flex-1">
-                      <h2 className={cn(
-                        "font-montserrat text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter leading-[0.9] transition-all duration-500",
-                        activeIndex === index 
-                          ? "text-foreground opacity-100 translate-x-2 sm:translate-x-4" 
-                          : "opacity-40 translate-x-0 text-muted-foreground"
-                      )}>
-                        {firstWord}<br />
-                        {restWords}
-                      </h2>
+      {/* Institution Selector Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-border/80">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          {items.map((item, idx) => {
+            const isActive = activeIndex === idx;
+            return (
+              <button
+                key={item.num + item.name}
+                type="button"
+                onClick={() => handleSelect(idx)}
+                className={cn(
+                  "px-4 sm:px-5 py-2.5 rounded-xl font-montserrat text-xs uppercase tracking-wider font-bold transition-all cursor-pointer flex items-center gap-2.5",
+                  isActive
+                    ? "bg-primary text-primary-foreground shadow-sm scale-[1.02]"
+                    : "bg-secondary border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
+                )}
+              >
+                <span className="font-mono text-[11px] opacity-75">{item.num}</span>
+                <span>{item.name}</span>
+              </button>
+            );
+          })}
+        </div>
 
-                      {/* Subtitle / Role */}
-                      {item.subtitle && (
-                        <p className={cn(
-                          "font-sans text-xs sm:text-sm mt-1 transition-all duration-300",
-                          activeIndex === index
-                            ? "text-accent font-semibold translate-x-2 sm:translate-x-4 opacity-100"
-                            : "text-muted-foreground/60 opacity-0 h-0 overflow-hidden"
-                        )}>
-                          {item.subtitle}
-                        </p>
-                      )}
-                    </div>
+        {/* Slide Counter */}
+        <div className="hidden sm:flex items-center gap-2 font-mono text-xs text-muted-foreground">
+          <span className="text-foreground font-bold">{currentItem.num}</span>
+          <span>/</span>
+          <span>0{items.length}</span>
+        </div>
+      </div>
+
+      {/* Main Two-Column Architectural Display */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        {/* LEFT COLUMN: Academic Details & Curriculum Highlights */}
+        <div className="lg:col-span-6 flex flex-col justify-between space-y-7">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={currentItem.num}
+              custom={direction}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="space-y-6"
+            >
+              {/* Institution & Degree Title */}
+              <div>
+                <div className="flex items-center gap-2 text-xs font-montserrat uppercase tracking-widest text-accent font-bold mb-2">
+                  <GraduationCap className="w-4 h-4" />
+                  <span>Academic Degree Program</span>
+                </div>
+                <h3 className="font-montserrat text-2xl sm:text-3xl lg:text-4xl font-black text-foreground tracking-tight leading-tight">
+                  {currentItem.name}
+                </h3>
+                {currentItem.subtitle && (
+                  <p className="font-montserrat font-bold text-accent text-base sm:text-lg mt-1.5">
+                    {currentItem.subtitle}
+                  </p>
+                )}
+              </div>
+
+              {/* Metadata Badges */}
+              <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                {currentItem.period && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary border border-border text-xs font-mono text-foreground font-semibold">
+                    <Calendar className="w-3.5 h-3.5 text-accent" />
+                    {currentItem.period}
+                  </span>
+                )}
+                {currentItem.location && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary border border-border text-xs font-mono text-foreground font-semibold">
+                    <MapPin className="w-3.5 h-3.5 text-accent" />
+                    {currentItem.location}
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/20 text-xs font-montserrat uppercase tracking-wider text-accent font-bold">
+                  <Award className="w-3.5 h-3.5" />
+                  {activeIndex === 0 ? "Undergraduate Degree" : "Scientific Foundations"}
+                </span>
+              </div>
+
+              {/* Structured Key Takeaways */}
+              {currentItem.description && currentItem.description.length > 0 && (
+                <div className="space-y-3 pt-2">
+                  <p className="font-montserrat text-xs uppercase tracking-wider font-bold text-muted-foreground flex items-center gap-1.5">
+                    <BookOpen className="w-3.5 h-3.5 text-accent" /> Core Curriculum &amp; Research Focus
+                  </p>
+                  <ul className="space-y-3">
+                    {currentItem.description.map((desc, dIdx) => (
+                      <li key={dIdx} className="flex items-start gap-3 text-sm text-muted-foreground leading-relaxed">
+                        <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                        <span>{desc}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Competencies Tag Cloud */}
+              {currentItem.skills && currentItem.skills.length > 0 && (
+                <div className="pt-2">
+                  <div className="flex flex-wrap gap-2">
+                    {currentItem.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-3 py-1 rounded-md bg-secondary/80 border border-border text-[11px] font-montserrat font-medium text-foreground tracking-wide"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                   </div>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
 
-        {/* Selected Item Detail Card & Carousel Controls */}
-        <div className="mt-8 pt-6 border-t border-border/80 space-y-4">
-          {/* Metadata badges */}
-          <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground font-mono">
-            {currentItem.period && (
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary border border-border">
-                <Calendar className="w-3.5 h-3.5 text-accent" />
-                {currentItem.period}
-              </span>
-            )}
-            {currentItem.location && (
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary border border-border">
-                <MapPin className="w-3.5 h-3.5 text-accent" />
-                {currentItem.location}
-              </span>
-            )}
-          </div>
-
-          {/* Description bullets */}
-          {currentItem.description && currentItem.description.length > 0 && (
-            <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground font-sans leading-relaxed">
-              {currentItem.description.map((desc, dIdx) => (
-                <li key={dIdx} className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
-                  <span>{desc}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {/* Carousel Arrow Controls */}
-          <div className="flex items-center justify-between pt-2">
+          {/* Navigation Controls */}
+          <div className="flex items-center justify-between pt-6 border-t border-border/70">
             <div className="flex items-center gap-2">
               {items.map((_, dotIdx) => (
                 <button
                   key={dotIdx}
-                  onClick={() => handleItemSelect(dotIdx)}
-                  aria-label={`Go to slide ${dotIdx + 1}`}
+                  type="button"
+                  onClick={() => handleSelect(dotIdx)}
+                  aria-label={`Switch to ${items[dotIdx].name}`}
                   className={cn(
                     "h-2 rounded-full transition-all duration-300 cursor-pointer",
                     activeIndex === dotIdx
@@ -230,83 +241,81 @@ export const Component = ({
 
             <div className="flex items-center gap-2">
               <button
+                type="button"
                 onClick={handlePrev}
-                aria-label="Previous item"
-                className="p-2.5 rounded-xl bg-secondary border border-border hover:bg-muted text-foreground transition-all cursor-pointer active:scale-95"
+                aria-label="Previous institution"
+                className="p-2.5 rounded-xl bg-secondary border border-border hover:bg-muted text-foreground transition-all cursor-pointer active:scale-95 shadow-2xs"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
+                type="button"
                 onClick={handleNext}
-                aria-label="Next item"
-                className="p-2.5 rounded-xl bg-secondary border border-border hover:bg-muted text-foreground transition-all cursor-pointer active:scale-95"
+                aria-label="Next institution"
+                className="p-2.5 rounded-xl bg-secondary border border-border hover:bg-muted text-foreground transition-all cursor-pointer active:scale-95 shadow-2xs"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* RIGHT SIDE: SQUARE GRID (Sharp Squares with SVG Clip-Paths) */}
-      <div className="relative w-full lg:w-1/2 flex justify-center items-center mt-12 lg:mt-0">
-        <div className="absolute w-[120%] h-[120%] bg-accent/15 blur-[120px] rounded-full pointer-events-none transition-opacity duration-1000" />
-        
-        <svg viewBox="0 0 500 500" className="w-[100%] max-w-[480px] h-auto z-10 drop-shadow-2xl">
-          <defs>
-            <clipPath id="clip-original">
-              <path className="path" d="M480.6,235H19.4c-6,0-10.8-4.9-10.8-10.8v-9.5c0-6,4.9-10.8,10.8-10.8h461.1c6,0,10.8,4.9,10.8,10.8v9.5C491.4,230.2,486.6,235,480.6,235z" />
-              <path className="path" d="M483.1,362.4H16.9c-4.6,0-8.3-3.7-8.3-8.3v-1.8c0-4.6,3.7-8.3,8.3-8.3h466.1c4.6,0,8.3,3.7,8.3,8.3v1.8C491.4,358.7,487.7,362.4,483.1,362.4z" />
-              <path className="path" d="M460.3,336.3H39.7c-17.2,0-31.1-13.9-31.1-31.1v-31.5c0-17.2,13.9-31.1,31.1-31.1h420.7c17.2,0,31.1,13.9,31.1,31.1v31.5C491.4,322.4,477.5,336.3,460.3,336.3z" />
-              <path className="path" d="M459.2,196.2H40.8v-35c0-47.5,38.5-86,86-86h246.5c47.5,0,86,38.5,86,86V196.2z" />
-              <path className="path" d="M441.9,424.9H58.1c-9.6,0-17.3-7.8-17.3-17.3v-37.4h418.5v37.4C459.2,417.1,451.5,424.9,441.9,424.9z" />
-            </clipPath>
-
-            <clipPath id="clip-hexagons">
-              <rect className="path" x="20" y="20" width="200" height="280" rx="12" />
-              <rect className="path" x="20" y="320" width="200" height="160" rx="12" />
-              <rect className="path" x="240" y="20" width="240" height="140" rx="12" />
-              <rect className="path" x="240" y="180" width="110" height="160" rx="12" />
-              <rect className="path" x="370" y="180" width="110" height="160" rx="12" />
-              <rect className="path" x="240" y="360" width="240" height="120" rx="12" />
-            </clipPath>
-
-            {/* Grid Squares with rx="4" */}
-            <clipPath id="clip-pixels">
-              {Array.from({ length: 9 }).map((_, i) => (
-                <rect
-                  key={i}
-                  className="path"
-                  x={(i % 3) * 160 + 20}
-                  y={Math.floor(i / 3) * 160 + 20}
-                  width="140"
-                  height="140"
-                  rx="4" 
+        {/* RIGHT COLUMN: Architectural Photography Showcase */}
+        <div className="lg:col-span-6 relative w-full flex items-center justify-center">
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] rounded-2xl lg:rounded-3xl overflow-hidden border border-border/80 bg-muted shadow-2xl group">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={currentItem.image}
+                custom={direction}
+                initial={{ opacity: 0, scale: 1.04 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={currentItem.image}
+                  alt={currentItem.name}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-              ))}
-            </clipPath>
 
-            {/* Circular Portal Rings */}
-            <clipPath id="clip-rings">
-              <circle className="path" cx="250" cy="250" r="220" />
-              <circle className="path" cx="250" cy="250" r="160" />
-              <circle className="path" cx="250" cy="250" r="100" />
-            </clipPath>
-          </defs>
+                {/* Subtle gradient vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent pointer-events-none" />
 
-          <g ref={mainGroupRef} clipPath={`url(#${items[0].clipId})`}>
-            <image
-              ref={imageRef}
-              href={items[0].image}
-              width="500"
-              height="500"
-              preserveAspectRatio="xMidYMid slice"
-            />
-          </g>
-        </svg>
+                {/* Floating Top Header Badge */}
+                <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-10">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-md border border-white/20 dark:border-white/10 text-[11px] font-montserrat uppercase tracking-wider text-foreground font-bold shadow-sm">
+                    <GraduationCap className="w-3.5 h-3.5 text-accent" />
+                    <span>{currentItem.name}</span>
+                  </span>
+                </div>
+
+                {/* Bottom Glassmorphic Overlay Card */}
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 z-10">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-card/85 backdrop-blur-md border border-border/80 shadow-lg flex items-center justify-between">
+                    <div>
+                      <div className="font-montserrat text-xs uppercase tracking-wider text-accent font-bold">
+                        {currentItem.location}
+                      </div>
+                      <div className="font-montserrat text-sm sm:text-base font-extrabold text-foreground">
+                        {currentItem.subtitle}
+                      </div>
+                    </div>
+                    <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary border border-border font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+                      Verified
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export const ConnoisseurStackInteractor = Component;
+export const Component = ConnoisseurStackInteractor;

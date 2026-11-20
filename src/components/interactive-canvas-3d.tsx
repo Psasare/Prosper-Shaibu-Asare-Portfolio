@@ -404,6 +404,18 @@ export function InteractiveCanvas3D() {
     logoMesh.position.set(0, 0.725, -0.022);
     lidGroup.add(logoMesh);
 
+    // Laptop Display Hinge
+    const hingeGeo = new THREE.CylinderGeometry(0.024, 0.024, 2.15, 16);
+    const hingeMat = new THREE.MeshStandardMaterial({
+      color: isDark ? 0x0a0c10 : 0x1f2937,
+      metalness: 0.8,
+      roughness: 0.3,
+    });
+    const hingeMesh = new THREE.Mesh(hingeGeo, hingeMat);
+    hingeMesh.rotation.z = Math.PI / 2;
+    hingeMesh.position.set(0, 0, 0);
+    lidGroup.add(hingeMesh);
+
     laptopGroup.add(lidGroup);
     deviceStage.add(laptopGroup);
 
@@ -429,6 +441,13 @@ export function InteractiveCanvas3D() {
     const phoneScreenMesh = new THREE.Mesh(phoneScreenGeo, phoneScreenMat);
     phoneScreenMesh.position.set(0, 0, 0.022);
     phoneGroup.add(phoneScreenMesh);
+
+    // Phone Rear Metallic Emblem (Visible when rotated to the back)
+    const phoneLogoGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.004, 32);
+    const phoneLogoMesh = new THREE.Mesh(phoneLogoGeo, logoMat);
+    phoneLogoMesh.rotation.x = Math.PI / 2;
+    phoneLogoMesh.position.set(0, -0.05, -0.022);
+    phoneGroup.add(phoneLogoMesh);
 
     // Phone Rear Camera Island Bump (Visible when rotated to the back)
     const camBumpGeo = new THREE.BoxGeometry(0.28, 0.30, 0.015);

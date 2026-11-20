@@ -13,7 +13,6 @@ const EDUCATION_ITEMS: MenuItem[] = [
     subtitle: "B.Sc. in Information Technology",
     period: "2022 - 2026 (Expected)",
     location: "Accra, Legon",
-    clipId: "clip-original",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80",
     description: [
       "Pursuing comprehensive advanced studies in software development methodologies, database administration, networking principles, and enterprise system architectures.",
@@ -28,7 +27,6 @@ const EDUCATION_ITEMS: MenuItem[] = [
     subtitle: "General Science Foundations",
     period: "Secondary Education",
     location: "Kpando, Volta Region",
-    clipId: "clip-hexagons",
     image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
     description: [
       "Built rigorous quantitative problem-solving foundations through advanced coursework in elective mathematics, physics, and chemistry.",
@@ -59,7 +57,7 @@ export function Education() {
           </p>
         </Reveal>
 
-        {/* Interactive Connoisseur Stack Carousel for Education */}
+        {/* Interactive Academic Foundations Showcase */}
         <Reveal direction="up" delay={0.2}>
           <ConnoisseurStackInteractor items={EDUCATION_ITEMS} />
         </Reveal>

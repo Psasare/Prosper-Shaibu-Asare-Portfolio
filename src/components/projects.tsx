@@ -132,43 +132,41 @@ export function Projects() {
                 className="group flex flex-col rounded-3xl border border-border bg-card overflow-hidden hover:border-accent/50 hover:shadow-2xl transition-all duration-500"
               >
                 {/* Project Image Banner */}
-                <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden bg-neutral-950">
+                <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden bg-muted">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
                     unoptimized
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-90 group-hover:brightness-100"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-
-                  {/* Top Badges */}
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                    <span className="font-montserrat text-[11px] font-bold px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20">
-                      {project.category}
-                    </span>
-                    {project.badge && (
-                      <span className="font-montserrat text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full bg-accent/90 text-white backdrop-blur-md shadow-md">
-                        {project.badge}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Bottom Metric Strip on Image */}
-                  {project.metric && (
-                    <div className="absolute bottom-3 left-4">
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-400 font-bold bg-black/70 backdrop-blur-md px-2.5 py-0.5 rounded-md border border-emerald-500/30">
-                        {project.metric}
-                      </span>
-                    </div>
-                  )}
+                  {/* Subtle edge fade into card */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 {/* Project Body */}
-                <div className="p-8 sm:p-10 lg:p-12 flex-1 flex flex-col justify-between space-y-8">
+                <div className="p-8 sm:p-10 lg:p-12 flex-1 flex flex-col justify-between space-y-6">
                   <div>
+                    {/* Top Badges & Metric Strip */}
+                    <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4">
+                      <div className="flex items-center gap-2">
+                        <span className="font-montserrat text-[11px] font-bold px-3 py-1 rounded-full bg-secondary border border-border text-foreground">
+                          {project.category}
+                        </span>
+                        {project.badge && (
+                          <span className="font-montserrat text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full bg-accent/15 text-accent border border-accent/25">
+                            {project.badge}
+                          </span>
+                        )}
+                      </div>
+                      {project.metric && (
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-foreground font-bold px-2.5 py-1 rounded-md bg-secondary border border-border">
+                          {project.metric}
+                        </span>
+                      )}
+                    </div>
+
                     <div className="flex items-start justify-between gap-4 mb-3">
                       <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground group-hover:text-accent transition-colors leading-snug">
                         {project.title}
@@ -178,7 +176,7 @@ export function Projects() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer"
+                          className="p-2 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer shadow-2xs"
                           aria-label={`View ${project.title} on GitHub`}
                           title="View Source on GitHub"
                         >
@@ -189,7 +187,7 @@ export function Projects() {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 rounded-xl bg-accent text-white hover:opacity-90 transition-all cursor-pointer"
+                            className="p-2 rounded-xl bg-accent text-white hover:opacity-90 transition-all cursor-pointer shadow-2xs"
                             aria-label={`Visit Live Demo of ${project.title}`}
                             title="Visit Live Demo"
                           >

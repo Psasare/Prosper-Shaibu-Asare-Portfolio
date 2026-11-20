@@ -64,7 +64,7 @@ const EXPERIENCES: ExperienceItem[] = [
     shortOrg: "Solidere Ghana (PremierBet)",
     period: "Jan 2022 - Jan 2023",
     location: "Adabraka, Accra",
-    image: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     badge: "Operations & Support",
     description: [
       "Provided responsive, client-centered assistance across digital chat, telephone, email, and direct in-person inquiries with consistent satisfaction ratings.",
