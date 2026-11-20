@@ -3,6 +3,7 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { AnimatedNameLogo } from "./ui/animated-name-logo";
 
 interface LaunchTransitionProps {
   children: React.ReactNode;
