@@ -128,30 +128,13 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
               </button>
             </div>
 
-            {/* Centered Monolithic Focus: Apple Minimalist Identity & Rotating Disciplines */}
-            <div className="flex flex-col items-center justify-center text-center my-auto px-4 max-w-2xl mx-auto w-full">
-              {/* Minimalist Geometry Accent Mark */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/25 flex items-center justify-center mb-8 shadow-xs"
-              >
-                <div className="w-3.5 h-3.5 rounded-full bg-accent" />
-              </motion.div>
+            {/* Centered Monolithic Focus: MoZoo-Style Animated Name Logo & Rotating Disciplines */}
+            <div className="flex flex-col items-center justify-center text-center my-auto px-4 max-w-4xl mx-auto w-full">
+              {/* Dynamic Animated Monoline Tubular Logo (Prosper Shaibu Asare) */}
+              <AnimatedNameLogo className="mb-4 sm:mb-6" />
 
-              {/* Master Full Name: Disciplined, High-Contrast Typography */}
-              <motion.h1
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                className="font-montserrat font-black text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] tracking-[0.2em] sm:tracking-[0.22em] uppercase text-foreground leading-tight"
-              >
-                Prosper Shaibu Asare
-              </motion.h1>
-
-              {/* Dynamic Rotating Subtitle: Apple-grade Smooth Crossfade */}
-              <div className="h-8 sm:h-9 mt-4 flex items-center justify-center overflow-hidden">
+              {/* Dynamic Rotating Subtitle: Smooth Crossfade */}
+              <div className="h-8 sm:h-9 flex items-center justify-center overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={phaseIndex}
@@ -159,7 +142,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.35, ease: "easeInOut" }}
-                    className="font-sans text-sm sm:text-base text-muted-foreground font-normal tracking-wide"
+                    className="font-montserrat text-xs sm:text-sm uppercase tracking-[0.2em] text-accent font-bold"
                   >
                     {disciplines[phaseIndex]}
                   </motion.p>
@@ -167,7 +150,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
               </div>
 
               {/* Apple-Style Hairline Progress Bar & Percentage */}
-              <div className="w-full max-w-xs sm:max-w-sm mt-10 space-y-3">
+              <div className="w-full max-w-xs sm:max-w-sm mt-8 space-y-3">
                 <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
                   <motion.div
                     className="h-full bg-accent rounded-full"
@@ -176,7 +159,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
                   />
                 </div>
                 <div className="flex items-center justify-between font-mono text-[11px] text-muted-foreground/80 tracking-widest">
-                  <span>LOADING</span>
+                  <span>INITIALIZING</span>
                   <span className="font-semibold text-foreground">{progress}%</span>
                 </div>
               </div>
