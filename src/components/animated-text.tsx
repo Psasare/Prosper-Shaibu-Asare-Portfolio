@@ -68,7 +68,7 @@ export function TypographicMarquee() {
     { text: "[ NEXT.JS 16 // TYPESCRIPT ]", type: "mono" },
     { text: "HEALTHCARE SYSTEMS ARCHITECTURE", type: "solid" },
     { text: "Accessible UI Systems", type: "serif" },
-    { text: "UHAS ADMINISTRATIVE COMPUTING", type: "outline" },
+    { text: "HOSPITAL NETWORK INFRASTRUCTURE", type: "outline" },
     { text: "[ UG LEGON // IT UNDERGRADUATE ]", type: "mono" },
   ];
 

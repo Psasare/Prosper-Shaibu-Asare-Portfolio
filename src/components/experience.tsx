@@ -92,20 +92,6 @@ const TIMELINE_DATA: TimelineItem[] = [
     ],
     type: "work",
   },
-  {
-    id: "uhas",
-    period: "Nov 2026 - Oct 2027 (Expected)",
-    role: "National Service Personnel - Administrative Computing",
-    organization: "University of Health and Allied Sciences (UHAS) - ICT Directorate",
-    shortOrg: "UHAS ICT Directorate",
-    location: "Ho, Ghana",
-    description: [
-      "Entrusted with the maintenance, support, and ongoing evolution of university administrative information systems, ERP platforms, and central databases.",
-      "Collaborating with academic and administrative stakeholders to evaluate functional requirements, optimize digital workflows, and guarantee institutional data accuracy.",
-      "Participating in cross-system integration, quality assurance, performance monitoring, and security management to uphold high-availability enterprise services.",
-    ],
-    type: "work",
-  },
 ];
 
 export function Experience() {
@@ -190,7 +176,7 @@ export function Experience() {
             Experience & Education
           </TextMaskReveal>
           <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-5 sm:mt-6">
-            A curated timeline of analytical science foundations, hospital systems engineering, University of Ghana studies, and administrative computing at UHAS.
+            A curated timeline of analytical science foundations, hospital systems engineering, University of Ghana studies, and customer operations.
           </p>
         </Reveal>
 
@@ -214,7 +200,7 @@ export function Experience() {
                 : "text-muted-foreground hover:text-foreground"
                 }`}
             >
-              Work & Clinical (4)
+              Work & Clinical (3)
             </button>
             <button
               onClick={() => handleFilterChange("education")}

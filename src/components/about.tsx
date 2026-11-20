@@ -79,13 +79,13 @@ export function About() {
             <Reveal direction="up" delay={0.34}>
               <div className="pt-3 flex flex-wrap gap-2.5 font-montserrat text-xs font-semibold text-foreground">
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  BSc. IT Graduate &bull; 2026 (UG Legon)
+                  BSc. IT Undergraduate &bull; 2026 (UG Legon)
                 </span>
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  UHAS ICT Directorate &bull; NSS &apos;27
+                  Volta Regional Hospital &bull; IT Intern
                 </span>
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  Administrative Computing
+                  Ho Teaching Hospital &bull; Systems & Network
                 </span>
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
                   General Science &bull; Kpando SHS

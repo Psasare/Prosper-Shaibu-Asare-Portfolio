@@ -44,16 +44,16 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     {
       code: "04",
       category: "ENTERPRISE // INFRASTRUCTURE",
-      title: "Administrative & Clinical Computing",
-      subtitle: "Enterprise systems administration at UHAS and hospital clinical network infrastructure.",
-      detail: "UHAS ICT Directorate • Ho Teaching Hospital • Volta Regional Hospital",
-      sector: "ENTERPRISE SYSTEMS",
+      title: "Hospital & Network Systems",
+      subtitle: "Administered hospital Local Area Networks (LAN) and maintained clinical workstation & server infrastructure.",
+      detail: "Volta Regional Hospital • Ho Teaching Hospital • LAN Administration",
+      sector: "INFRASTRUCTURE & LAN",
     },
     {
       code: "05",
-      category: "SCHOLARSHIP // FOUNDATION",
-      title: "University of Ghana IT Scholar",
-      subtitle: "Grounded in analytical problem-solving and rigorous computer science foundations.",
+      category: "ACADEMICS // FOUNDATION",
+      title: "University of Ghana IT Undergraduate",
+      subtitle: "BSc. in Information Technology with analytical science foundations from Kpando Senior High.",
       detail: "BSc. Information Technology '26 • Analytical Science (Kpando SHS)",
       sector: "UNIVERSITY OF GHANA",
     },
@@ -237,7 +237,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
                   <span className="font-mono text-[10px] text-muted-foreground/80 tracking-widest flex items-center gap-2">
                     <span>LIVE: {clockTime || "16:20:00 GMT"}</span>
                     <span className="hidden sm:inline">&bull;</span>
-                    <span className="hidden sm:inline">BSC. IT &bull; UG LEBON</span>
+                    <span className="hidden sm:inline">BSC. IT &bull; UG LEGON</span>
                   </span>
                 </div>
               </div>
