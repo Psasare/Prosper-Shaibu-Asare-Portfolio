@@ -4,6 +4,22 @@ const nextConfig: NextConfig = {
   experimental: {
     cpus: 1,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.jsdelivr.net",
+      },
+      {
+        protocol: "https",
+        hostname: "www.vectorlogo.zone",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

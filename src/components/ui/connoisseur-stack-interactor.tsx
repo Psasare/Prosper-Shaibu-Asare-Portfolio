@@ -277,6 +277,7 @@ export function ConnoisseurStackInteractor({
                   src={currentItem.image}
                   alt={currentItem.name}
                   fill
+                  unoptimized
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   priority
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
