@@ -164,12 +164,12 @@ export function LaunchKineticCore() {
 
     // 7. Animation Loop
     let animationFrameId: number;
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      const elapsedTime = clock.getElapsedTime();
+      const elapsedTime = (performance.now() - startTime) * 0.001;
 
       // Smooth mouse lerp
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
