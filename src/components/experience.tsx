@@ -122,11 +122,10 @@ export function Experience() {
               <button
                 key={exp.id}
                 onClick={() => handleSelect(idx)}
-                className={`px-4 py-2 rounded-xl font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
-                  currentIndex === idx
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
+                className={`px-4 py-2 rounded-xl font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${currentIndex === idx
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
               >
                 <span className="font-mono text-[10px] opacity-75">{exp.num}</span>
                 <span>{exp.shortOrg}</span>
@@ -248,11 +247,10 @@ export function Experience() {
                     key={dotIdx}
                     onClick={() => handleSelect(dotIdx)}
                     aria-label={`Go to milestone ${dotIdx + 1}`}
-                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                      currentIndex === dotIdx
-                        ? "w-8 bg-accent"
-                        : "w-2 bg-border hover:bg-muted-foreground/40"
-                    }`}
+                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${currentIndex === dotIdx
+                      ? "w-8 bg-accent"
+                      : "w-2 bg-border hover:bg-muted-foreground/40"
+                      }`}
                   />
                 ))}
               </div>

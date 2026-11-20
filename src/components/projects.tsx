@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { ExternalLink } from "lucide-react";
+import Image from "next/image";
+import { Layers, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GithubIcon } from "./icons";
 import { Reveal } from "./reveal";
@@ -13,8 +14,10 @@ interface Project {
   description: string;
   tags: string[];
   category: "Full Stack / Mobile" | "Healthcare / Web" | "Academic Systems";
+  image: string;
   githubUrl: string;
   liveUrl?: string;
+  metric?: string;
 }
 
 export function Projects() {
@@ -23,21 +26,25 @@ export function Projects() {
   const projects: Project[] = [
     {
       title: "MindBridge - Mental Health Navigator",
-      badge: "Final Year Project",
+      badge: "Final Year Capstone",
       description:
         "Cross-platform mental health navigation mobile application engineered for my University of Ghana final year capstone. Delivers self-guided clinical wellness assessments, mood tracking metrics, and accessible psychoeducational resources.",
-      tags: ["TypeScript", "React Native", "Mobile UI", "Mental Health", "State Management"],
+      tags: ["TypeScript", "React Native", "Mobile UI", "Offline SQLite", "Mental Health"],
       category: "Full Stack / Mobile",
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
       githubUrl: "https://github.com/Psasare/MindBridge-Mental-Health-Navigator-Mobile-App-Project",
+      metric: "UG Capstone 2026",
     },
     {
       title: "Bloom Maternal Health App",
-      badge: "Healthcare Collaboration",
+      badge: "Healthcare Digital Platform",
       description:
-        "Community-centered maternal healthcare digital platform built to empower expecting mothers with localized prenatal milestone tracking, clinical appointment schedules, and curated wellness guidance.",
+        "Community-centered maternal healthcare platform built to empower expecting mothers with localized prenatal milestone tracking, clinical appointment schedules, and curated wellness guidance.",
       tags: ["TypeScript", "Healthcare", "Web Platform", "Frontend Architecture", "REST APIs"],
       category: "Healthcare / Web",
+      image: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80",
       githubUrl: "https://github.com/Ad-joa/Bloom-Maternal-Health-App",
+      metric: "Clinical Healthcare",
     },
     {
       title: "Course Registration System",
@@ -46,7 +53,9 @@ export function Projects() {
         "Institutional student enrollment and course management platform built with robust validation logic for prerequisite compliance, credit unit quotas, academic scheduling, and administrative oversight.",
       tags: ["TypeScript", "Academic Systems", "Database Design", "Authentication", "Validation Logic"],
       category: "Academic Systems",
+      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80",
       githubUrl: "https://github.com/Psasare/Course-Registration-System",
+      metric: "Prerequisites Engine",
     },
     {
       title: "Library Management System",
@@ -55,7 +64,9 @@ export function Projects() {
         "Digital cataloging and library circulation platform streamlining book indexing, patron borrowing/return tracking, inventory control, and overdue fee audit logs.",
       tags: ["JavaScript", "Cataloging", "Database Management", "CRUD APIs", "Asset Tracking"],
       category: "Academic Systems",
+      image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80",
       githubUrl: "https://github.com/Psasare/Library-Management-System-",
+      metric: "Inventory Logistics",
     },
   ];
 
@@ -74,10 +85,10 @@ export function Projects() {
   return (
     <section id="projects" className="py-24 md:py-28 border-t border-border relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <Reveal direction="up">
-            <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
-              Featured Work
+            <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center gap-2">
+              <Layers className="w-3.5 h-3.5" /> Featured Work
             </h2>
             <TextMaskReveal
               as="h3"
@@ -85,8 +96,8 @@ export function Projects() {
             >
               Projects & Engineering Cases
             </TextMaskReveal>
-            <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mt-5">
-              A curated collection of production applications, capstone projects, and institutional platforms engineered with modern TypeScript and resilient system patterns.
+            <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mt-4">
+              Production applications, healthcare platforms, and institutional portals engineered with TypeScript, React Native, and resilient system architectures.
             </p>
           </Reveal>
 
@@ -96,8 +107,8 @@ export function Projects() {
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-2 rounded-lg font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === cat
-                  ? "bg-primary text-primary-foreground shadow-xs"
+                className={`px-4 py-2 rounded-xl font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === cat
+                  ? "bg-primary text-primary-foreground shadow-sm"
                   : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
               >
@@ -107,76 +118,103 @@ export function Projects() {
           </div>
         </div>
 
-        {/* Project Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Project Grid with Rich Image Cards */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
               <motion.div
                 layout
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.25 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.3 }}
                 key={project.title}
-                className="flex flex-col justify-between p-7 sm:p-8 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs group"
+                className="group flex flex-col rounded-3xl border border-border bg-card overflow-hidden hover:border-accent/50 hover:shadow-2xl transition-all duration-500"
               >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <div className="flex items-center gap-2">
-                      <span className="font-montserrat text-[11px] font-semibold px-2.5 py-1 rounded-md bg-secondary text-secondary-foreground border border-border">
-                        {project.category}
+                {/* Project Image Banner */}
+                <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-neutral-950">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    unoptimized
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-90 group-hover:brightness-100"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+
+                  {/* Top Badges */}
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                    <span className="font-montserrat text-[11px] font-bold px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20">
+                      {project.category}
+                    </span>
+                    {project.badge && (
+                      <span className="font-montserrat text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full bg-accent/90 text-white backdrop-blur-md shadow-md">
+                        {project.badge}
                       </span>
-                      {project.badge && (
-                        <span className="font-montserrat text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-md bg-accent/15 text-accent border border-accent/25">
-                          {project.badge}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-foreground transition-colors p-1"
-                        aria-label={`View ${project.title} on GitHub`}
-                        title="View Source on GitHub"
-                      >
-                        <GithubIcon className="w-4 h-4" />
-                      </a>
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-muted-foreground hover:text-foreground transition-colors p-1"
-                          aria-label={`Visit Live Demo of ${project.title}`}
-                          title="Visit Live Demo"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
+                    )}
                   </div>
 
-                  <h3 className="font-montserrat font-bold text-lg sm:text-xl text-foreground mb-2.5 group-hover:text-accent transition-colors">
-                    {project.title}
-                  </h3>
-
-                  <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
-                    {project.description}
-                  </p>
+                  {/* Bottom Metric Strip on Image */}
+                  {project.metric && (
+                    <div className="absolute bottom-3 left-4">
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-400 font-bold bg-black/70 backdrop-blur-md px-2.5 py-0.5 rounded-md border border-emerald-500/30">
+                        {project.metric}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-montserrat text-[11px] font-semibold px-2 py-0.5 rounded-md bg-muted text-foreground border border-border"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                {/* Project Body */}
+                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
+                  <div>
+                    <div className="flex items-start justify-between gap-4 mb-3">
+                      <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground group-hover:text-accent transition-colors leading-snug">
+                        {project.title}
+                      </h3>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer"
+                          aria-label={`View ${project.title} on GitHub`}
+                          title="View Source on GitHub"
+                        >
+                          <GithubIcon className="w-4 h-4" />
+                        </a>
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-xl bg-accent text-white hover:opacity-90 transition-all cursor-pointer"
+                            aria-label={`Visit Live Demo of ${project.title}`}
+                            title="Visit Live Demo"
+                          >
+                            <ArrowUpRight className="w-4 h-4" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border/80">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="font-mono text-[11px] font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border/80"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ))}

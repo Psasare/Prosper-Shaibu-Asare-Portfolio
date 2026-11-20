@@ -1,100 +1,54 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
-import { Server, Code2, Users2, Smartphone, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Server, Code2, Users2, Smartphone } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
 import { TextMaskReveal } from "./animated-text";
 
-interface PillarItem {
-  id: string;
-  num: string;
-  title: string;
-  category: string;
-  icon: React.ElementType;
-  image: string;
-  summary: string;
-  highlights: string[];
-}
-
-const PILLARS: PillarItem[] = [
-  {
-    id: "infra",
-    num: "01",
-    title: "Infrastructure & Systems",
-    category: "Hardware & Networks",
-    icon: Server,
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=80",
-    summary: "Hands-on experience administering hospital Local Area Networks (LANs), configuring server rooms, diagnosing workstation faults, and engineering high-availability topologies.",
-    highlights: ["Hospital Clinical LANs", "Workstation Diagnostics", "Network Switch Uptime", "Preventive Maintenance"],
-  },
-  {
-    id: "fullstack",
-    num: "02",
-    title: "Full-Stack Architecture",
-    category: "Modern Web Engineering",
-    icon: Code2,
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80",
-    summary: "Architecting resilient, type-safe web applications using Next.js 16, TypeScript, structured database schemas, and microservice integration patterns.",
-    highlights: ["Next.js 16 App Router", "PostgreSQL & Prisma", "REST & GraphQL APIs", "Scalable System Design"],
-  },
-  {
-    id: "mobile",
-    num: "03",
-    title: "Mobile UI & Performance",
-    category: "Cross-Platform Mobile",
-    icon: Smartphone,
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1000&q=80",
-    summary: "Crafting fluid cross-platform mobile experiences with React Native, emphasizing 60 FPS gesture responsiveness, offline-first synchronization, and accessible design.",
-    highlights: ["React Native & Expo", "Offline-First SQLite Sync", "Fluid 60 FPS Gestures", "WCAG Accessible UI"],
-  },
-  {
-    id: "people",
-    num: "04",
-    title: "Healthcare Systems & People",
-    category: "Operations & Training",
-    icon: Users2,
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
-    summary: "Shaped by customer operations and healthcare staff IT training at Volta Regional Hospital and Ho Teaching Hospital, ensuring complex software serves real human needs.",
-    highlights: ["Medical Staff IT Training", "Operational Documentation", "Cross-Shift Collaboration", "Empathetic Human UX"],
-  },
-];
-
 export function About() {
   const sectionRef = React.useRef<HTMLElement>(null);
-  const [activePillar, setActivePillar] = React.useState(0);
-  const [direction, setDirection] = React.useState(0);
-
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const bioY = useTransform(scrollYProgress, [0, 1], [18, -18]);
+  // Parallax subtle counter-drift between bio narrative and pillars grid
+  const bioY = useTransform(scrollYProgress, [0, 1], [22, -22]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
 
-  const handleNext = () => {
-    setDirection(1);
-    setActivePillar((prev) => (prev === PILLARS.length - 1 ? 0 : prev + 1));
-  };
-
-  const handlePrev = () => {
-    setDirection(-1);
-    setActivePillar((prev) => (prev === 0 ? PILLARS.length - 1 : prev - 1));
-  };
-
-  const current = PILLARS[activePillar];
-  const Icon = current.icon;
+  const values = [
+    {
+      icon: Server,
+      title: "Infrastructure & Systems",
+      text: "Practical background managing hospital LAN networks, server facilities, hardware diagnostics, and enterprise database systems.",
+    },
+    {
+      icon: Code2,
+      title: "Full-Stack Architecture",
+      text: "Engineering resilient, maintainable web applications using Next.js, TypeScript, RESTful services, and structured data schemas.",
+    },
+    {
+      icon: Smartphone,
+      title: "Mobile & Responsive UI",
+      text: "Crafting fluid cross-platform mobile apps and responsive web interfaces designed for intuitive touch and effortless human use.",
+    },
+    {
+      icon: Users2,
+      title: "People & Communication",
+      text: "Shaped by customer operations and healthcare staff IT training, ensuring complex technical systems serve real human workflows.",
+    },
+  ];
 
   return (
     <section ref={sectionRef} id="about" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Bio text narrative */}
+          {/* Bio text with Parallax */}
           <motion.div style={{ y: bioY }} className="lg:col-span-6 space-y-7">
             <Reveal direction="up">
-              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5 flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5" /> About Me
+              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
+                About Me
               </h2>
               <TextMaskReveal
                 as="h3"
@@ -140,123 +94,29 @@ export function About() {
             </Reveal>
           </motion.div>
 
-          {/* RIGHT COLUMN: Interactive Engineering Pillars Carousel */}
-          <div className="lg:col-span-6">
-            <Reveal direction="up" delay={0.2}>
-              <div className="relative rounded-3xl bg-card border border-border overflow-hidden p-6 sm:p-8 shadow-xl">
-                {/* Carousel Header Controls */}
-                <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
-                  <div>
-                    <span className="font-mono text-xs uppercase tracking-widest text-accent font-bold block">
-                      CORE CRAFT // PILLAR {current.num} OF 04
-                    </span>
-                    <h4 className="font-montserrat font-bold text-lg text-foreground mt-0.5">
-                      Engineering Foundations
-                    </h4>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={handlePrev}
-                      aria-label="Previous pillar"
-                      className="p-2 rounded-xl bg-secondary border border-border hover:bg-muted text-foreground transition-all cursor-pointer active:scale-95"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={handleNext}
-                      aria-label="Next pillar"
-                      className="p-2 rounded-xl bg-secondary border border-border hover:bg-muted text-foreground transition-all cursor-pointer active:scale-95"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Animated Carousel Card Content */}
-                <div className="relative min-h-[360px] flex flex-col justify-between">
-                  <AnimatePresence mode="wait" custom={direction}>
-                    <motion.div
-                      key={current.id}
-                      custom={direction}
-                      initial={{ opacity: 0, x: direction > 0 ? 40 : -40 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: direction > 0 ? -40 : 40 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="space-y-5"
-                    >
-                      {/* Image Preview Banner */}
-                      <div className="relative h-44 rounded-2xl overflow-hidden border border-border/80 group">
-                        <Image
-                          src={current.image}
-                          alt={current.title}
-                          fill
-                          unoptimized
-                          sizes="(max-width: 768px) 100vw, 500px"
-                          className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent flex items-end p-4 z-10">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-accent/25 backdrop-blur-md border border-accent/40 flex items-center justify-center text-accent">
-                              <Icon className="w-5 h-5" />
-                            </div>
-                            <div>
-                              <span className="font-mono text-[10px] text-accent uppercase tracking-wider block font-bold">
-                                {current.category}
-                              </span>
-                              <h5 className="font-montserrat font-extrabold text-base text-white">
-                                {current.title}
-                              </h5>
-                            </div>
-                          </div>
-                        </div>
+          {/* Pillars grid with Parallax */}
+          <motion.div style={{ y: gridY }} className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {values.map((v, i) => {
+              const Icon = v.icon;
+              return (
+                <Reveal key={v.title} delay={i * 0.1} direction="up">
+                  <div className="p-7 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs group h-full flex flex-col justify-between">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent mb-4 group-hover:scale-105 transition-transform">
+                        <Icon className="w-5 h-5" />
                       </div>
-
-                      {/* Summary Text */}
-                      <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-                        {current.summary}
+                      <h3 className="font-montserrat font-bold text-base text-foreground mb-2">
+                        {v.title}
+                      </h3>
+                      <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                        {v.text}
                       </p>
-
-                      {/* Highlights Badges */}
-                      <div className="flex flex-wrap gap-2 pt-1">
-                        {current.highlights.map((h, hIdx) => (
-                          <span
-                            key={hIdx}
-                            className="font-mono text-[11px] font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border/80"
-                          >
-                            {h}
-                          </span>
-                        ))}
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Carousel Progress Dots & Selector Thumbnails */}
-                  <div className="flex items-center justify-between pt-6 border-t border-border/60 mt-4">
-                    <div className="flex items-center gap-2">
-                      {PILLARS.map((p, dotIdx) => (
-                        <button
-                          key={p.id}
-                          onClick={() => {
-                            setDirection(dotIdx > activePillar ? 1 : -1);
-                            setActivePillar(dotIdx);
-                          }}
-                          aria-label={`Go to pillar ${p.num}`}
-                          className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                            activePillar === dotIdx
-                              ? "w-8 bg-accent"
-                              : "w-2 bg-border hover:bg-muted-foreground/40"
-                          }`}
-                        />
-                      ))}
                     </div>
-                    <span className="font-mono text-xs text-muted-foreground font-semibold">
-                      0{activePillar + 1} / 0{PILLARS.length}
-                    </span>
                   </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
+                </Reveal>
+              );
+            })}
+          </motion.div>
         </div>
       </div>
     </section>
