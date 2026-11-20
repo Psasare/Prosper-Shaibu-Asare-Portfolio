@@ -45,32 +45,43 @@ export function Hero() {
               </span>
             </div>
 
-            {/* Main Headline: Bold Montserrat with editorial serif accent, zero gradient text */}
-            <h1 className="font-montserrat text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground leading-[1.12]">
-              Full-Stack Engineering,{" "}
-              <span className="font-serif italic font-normal text-accent">
+            {/* Main Headline: Rich Typographic Dialogue */}
+            <h1 className="font-montserrat text-4xl sm:text-5xl lg:text-[3.4rem] font-black tracking-tight text-foreground leading-[1.12]">
+              <span className="uppercase">Full-Stack Engineering</span>
+              <span className="text-muted-foreground/60 font-normal">, </span>
+              <span className="font-serif italic font-normal text-accent inline-block transition-transform duration-300 hover:-translate-y-0.5">
                 Web Designing
               </span>{" "}
-              &{" "}
-              <span className="text-foreground">
-                Mobile Application Development
+              <span className="text-muted-foreground/60 font-normal">&amp; </span>
+              <span className="relative inline-block">
+                <span className="uppercase">Mobile Application</span>
+                <span className="hidden sm:inline-block font-mono text-xs font-semibold text-accent tracking-widest lowercase ml-2 px-2 py-0.5 rounded-md border border-accent/30 bg-accent/10 align-middle">
+                  [eng]
+                </span>
               </span>
               .
             </h1>
 
-            {/* Intro Subtitle: Plus Jakarta Sans with dynamic rotating typography */}
-            <p className="font-sans text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-              Hi, I&apos;m <span className="font-semibold text-foreground">Prosper Shaibu Asare</span>.
-              I architect{" "}
+            {/* Intro Subtitle: Refined editorial typography with distinctive serif italic discipline highlight */}
+            <p className="font-sans text-lg sm:text-xl lg:text-[1.32rem] text-muted-foreground max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+              Hi, I&apos;m{" "}
+              <span className="font-montserrat font-bold text-foreground tracking-tight underline decoration-accent/40 decoration-2 underline-offset-4">
+                Prosper Shaibu Asare
+              </span>
+              . I architect{" "}
               <RotatingWords
                 words={[
-                  "accessible, modern UI systems",
-                  "reliable full-stack web platforms",
                   "performant React Native mobile apps",
-                  "resilient healthcare IT architectures",
+                  "accessible modern UI systems",
+                  "resilient full-stack web platforms",
+                  "hospital network infrastructure",
                 ]}
+                className="text-xl sm:text-2xl lg:text-[1.5rem]"
               />
-              , engineered for precision, speed, and real-world scale.
+              , engineered for{" "}
+              <span className="text-foreground font-semibold">precision</span>,{" "}
+              <span className="text-foreground font-semibold">speed</span>, and{" "}
+              <span className="text-foreground font-semibold">real-world scale</span>.
             </p>
 
             {/* Action Buttons with Montserrat font */}

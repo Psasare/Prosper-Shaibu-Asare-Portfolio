@@ -133,24 +133,28 @@ export function RotatingWords({ words, className = "" }: RotatingWordsProps) {
   React.useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
-    }, 3200);
+    }, 3400);
     return () => clearInterval(timer);
   }, [words.length]);
 
   return (
-    <span className="inline-flex items-baseline align-baseline relative mx-1">
-      <AnimatePresence mode="wait" initial={false}>
+    <motion.span
+      layout="position"
+      transition={{ layout: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } }}
+      className="inline-flex relative items-baseline align-baseline mx-1 overflow-visible"
+    >
+      <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={index}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className={`font-sans font-semibold text-foreground border-b-2 border-accent pb-0.5 inline-block whitespace-nowrap ${className}`}
+          initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className={`font-serif italic font-normal text-accent border-b border-accent/40 pb-0.5 inline-block whitespace-nowrap ${className}`}
         >
           {words[index]}
         </motion.span>
       </AnimatePresence>
-    </span>
+    </motion.span>
   );
 }
