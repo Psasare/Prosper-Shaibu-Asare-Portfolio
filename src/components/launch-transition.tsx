@@ -31,12 +31,12 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     "Enterprise Infrastructure & Systems",
   ];
 
-  // ~5-second smooth progression (Apple calm & deliberate pace)
+  // 10-second smooth progression (cinematic, deliberate pace)
   React.useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const totalDuration = 4800; // ~5 seconds total
+    const totalDuration = 10000; // 10 seconds total
     const startTime = Date.now();
 
     const interval = setInterval(() => {
@@ -59,7 +59,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
         setTimeout(() => {
           setIsDone(true);
           document.body.style.overflow = originalOverflow;
-        }, 400);
+        }, 500);
       }
     }, 20);
 
@@ -74,7 +74,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     const safetyTimeout = setTimeout(() => {
       setIsDone(true);
       document.body.style.overflow = originalOverflow;
-    }, 8000);
+    }, 14000);
 
     return () => {
       clearInterval(interval);

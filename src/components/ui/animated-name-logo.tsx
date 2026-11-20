@@ -198,12 +198,12 @@ function CodeWalkerBot({
             state === "celebrating"
               ? { rotate: -125 }
               : state === "jumping"
-              ? { rotate: -50 }
-              : { rotate: [-24, 24, -24] }
+                ? { rotate: -50 }
+                : { rotate: [-24, 24, -24] }
           }
           transition={
             state === "walking"
-              ? { repeat: Infinity, duration: 0.4, ease: "easeInOut" }
+              ? { repeat: Infinity, duration: 0.48, ease: "easeInOut" }
               : { duration: 0.3 }
           }
         >
@@ -218,12 +218,12 @@ function CodeWalkerBot({
             state === "celebrating"
               ? { rotate: -135 }
               : state === "jumping"
-              ? { rotate: 25 }
-              : { rotate: [18, -18, 18] }
+                ? { rotate: 25 }
+                : { rotate: [18, -18, 18] }
           }
           transition={
             state === "walking"
-              ? { repeat: Infinity, duration: 0.4, ease: "easeInOut" }
+              ? { repeat: Infinity, duration: 0.48, ease: "easeInOut" }
               : { duration: 0.3 }
           }
         >
@@ -261,12 +261,12 @@ function CodeWalkerBot({
             state === "celebrating"
               ? { rotate: 0 }
               : state === "jumping"
-              ? { rotate: -40 }
-              : { rotate: [28, -28, 28] }
+                ? { rotate: -40 }
+                : { rotate: [28, -28, 28] }
           }
           transition={
             state === "walking"
-              ? { repeat: Infinity, duration: 0.4, ease: "easeInOut" }
+              ? { repeat: Infinity, duration: 0.48, ease: "easeInOut" }
               : { duration: 0.3 }
           }
         >
@@ -290,12 +290,12 @@ function CodeWalkerBot({
             state === "celebrating"
               ? { rotate: 0 }
               : state === "jumping"
-              ? { rotate: 40 }
-              : { rotate: [-28, 28, -28] }
+                ? { rotate: 40 }
+                : { rotate: [-28, 28, -28] }
           }
           transition={
             state === "walking"
-              ? { repeat: Infinity, duration: 0.4, ease: "easeInOut" }
+              ? { repeat: Infinity, duration: 0.48, ease: "easeInOut" }
               : { duration: 0.3 }
           }
         >
@@ -324,17 +324,17 @@ function CodeWalkerBot({
  * and strikes a celebratory pose with neon signature lines.
  */
 export function AnimatedNameLogo({ className }: AnimatedNameLogoProps) {
-  // Timeline phases:
-  // 0.0s - 1.75s: Row 1 Walk
-  // 1.75s - 2.15s: Jumping transition
-  // 2.15s - 3.75s: Row 2 Walk
-  // 3.75s+: Celebrating pose
+  // Timeline phases calibrated for a luxurious 10-second launch experience:
+  // 0.0s - 3.8s: Row 1 Walk & Spell (PROSPER)
+  // 3.8s - 4.6s: Agile Jumping transition
+  // 4.6s - 8.2s: Row 2 Walk & Spell (SHAIBU ASARE)
+  // 8.2s - 10.0s+: Triumphant Celebration & Full Glow
   const [phase, setPhase] = React.useState<"row1" | "jumping" | "row2" | "celebrating">("row1");
 
   React.useEffect(() => {
-    const t1 = setTimeout(() => setPhase("jumping"), 1750);
-    const t2 = setTimeout(() => setPhase("row2"), 2150);
-    const t3 = setTimeout(() => setPhase("celebrating"), 3750);
+    const t1 = setTimeout(() => setPhase("jumping"), 3800);
+    const t2 = setTimeout(() => setPhase("row2"), 4600);
+    const t3 = setTimeout(() => setPhase("celebrating"), 8200);
 
     return () => {
       clearTimeout(t1);
@@ -345,40 +345,40 @@ export function AnimatedNameLogo({ className }: AnimatedNameLogoProps) {
 
   // Letters configuration with synchronized activation timestamps (in seconds)
   const row1Letters = [
-    { char: "P", time: 0.35 },
-    { char: "R", time: 0.55 },
-    { char: "O", time: 0.75 },
-    { char: "S", time: 0.95 },
-    { char: "P", time: 1.15 },
-    { char: "E", time: 1.35 },
-    { char: "R", time: 1.55 },
+    { char: "P", time: 0.8 },
+    { char: "R", time: 1.2 },
+    { char: "O", time: 1.6 },
+    { char: "S", time: 2.0 },
+    { char: "P", time: 2.4 },
+    { char: "E", time: 2.8 },
+    { char: "R", time: 3.2 },
   ];
 
   const shaibuLetters = [
-    { char: "S", time: 2.22 },
-    { char: "H", time: 2.36 },
-    { char: "A", time: 2.50 },
-    { char: "I", time: 2.64 },
-    { char: "B", time: 2.78 },
-    { char: "U", time: 2.92 },
+    { char: "S", time: 4.8 },
+    { char: "H", time: 5.1 },
+    { char: "A", time: 5.4 },
+    { char: "I", time: 5.7 },
+    { char: "B", time: 6.0 },
+    { char: "U", time: 6.3 },
   ];
 
   const asareLetters = [
-    { char: "A", time: 3.12 },
-    { char: "S", time: 3.26 },
-    { char: "A", time: 3.40 },
-    { char: "R", time: 3.54 },
-    { char: "E", time: 3.68 },
+    { char: "A", time: 6.7 },
+    { char: "S", time: 7.0 },
+    { char: "A", time: 7.3 },
+    { char: "R", time: 7.6 },
+    { char: "E", time: 7.9 },
   ];
 
   // Floating binary/code sparks that dissipate into the trail
   const sparks = [
-    { glyph: "0", x: "14%", y: -18, delay: 0.6 },
-    { glyph: "1", x: "42%", y: -24, delay: 1.0 },
-    { glyph: "</>", x: "72%", y: -20, delay: 1.4 },
-    { glyph: "{ }", x: "28%", y: -16, delay: 2.6 },
-    { glyph: "1", x: "65%", y: -22, delay: 3.3 },
-    { glyph: "0", x: "88%", y: -18, delay: 3.6 },
+    { glyph: "0", x: "14%", y: -18, delay: 1.2 },
+    { glyph: "1", x: "42%", y: -24, delay: 2.0 },
+    { glyph: "</>", x: "72%", y: -20, delay: 2.8 },
+    { glyph: "{ }", x: "28%", y: -16, delay: 5.4 },
+    { glyph: "1", x: "65%", y: -22, delay: 6.8 },
+    { glyph: "0", x: "88%", y: -18, delay: 7.5 },
   ];
 
   return (
@@ -404,29 +404,29 @@ export function AnimatedNameLogo({ className }: AnimatedNameLogoProps) {
               animate={
                 phase === "row1"
                   ? {
-                      left: ["-45px", "calc(100% - 15px)"],
-                      opacity: [0, 1, 1],
-                      scale: [0.8, 1, 1],
-                    }
+                    left: ["-45px", "calc(100% - 15px)"],
+                    opacity: [0, 1, 1],
+                    scale: [0.8, 1, 1],
+                  }
                   : {
-                      left: "calc(100% - 15px)",
-                      x: [0, 20, 10],
-                      y: [0, -25, 70],
-                      opacity: [1, 1, 0],
-                      scale: [1, 1.1, 0.9],
-                    }
+                    left: "calc(100% - 15px)",
+                    x: [0, 20, 10],
+                    y: [0, -25, 70],
+                    opacity: [1, 1, 0],
+                    scale: [1, 1.1, 0.9],
+                  }
               }
               transition={
                 phase === "row1"
                   ? {
-                      left: { duration: 1.45, ease: "easeInOut", delay: 0.25 },
-                      opacity: { duration: 0.25 },
-                      scale: { duration: 0.3 },
-                    }
+                    left: { duration: 3.2, ease: "easeInOut", delay: 0.5 },
+                    opacity: { duration: 0.3 },
+                    scale: { duration: 0.35 },
+                  }
                   : {
-                      duration: 0.4,
-                      ease: "easeInOut",
-                    }
+                    duration: 0.8,
+                    ease: "easeInOut",
+                  }
               }
               className="absolute -top-10 sm:-top-13 md:-top-15 z-30 pointer-events-none"
             >
@@ -503,8 +503,8 @@ export function AnimatedNameLogo({ className }: AnimatedNameLogoProps) {
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ scaleX: 1, opacity: 1 }}
             transition={{
-              scaleX: { duration: 1.45, delay: 0.3, ease: "easeInOut" },
-              opacity: { duration: 0.3, delay: 0.3 },
+              scaleX: { duration: 3.2, delay: 0.55, ease: "easeInOut" },
+              opacity: { duration: 0.35, delay: 0.55 },
             }}
             style={{ transformOrigin: "left center" }}
             className="w-full h-1 sm:h-1.5 rounded-full bg-accent mt-2 sm:mt-3 shadow-[0_0_16px_rgba(59,130,246,0.65)]"
@@ -526,28 +526,28 @@ export function AnimatedNameLogo({ className }: AnimatedNameLogoProps) {
               animate={
                 phase === "row2"
                   ? {
-                      left: ["-40px", "calc(100% - 15px)"],
-                      y: [-25, 0],
-                      opacity: [0, 1, 1],
-                      scale: [0.9, 1, 1],
-                    }
+                    left: ["-40px", "calc(100% - 15px)"],
+                    y: [-25, 0],
+                    opacity: [0, 1, 1],
+                    scale: [0.9, 1, 1],
+                  }
                   : {
-                      left: "calc(100% - 15px)",
-                      y: [0, -6, 0],
-                      opacity: 1,
-                      scale: 1,
-                    }
+                    left: "calc(100% - 15px)",
+                    y: [0, -6, 0],
+                    opacity: 1,
+                    scale: 1,
+                  }
               }
               transition={
                 phase === "row2"
                   ? {
-                      left: { duration: 1.55, ease: "easeInOut" },
-                      y: { duration: 0.35, ease: "easeOut" },
-                      opacity: { duration: 0.2 },
-                    }
+                    left: { duration: 3.5, ease: "easeInOut" },
+                    y: { duration: 0.5, ease: "easeOut" },
+                    opacity: { duration: 0.3 },
+                  }
                   : {
-                      y: { repeat: Infinity, duration: 1.8, ease: "easeInOut" },
-                    }
+                    y: { repeat: Infinity, duration: 1.8, ease: "easeInOut" },
+                  }
               }
               className="absolute -top-10 sm:-top-13 md:-top-15 z-30 pointer-events-none"
             >
@@ -626,8 +626,8 @@ export function AnimatedNameLogo({ className }: AnimatedNameLogoProps) {
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{ scaleX: 1, opacity: 1 }}
                 transition={{
-                  scaleX: { duration: 0.8, delay: 2.2, ease: "easeInOut" },
-                  opacity: { duration: 0.25, delay: 2.2 },
+                  scaleX: { duration: 1.8, delay: 4.7, ease: "easeInOut" },
+                  opacity: { duration: 0.3, delay: 4.7 },
                 }}
                 style={{ transformOrigin: "left center" }}
                 className="w-full h-0.5 sm:h-1 rounded-full bg-accent/90 mt-1.5 sm:mt-2 shadow-[0_0_12px_rgba(59,130,246,0.5)]"
@@ -678,8 +678,8 @@ export function AnimatedNameLogo({ className }: AnimatedNameLogoProps) {
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{ scaleX: 1, opacity: 1 }}
                 transition={{
-                  scaleX: { duration: 0.7, delay: 3.1, ease: "easeInOut" },
-                  opacity: { duration: 0.25, delay: 3.1 },
+                  scaleX: { duration: 1.5, delay: 6.6, ease: "easeInOut" },
+                  opacity: { duration: 0.3, delay: 6.6 },
                 }}
                 style={{ transformOrigin: "left center" }}
                 className="w-full h-0.5 sm:h-1 rounded-full bg-accent/90 mt-1.5 sm:mt-2 shadow-[0_0_12px_rgba(59,130,246,0.5)]"
