@@ -8,7 +8,6 @@ import {
   Smartphone,
   Workflow,
   CheckCircle2,
-  Sparkles,
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
@@ -269,13 +268,13 @@ export function Skills() {
         <Reveal direction="up" className="mb-16 md:mb-20">
           <div className="relative w-full flex flex-col items-center justify-center">
             {/* Header Readout Badge */}
-            <div className="text-center mb-6 space-y-2">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-muted border border-border text-foreground font-mono text-[11px] font-bold uppercase tracking-widest shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-accent" />
-                <span>Interactive 3D Stack Constellation</span>
+            <div className="text-center mb-6 space-y-2.5">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card border border-border text-foreground font-montserrat text-xs font-bold uppercase tracking-wider shadow-2xs">
+                <Cpu className="w-3.5 h-3.5 text-accent" />
+                <span>Technical Architecture & Frameworks</span>
               </div>
-              <p className="font-sans text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
-                Drag to rotate the 3D Fibonacci sphere &bull; Click any technology logo for details
+              <p className="font-sans text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
+                Explore the core frameworks, runtime environments, and infrastructure tooling applied across my full-stack web and mobile systems.
               </p>
             </div>
 

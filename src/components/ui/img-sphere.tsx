@@ -4,18 +4,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { X } from 'lucide-react';
 
-/**
- * SphereImageGrid - Interactive 3D Image Sphere Component
- *
- * A React TypeScript component that displays images arranged in a 3D sphere layout.
- * Images are distributed using Fibonacci sphere distribution for optimal coverage.
- * Supports drag-to-rotate, momentum physics, auto-rotation, and modal image viewing.
- */
-
-// ==========================================
-// TYPES & INTERFACES
-// ==========================================
-
 export interface Position3D {
   x: number;
   y: number;
@@ -67,36 +55,14 @@ interface RotationState {
   z: number;
 }
 
-interface VelocityState {
-  x: number;
-  y: number;
-}
-
 interface MousePosition {
   x: number;
   y: number;
 }
 
-// ==========================================
-// CONSTANTS & CONFIGURATION
-// ==========================================
-
 const SPHERE_MATH = {
   degreesToRadians: (degrees: number): number => degrees * (Math.PI / 180),
   radiansToDegrees: (radians: number): number => radians * (180 / Math.PI),
-
-  sphericalToCartesian: (radius: number, theta: number, phi: number): Position3D => ({
-    x: radius * Math.sin(phi) * Math.cos(theta),
-    y: radius * Math.cos(phi),
-    z: radius * Math.sin(phi) * Math.sin(theta)
-  }),
-
-  calculateDistance: (pos: Position3D, center: Position3D = { x: 0, y: 0, z: 0 }): number => {
-    const dx = pos.x - center.x;
-    const dy = pos.y - center.y;
-    const dz = pos.z - center.z;
-    return Math.sqrt(dx * dx + dy * dy + dz * dz);
-  },
 
   normalizeAngle: (angle: number): number => {
     while (angle > 180) angle -= 360;
@@ -105,47 +71,44 @@ const SPHERE_MATH = {
   }
 };
 
-// ==========================================
-// MAIN COMPONENT
-// ==========================================
-
 export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   images = [],
-  containerSize = 400,
-  sphereRadius = 200,
-  dragSensitivity = 0.5,
-  momentumDecay = 0.95,
-  maxRotationSpeed = 5,
-  baseImageScale = 0.12,
-  hoverScale = 1.2,
+  containerSize = 580,
+  sphereRadius = 225,
+  dragSensitivity = 0.65,
+  momentumDecay = 0.94,
+  maxRotationSpeed = 6,
+  baseImageScale = 0.13,
+  hoverScale = 1.25,
   perspective = 1000,
-  autoRotate = false,
-  autoRotateSpeed = 0.3,
+  autoRotate = true,
+  autoRotateSpeed = 0.22,
   className = '',
   onSelectImage,
   onHoverImage,
 }) => {
-
-  // ==========================================
-  // STATE & REFS
-  // ==========================================
-
   const [isMounted, setIsMounted] = useState<boolean>(false);
-  const [rotation, setRotation] = useState<RotationState>({ x: 15, y: 15, z: 0 });
-  const [velocity, setVelocity] = useState<VelocityState>({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [rotation, setRotation] = useState<RotationState>({ x: 12, y: 15, z: 0 });
   const [selectedImage, setSelectedImage] = useState<ImageData | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [responsiveSize, setResponsiveSize] = useState<number>(containerSize);
 
+  // Animation & Physics Tracking in Refs (Guarantees zero frame drops or effect restarts)
+  const rotationRef = useRef<RotationState>({ x: 12, y: 15, z: 0 });
+  const velocityRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const isDraggingRef = useRef<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const lastMousePos = useRef<MousePosition>({ x: 0, y: 0 });
   const dragStartPos = useRef<MousePosition>({ x: 0, y: 0 });
   const isClickCandidate = useRef<boolean>(true);
-  const animationFrame = useRef<number | null>(null);
 
-  const [responsiveSize, setResponsiveSize] = useState<number>(containerSize);
+  // Mounting effect (defers state update cleanly to avoid cascading render lint error)
+  useEffect(() => {
+    const timer = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
-  // Keyboard navigation: Escape key closes modal
+  // Modal Escape key listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -157,6 +120,7 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onSelectImage]);
 
+  // Responsive container sizing
   useEffect(() => {
     const updateSize = () => {
       if (typeof window !== 'undefined') {
@@ -169,575 +133,354 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
     return () => window.removeEventListener('resize', updateSize);
   }, [containerSize]);
 
-  // ==========================================
-  // COMPUTED VALUES
-  // ==========================================
-
-  const actualSphereRadius = sphereRadius 
-    ? Math.min(sphereRadius, responsiveSize * 0.42) 
-    : responsiveSize * 0.45;
+  const actualSphereRadius = sphereRadius
+    ? Math.min(sphereRadius, responsiveSize * 0.42)
+    : responsiveSize * 0.44;
   const baseImageSize = responsiveSize * baseImageScale;
 
-  // ==========================================
-  // UTILITY FUNCTIONS
-  // ==========================================
-
-  const generateSpherePositions = useCallback((): SphericalPosition[] => {
+  // Compute fixed mathematical Fibonacci sphere distribution once
+  const imagePositions = useMemo((): SphericalPosition[] => {
     const positions: SphericalPosition[] = [];
     const imageCount = images.length;
+    if (imageCount === 0) return positions;
 
-    // Use Fibonacci sphere distribution for even coverage
     const goldenRatio = (1 + Math.sqrt(5)) / 2;
     const angleIncrement = 2 * Math.PI / goldenRatio;
 
     for (let i = 0; i < imageCount; i++) {
-      // Fibonacci sphere distribution
       const t = i / imageCount;
       const inclination = Math.acos(1 - 2 * t);
       const azimuth = angleIncrement * i;
 
-      // Convert to degrees and focus on front hemisphere
       let phi = inclination * (180 / Math.PI);
-      let theta = (azimuth * (180 / Math.PI)) % 360;
+      const theta = (azimuth * (180 / Math.PI)) % 360;
 
-      // Better pole coverage - reach poles but avoid extreme mathematical issues
-      const poleBonus = Math.pow(Math.abs(phi - 90) / 90, 0.6) * 35; // Moderate boost toward poles
-      if (phi < 90) {
-        phi = Math.max(5, phi - poleBonus); // Reach closer to top pole (15° minimum)
-      } else {
-        phi = Math.min(175, phi + poleBonus); // Reach closer to bottom pole (165° maximum)
-      }
-
-      // Map to fuller vertical range - covers poles but avoids extremes
-      phi = 15 + (phi / 180) * 150; // Map to 15-165 degrees for pole coverage with stability
-
-      // Add slight randomization to prevent perfect patterns
-      const randomOffset = (Math.random() - 0.5) * 20;
-      theta = (theta + randomOffset) % 360;
-      phi = Math.max(0, Math.min(180, phi + (Math.random() - 0.5) * 10));
+      // Gentle pole adjustment for even coverage
+      phi = 18 + (phi / 180) * 144;
 
       positions.push({
-        theta: theta,
-        phi: phi,
-        radius: actualSphereRadius
+        theta,
+        phi,
+        radius: actualSphereRadius,
       });
     }
 
     return positions;
   }, [images.length, actualSphereRadius]);
 
-  const imagePositions = useMemo(() => generateSpherePositions(), [generateSpherePositions]);
+  // Buttery-smooth mathematical world positions projection
+  const worldPositions = useMemo((): WorldPosition[] => {
+    const rotXRad = SPHERE_MATH.degreesToRadians(rotation.x);
+    const rotYRad = SPHERE_MATH.degreesToRadians(rotation.y);
 
-  const calculateWorldPositions = useCallback((): WorldPosition[] => {
-    const positions = imagePositions.map((pos, index) => {
-      // Apply rotation using proper 3D rotation matrices
+    const cosY = Math.cos(rotYRad);
+    const sinY = Math.sin(rotYRad);
+    const cosX = Math.cos(rotXRad);
+    const sinX = Math.sin(rotXRad);
+
+    return imagePositions.map((pos, index) => {
       const thetaRad = SPHERE_MATH.degreesToRadians(pos.theta);
       const phiRad = SPHERE_MATH.degreesToRadians(pos.phi);
-      const rotXRad = SPHERE_MATH.degreesToRadians(rotation.x);
-      const rotYRad = SPHERE_MATH.degreesToRadians(rotation.y);
 
-      // Initial position on sphere
-      let x = pos.radius * Math.sin(phiRad) * Math.cos(thetaRad);
-      let y = pos.radius * Math.cos(phiRad);
-      let z = pos.radius * Math.sin(phiRad) * Math.sin(thetaRad);
+      const sinPhi = Math.sin(phiRad);
+      const cosPhi = Math.cos(phiRad);
 
-      // Apply Y-axis rotation (horizontal drag)
-      const x1 = x * Math.cos(rotYRad) + z * Math.sin(rotYRad);
-      const z1 = -x * Math.sin(rotYRad) + z * Math.cos(rotYRad);
+      // Base spherical coordinates
+      let x = pos.radius * sinPhi * Math.cos(thetaRad);
+      let y = pos.radius * cosPhi;
+      let z = pos.radius * sinPhi * Math.sin(thetaRad);
+
+      // 3D Yaw Rotation (around Y axis)
+      const x1 = x * cosY + z * sinY;
+      const z1 = -x * sinY + z * cosY;
       x = x1;
       z = z1;
 
-      // Apply X-axis rotation (vertical drag)
-      const y2 = y * Math.cos(rotXRad) - z * Math.sin(rotXRad);
-      const z2 = y * Math.sin(rotXRad) + z * Math.cos(rotXRad);
+      // 3D Pitch Rotation (around X axis)
+      const y2 = y * cosX - z * sinX;
+      const z2 = y * sinX + z * cosX;
       y = y2;
       z = z2;
 
-      const worldPos: Position3D = { x, y, z };
+      // Smooth, continuous depth scaling (never stammers or glitches)
+      const depthRatio = (z + actualSphereRadius) / (2 * actualSphereRadius); // 0 (back) to 1 (front)
+      const scale = 0.65 + 0.55 * depthRatio;
 
-      // Calculate visibility with smooth fade zones
-      const fadeZoneStart = -10;  // Start fading out
-      const fadeZoneEnd = -30;    // Completely hidden
-      const isVisible = worldPos.z > fadeZoneEnd;
-
-      // Calculate fade opacity based on Z position
-      let fadeOpacity = 1;
-      if (worldPos.z <= fadeZoneStart) {
-        // Linear fade from 1 to 0 as Z goes from fadeZoneStart to fadeZoneEnd
-        fadeOpacity = Math.max(0, (worldPos.z - fadeZoneEnd) / (fadeZoneStart - fadeZoneEnd));
-      }
-
-      // Check if this image originated from a pole position
-      const isPoleImage = pos.phi < 30 || pos.phi > 150; // Images from extreme angles
-
-      // Calculate distance from center for scaling (in 2D screen space)
-      const distanceFromCenter = Math.sqrt(worldPos.x * worldPos.x + worldPos.y * worldPos.y);
-      const maxDistance = actualSphereRadius;
-      const distanceRatio = Math.min(distanceFromCenter / maxDistance, 1);
-
-      // Scale based on distance from center - be more forgiving for pole images
-      const distancePenalty = isPoleImage ? 0.4 : 0.7; // Less penalty for pole images
-      const centerScale = Math.max(0.3, 1 - distanceRatio * distancePenalty);
-
-      // Also consider Z-depth for additional scaling
-      const depthScale = (worldPos.z + actualSphereRadius) / (2 * actualSphereRadius);
-      const scale = centerScale * Math.max(0.5, 0.8 + depthScale * 0.3);
+      // Smooth depth opacity: front nodes 100%, rear nodes gently fade
+      const fadeOpacity = z > -actualSphereRadius * 0.35
+        ? 1
+        : Math.max(0.18, 0.18 + 0.82 * ((z + actualSphereRadius) / (actualSphereRadius * 0.65)));
 
       return {
-        ...worldPos,
+        x,
+        y,
+        z,
         scale,
-        zIndex: Math.round(1000 + worldPos.z),
-        isVisible,
+        zIndex: Math.round(1000 + z),
+        isVisible: z > -actualSphereRadius * 0.95,
         fadeOpacity,
-        originalIndex: index
+        originalIndex: index,
       };
     });
+  }, [imagePositions, rotation, actualSphereRadius]);
 
-    // Apply collision detection to prevent overlaps
-    const adjustedPositions = [...positions];
+  // Single Continuous 60-120 FPS Animation Loop (Immune to React re-render lag)
+  useEffect(() => {
+    let animationFrameId: number;
+    let lastTime = performance.now();
 
-    for (let i = 0; i < adjustedPositions.length; i++) {
-      const pos = adjustedPositions[i];
-      if (!pos.isVisible) continue;
+    const loop = (now: number) => {
+      const delta = Math.min((now - lastTime) / 16.67, 2.0); // Normalize to 60fps delta
+      lastTime = now;
 
-      let adjustedScale = pos.scale;
-      const imageSize = baseImageSize * adjustedScale;
+      if (!isDraggingRef.current) {
+        // Smooth inertial momentum decay
+        velocityRef.current.x *= Math.pow(momentumDecay, delta);
+        velocityRef.current.y *= Math.pow(momentumDecay, delta);
 
-      // Check for overlaps with other visible images
-      for (let j = 0; j < adjustedPositions.length; j++) {
-        if (i === j) continue;
-
-        const other = adjustedPositions[j];
-        if (!other.isVisible) continue;
-
-        const otherSize = baseImageSize * other.scale;
-
-        // Calculate 2D distance between images on screen
-        const dx = pos.x - other.x;
-        const dy = pos.y - other.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        // Minimum distance to prevent overlap (with more generous padding)
-        const minDistance = (imageSize + otherSize) / 2 + 25;
-
-        if (distance < minDistance && distance > 0) {
-          // More aggressive scale reduction to prevent overlap
-          const overlap = minDistance - distance;
-          const reductionFactor = Math.max(0.4, 1 - (overlap / minDistance) * 0.6);
-          adjustedScale = Math.min(adjustedScale, adjustedScale * reductionFactor);
+        if (autoRotate) {
+          rotationRef.current.y += autoRotateSpeed * delta;
         }
+
+        rotationRef.current.y += Math.max(-maxRotationSpeed, Math.min(maxRotationSpeed, velocityRef.current.y)) * delta;
+        rotationRef.current.x += Math.max(-maxRotationSpeed, Math.min(maxRotationSpeed, velocityRef.current.x)) * delta;
+
+        // Pitch clamp prevents disorienting upside-down flip
+        rotationRef.current.x = Math.max(-65, Math.min(65, rotationRef.current.x));
       }
 
-      adjustedPositions[i] = {
-        ...pos,
-        scale: Math.max(0.25, adjustedScale) // Ensure minimum scale
-      };
-    }
+      setRotation({
+        x: rotationRef.current.x,
+        y: rotationRef.current.y,
+        z: 0,
+      });
 
-    return adjustedPositions;
-  }, [imagePositions, rotation, actualSphereRadius, baseImageSize]);
+      animationFrameId = requestAnimationFrame(loop);
+    };
 
-  const clampRotationSpeed = useCallback((speed: number): number => {
-    return Math.max(-maxRotationSpeed, Math.min(maxRotationSpeed, speed));
-  }, [maxRotationSpeed]);
+    animationFrameId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [autoRotate, autoRotateSpeed, momentumDecay, maxRotationSpeed]);
 
-  // ==========================================
-  // PHYSICS & MOMENTUM
-  // ==========================================
-
-  const updateMomentum = useCallback(() => {
-    if (isDragging) return;
-
-    setVelocity(prev => {
-      const newVelocity = {
-        x: prev.x * momentumDecay,
-        y: prev.y * momentumDecay
-      };
-
-      // Stop animation if velocity is too low and auto-rotate is off
-      if (!autoRotate && Math.abs(newVelocity.x) < 0.01 && Math.abs(newVelocity.y) < 0.01) {
-        return { x: 0, y: 0 };
-      }
-
-      return newVelocity;
-    });
-
-    setRotation(prev => {
-      let newY = prev.y;
-
-      // Add auto-rotation to Y axis (horizontal rotation)
-      if (autoRotate) {
-        newY += autoRotateSpeed;
-      }
-
-      // Add momentum-based rotation
-      newY += clampRotationSpeed(velocity.y);
-
-      return {
-        x: SPHERE_MATH.normalizeAngle(prev.x + clampRotationSpeed(velocity.x)),
-        y: SPHERE_MATH.normalizeAngle(newY),
-        z: prev.z
-      };
-    });
-  }, [isDragging, momentumDecay, velocity, clampRotationSpeed, autoRotate, autoRotateSpeed]);
-
-  // ==========================================
-  // EVENT HANDLERS
-  // ==========================================
-
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    setIsDragging(true);
-    setVelocity({ x: 0, y: 0 });
-    lastMousePos.current = { x: e.clientX, y: e.clientY };
-    dragStartPos.current = { x: e.clientX, y: e.clientY };
+  // Event Handlers for Drag & Interaction
+  const handlePointerDown = (clientX: number, clientY: number) => {
+    isDraggingRef.current = true;
+    velocityRef.current = { x: 0, y: 0 };
+    lastMousePos.current = { x: clientX, y: clientY };
+    dragStartPos.current = { x: clientX, y: clientY };
     isClickCandidate.current = true;
-  }, []);
+  };
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!isDragging) return;
+  const handlePointerMove = useCallback((clientX: number, clientY: number) => {
+    if (!isDraggingRef.current) return;
 
     const totalDist = Math.hypot(
-      e.clientX - dragStartPos.current.x,
-      e.clientY - dragStartPos.current.y
+      clientX - dragStartPos.current.x,
+      clientY - dragStartPos.current.y
     );
     if (totalDist > 6) {
       isClickCandidate.current = false;
     }
 
-    const deltaX = e.clientX - lastMousePos.current.x;
-    const deltaY = e.clientY - lastMousePos.current.y;
+    const deltaX = clientX - lastMousePos.current.x;
+    const deltaY = clientY - lastMousePos.current.y;
 
-    const rotationDelta = {
-      x: -deltaY * dragSensitivity,
-      y: deltaX * dragSensitivity
+    const rotDeltaX = -deltaY * dragSensitivity;
+    const rotDeltaY = deltaX * dragSensitivity;
+
+    rotationRef.current.x = Math.max(-65, Math.min(65, rotationRef.current.x + rotDeltaX));
+    rotationRef.current.y += rotDeltaY;
+
+    velocityRef.current = {
+      x: rotDeltaX,
+      y: rotDeltaY,
     };
 
-    setRotation(prev => ({
-      x: SPHERE_MATH.normalizeAngle(prev.x + clampRotationSpeed(rotationDelta.x)),
-      y: SPHERE_MATH.normalizeAngle(prev.y + clampRotationSpeed(rotationDelta.y)),
-      z: prev.z
-    }));
+    lastMousePos.current = { x: clientX, y: clientY };
+  }, [dragSensitivity]);
 
-    // Update velocity for momentum
-    setVelocity({
-      x: clampRotationSpeed(rotationDelta.x),
-      y: clampRotationSpeed(rotationDelta.y)
-    });
+  const handlePointerUp = () => {
+    isDraggingRef.current = false;
+  };
 
-    lastMousePos.current = { x: e.clientX, y: e.clientY };
-  }, [isDragging, dragSensitivity, clampRotationSpeed]);
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    const touch = e.touches[0];
-    setIsDragging(true);
-    setVelocity({ x: 0, y: 0 });
-    lastMousePos.current = { x: touch.clientX, y: touch.clientY };
-    dragStartPos.current = { x: touch.clientX, y: touch.clientY };
-    isClickCandidate.current = true;
-  }, []);
-
-  const handleTouchMove = useCallback((e: TouchEvent) => {
-    if (!isDragging) return;
-
-    const touch = e.touches[0];
-    const totalDist = Math.hypot(
-      touch.clientX - dragStartPos.current.x,
-      touch.clientY - dragStartPos.current.y
-    );
-    if (totalDist > 6) {
-      isClickCandidate.current = false;
-    }
-
-    const deltaX = touch.clientX - lastMousePos.current.x;
-    const deltaY = touch.clientY - lastMousePos.current.y;
-
-    const rotationDelta = {
-      x: -deltaY * dragSensitivity,
-      y: deltaX * dragSensitivity
-    };
-
-    setRotation(prev => ({
-      x: SPHERE_MATH.normalizeAngle(prev.x + clampRotationSpeed(rotationDelta.x)),
-      y: SPHERE_MATH.normalizeAngle(prev.y + clampRotationSpeed(rotationDelta.y)),
-      z: prev.z
-    }));
-
-    setVelocity({
-      x: clampRotationSpeed(rotationDelta.x),
-      y: clampRotationSpeed(rotationDelta.y)
-    });
-
-    lastMousePos.current = { x: touch.clientX, y: touch.clientY };
-  }, [isDragging, dragSensitivity, clampRotationSpeed]);
-
-  const handleTouchEnd = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  // ==========================================
-  // EFFECTS & LIFECYCLE
-  // ==========================================
-
+  // Bind Mouse & Touch to Container and Document
   useEffect(() => {
-    const frameId = requestAnimationFrame(() => {
-      setIsMounted(true);
-    });
-    return () => cancelAnimationFrame(frameId);
-  }, []);
-
-  useEffect(() => {
-    const animate = () => {
-      updateMomentum();
-      animationFrame.current = requestAnimationFrame(animate);
+    const onMouseMove = (e: MouseEvent) => {
+      handlePointerMove(e.clientX, e.clientY);
+    };
+    const onMouseUp = () => {
+      handlePointerUp();
     };
 
-    if (isMounted) {
-      animationFrame.current = requestAnimationFrame(animate);
-    }
-
-    return () => {
-      if (animationFrame.current) {
-        cancelAnimationFrame(animationFrame.current);
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
       }
     };
-  }, [isMounted, updateMomentum]);
+    const onTouchEnd = () => {
+      handlePointerUp();
+    };
 
-  useEffect(() => {
-    if (!isMounted) return;
-
-    const container = containerRef.current;
-    if (!container) return;
-
-    // Mouse events
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-
-    // Touch events
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('touchend', handleTouchEnd);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('touchmove', onTouchMove, { passive: true });
+    document.addEventListener('touchend', onTouchEnd);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
     };
-  }, [isMounted, handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
-
-  // ==========================================
-  // RENDER HELPERS
-  // ==========================================
-
-  // Calculate world positions once per render
-  const worldPositions = calculateWorldPositions();
+  }, [handlePointerMove]);
 
   const handleSelectImage = useCallback((image: ImageData) => {
     setSelectedImage(image);
     onSelectImage?.(image);
   }, [onSelectImage]);
 
-  const renderImageNode = useCallback((image: ImageData, index: number) => {
-    const position = worldPositions[index];
-
-    if (!position || !position.isVisible) return null;
-
-    const imageSize = baseImageSize * position.scale;
-    const isHovered = hoveredIndex === index;
-    const finalScale = isHovered ? Math.min(hoverScale, hoverScale / position.scale) : 1;
-
-    const onNodeAction = (e: React.SyntheticEvent) => {
-      if (isClickCandidate.current) {
-        e.stopPropagation();
-        handleSelectImage(image);
-      }
-    };
-
-    return (
+  return (
+    <div
+      ref={containerRef}
+      onMouseDown={(e) => handlePointerDown(e.clientX, e.clientY)}
+      onTouchStart={(e) => {
+        if (e.touches.length === 1) {
+          handlePointerDown(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }}
+      className={`relative select-none cursor-grab active:cursor-grabbing ${className}`}
+      style={{
+        width: `${responsiveSize}px`,
+        height: `${responsiveSize}px`,
+        perspective: `${perspective}px`,
+        overflow: 'visible',
+      }}
+    >
+      {/* 3D Rotational Node Space */}
       <div
-        key={image.id}
-        className="absolute cursor-pointer select-none transition-transform duration-200 ease-out"
+        className="w-full h-full relative"
         style={{
-          width: `${imageSize}px`,
-          height: `${imageSize}px`,
-          left: `${responsiveSize/2 + position.x}px`,
-          top: `${responsiveSize/2 + position.y}px`,
-          opacity: position.fadeOpacity,
-          transform: `translate(-50%, -50%) scale(${finalScale})`,
-          zIndex: position.zIndex
+          transformStyle: 'preserve-3d',
         }}
-        onMouseEnter={() => {
-          setHoveredIndex(index);
-          onHoverImage?.(image);
-        }}
-        onMouseLeave={() => {
-          setHoveredIndex(null);
-          onHoverImage?.(null);
-        }}
-        onPointerUp={onNodeAction}
-        onClick={onNodeAction}
       >
-        <div className="relative w-full h-full rounded-full overflow-hidden shadow-md hover:shadow-xl border border-neutral-200/90 dark:border-white/30 bg-white p-2 sm:p-2.5 flex items-center justify-center hover:scale-120 hover:border-accent transition-all duration-300">
-          <img
-            src={image.src}
-            alt={image.alt}
-            className="w-full h-full object-contain filter drop-shadow-xs"
-            draggable={false}
-            loading="eager"
-            onError={(e) => {
-              const target = e.currentTarget;
-              target.style.display = 'none';
-              const parent = target.parentElement;
-              if (parent && !parent.querySelector('.fallback-monogram')) {
-                const mono = document.createElement('span');
-                mono.className = 'fallback-monogram font-montserrat font-bold text-xs text-neutral-900';
-                mono.innerText = image.alt.slice(0, 2).toUpperCase();
-                parent.appendChild(mono);
-              }
-            }}
-          />
-        </div>
+        {isMounted && images.map((image, index) => {
+          const position = worldPositions[index];
+          if (!position || !position.isVisible) return null;
+
+          const isHovered = hoveredIndex === index;
+          const nodeSize = baseImageSize * position.scale;
+
+          const onNodeAction = (e: React.SyntheticEvent) => {
+            if (isClickCandidate.current) {
+              e.stopPropagation();
+              handleSelectImage(image);
+            }
+          };
+
+          return (
+            <div
+              key={image.id}
+              className="absolute cursor-pointer will-change-transform"
+              style={{
+                width: `${nodeSize}px`,
+                height: `${nodeSize}px`,
+                opacity: position.fadeOpacity,
+                zIndex: position.zIndex,
+                // GPU-accelerated hardware transform (ZERO CSS transition fighting)
+                transform: `translate3d(${responsiveSize / 2 + position.x - nodeSize / 2}px, ${responsiveSize / 2 + position.y - nodeSize / 2}px, 0px)`,
+              }}
+              onMouseEnter={() => {
+                setHoveredIndex(index);
+                onHoverImage?.(image);
+              }}
+              onMouseLeave={() => {
+                setHoveredIndex(null);
+                onHoverImage?.(null);
+              }}
+              onPointerUp={onNodeAction}
+              onClick={onNodeAction}
+            >
+              <div
+                className={`w-full h-full rounded-full shadow-md bg-white border border-neutral-200/90 dark:border-white/30 p-2 sm:p-2.5 flex items-center justify-center transition-all duration-200 ease-out ${
+                  isHovered ? 'border-accent shadow-xl' : ''
+                }`}
+                style={{
+                  transform: isHovered ? `scale(${hoverScale})` : 'scale(1)',
+                }}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-contain filter drop-shadow-xs pointer-events-none"
+                  draggable={false}
+                  loading="eager"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    target.style.display = 'none';
+                    const parent = target.parentElement;
+                    if (parent && !parent.querySelector('.fallback-monogram')) {
+                      const mono = document.createElement('span');
+                      mono.className = 'fallback-monogram font-montserrat font-bold text-xs text-neutral-900';
+                      mono.innerText = image.alt.slice(0, 2).toUpperCase();
+                      parent.appendChild(mono);
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
-    );
-  }, [worldPositions, baseImageSize, responsiveSize, hoveredIndex, hoverScale, handleSelectImage, onHoverImage]);
 
-  const renderSpotlightModal = () => {
-    if (!selectedImage) return null;
-
-    return (
-      <div
-        className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
-        onClick={() => {
-          setSelectedImage(null);
-          onSelectImage?.(null);
-        }}
-        style={{ animation: 'fadeIn 0.2s ease-out' }}
-      >
+      {/* Tech Detail Modal (High z-index) */}
+      {selectedImage && (
         <div
-          className="bg-card text-card-foreground border border-border rounded-3xl max-w-md w-full overflow-hidden shadow-2xl p-7 sm:p-8 relative"
-          onClick={(e) => e.stopPropagation()}
-          style={{ animation: 'scaleIn 0.25s ease-out' }}
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
+          onClick={() => {
+            setSelectedImage(null);
+            onSelectImage?.(null);
+          }}
         >
-          <button
-            onClick={() => {
-              setSelectedImage(null);
-              onSelectImage?.(null);
-            }}
-            className="absolute top-5 right-5 w-9 h-9 rounded-full bg-muted border border-border text-foreground flex items-center justify-center hover:bg-accent hover:text-white transition-all cursor-pointer shadow-xs"
-            aria-label="Close modal"
+          <div
+            className="bg-card text-card-foreground border border-border rounded-3xl max-w-md w-full overflow-hidden shadow-2xl p-7 sm:p-8 relative"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X size={18} />
-          </button>
-
-          <div className="w-22 h-22 mx-auto mb-5 p-4 rounded-3xl bg-white border border-neutral-200 shadow-md flex items-center justify-center">
-            <img
-              src={selectedImage.src}
-              alt={selectedImage.alt}
-              className="w-full h-full object-contain filter drop-shadow-xs"
-            />
-          </div>
-
-          <div className="text-center space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/15 border border-accent/25 text-accent font-mono text-[11px] font-bold uppercase tracking-wider">
-              <span>SPECIALIZED STACK</span>
-            </div>
-
-            <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground">
-              {selectedImage.title || selectedImage.alt}
-            </h3>
-
-            <div className="p-4 rounded-2xl bg-muted/60 border border-border/70 text-left space-y-1.5 mt-3">
-              <span className="font-montserrat text-[11px] uppercase tracking-wider text-accent font-bold block">
-                Role &amp; Architectural Use
-              </span>
-              <p className="font-sans text-sm text-foreground/90 leading-relaxed">
-                {selectedImage.description || "Core component of Prosper's engineering and architecture toolchain."}
-              </p>
-            </div>
-
             <button
               onClick={() => {
                 setSelectedImage(null);
                 onSelectImage?.(null);
               }}
-              className="mt-5 w-full py-3 rounded-xl bg-primary text-primary-foreground font-montserrat text-xs uppercase tracking-wider font-bold hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer shadow-sm"
+              className="absolute top-5 right-5 w-9 h-9 rounded-full bg-muted border border-border text-foreground flex items-center justify-center hover:bg-accent hover:text-white transition-all cursor-pointer shadow-xs"
+              aria-label="Close modal"
             >
-              Done Inspecting
+              <X size={18} />
             </button>
+
+            <div className="w-20 h-20 mx-auto mb-5 p-3.5 rounded-3xl bg-white border border-neutral-200 shadow-md flex items-center justify-center">
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                className="w-full h-full object-contain filter drop-shadow-xs"
+              />
+            </div>
+
+            <div className="text-center space-y-3">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/15 border border-accent/25 text-accent font-montserrat text-[11px] font-bold uppercase tracking-wider">
+                <span>Specialized Engineering Stack</span>
+              </div>
+
+              <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground">
+                {selectedImage.title || selectedImage.alt}
+              </h3>
+
+              <p className="font-sans text-sm text-muted-foreground leading-relaxed pt-1">
+                {selectedImage.description || "Core architectural technology used across production platforms and enterprise systems."}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    );
-  };
-
-  // ==========================================
-  // EARLY RETURNS
-  // ==========================================
-
-  if (!isMounted) {
-    return (
-      <div
-        className="bg-card/40 rounded-2xl animate-pulse flex items-center justify-center border border-border/40 mx-auto"
-        style={{ width: responsiveSize, height: responsiveSize }}
-      >
-        <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest">
-          Initializing 3D Sphere...
-        </div>
-      </div>
-    );
-  }
-
-  if (!images.length) {
-    return (
-      <div
-        className="bg-card/40 rounded-2xl border-2 border-dashed border-border flex items-center justify-center mx-auto"
-        style={{ width: responsiveSize, height: responsiveSize }}
-      >
-        <div className="text-muted-foreground text-center font-mono text-xs">
-          <p>No technologies provided</p>
-        </div>
-      </div>
-    );
-  }
-
-  // ==========================================
-  // MAIN RENDER
-  // ==========================================
-
-  return (
-    <>
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes scaleIn {
-          from { transform: scale(0.85); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-      `}</style>
-
-      <div
-        ref={containerRef}
-        className={`relative select-none cursor-grab active:cursor-grabbing mx-auto ${className}`}
-        style={{
-          width: responsiveSize,
-          height: responsiveSize,
-          perspective: `${perspective}px`
-        }}
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
-      >
-        <div className="relative w-full h-full" style={{ zIndex: 10 }}>
-          {images.map((image, index) => renderImageNode(image, index))}
-        </div>
-      </div>
-
-      {renderSpotlightModal()}
-    </>
+      )}
+    </div>
   );
 };
 
