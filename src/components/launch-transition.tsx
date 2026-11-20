@@ -158,8 +158,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
                     transition={{ ease: "linear" }}
                   />
                 </div>
-                <div className="flex items-center justify-between font-mono text-[11px] text-muted-foreground/80 tracking-widest">
-                  <span>INITIALIZING</span>
+                <div className="flex items-center justify-between font-montserrat text-[10px] font-bold text-muted-foreground/80 tracking-widest uppercase">
+                  <span>Loading</span>
                   <span className="font-semibold text-foreground">{progress}%</span>
                 </div>
               </div>

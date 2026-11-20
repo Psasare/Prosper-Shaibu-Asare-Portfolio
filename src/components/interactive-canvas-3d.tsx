@@ -37,15 +37,15 @@ export function InteractiveCanvas3D() {
     // Compute base distance that guarantees no clipping at any rotation angle
     const computeSafeDistance = (w: number, h: number) => {
       const aspect = w / h;
-      const desiredSpan = 4.6; // Units needed to guarantee zero clipping in 360° rotation
+      const desiredSpan = 5.2; // Units needed to guarantee zero clipping in 360° rotation
       const fovRad = (camera.fov * Math.PI) / 180;
       const visibleHeightAtUnitDist = 2 * Math.tan(fovRad / 2);
       const visibleWidthAtUnitDist = visibleHeightAtUnitDist * aspect;
 
       // Ensure both horizontal and vertical visible span accommodate desiredSpan
       const distForWidth = desiredSpan / visibleWidthAtUnitDist;
-      const distForHeight = 3.6 / visibleHeightAtUnitDist;
-      return Math.max(6.2, distForWidth, distForHeight);
+      const distForHeight = 4.0 / visibleHeightAtUnitDist;
+      return Math.max(6.8, distForWidth, distForHeight);
     };
 
     let baseCameraDist = computeSafeDistance(width, height);
@@ -62,6 +62,9 @@ export function InteractiveCanvas3D() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.domElement.style.outline = "none";
+    renderer.domElement.style.border = "none";
+    renderer.domElement.style.background = "transparent";
     currentMount.appendChild(renderer.domElement);
 
     const isDark = resolvedTheme === "dark";
