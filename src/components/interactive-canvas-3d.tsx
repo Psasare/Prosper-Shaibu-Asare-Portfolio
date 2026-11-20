@@ -544,11 +544,11 @@ export function InteractiveCanvas3D() {
       handlePointerUp();
     };
 
-    // Wheel to Zoom (100% increased zoom depth for close-up inspection)
+    // Wheel to Zoom (Optimized depth without edge clipping)
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const zoomDelta = e.deltaY * 0.004;
-      const minDistance = baseCameraDist * 0.48; // 100% more zoom-in capability (2x magnification)
+      const minDistance = baseCameraDist * 0.65; // Close-up magnification with zero boundary clipping
       const maxDistance = baseCameraDist * 1.5;
       targetCameraDist = Math.max(minDistance, Math.min(maxDistance, targetCameraDist + zoomDelta));
     };
@@ -573,7 +573,7 @@ export function InteractiveCanvas3D() {
         const dist = Math.hypot(dx, dy);
         if (lastPinchDist > 0) {
           const pinchDelta = (lastPinchDist - dist) * 0.009;
-          const minDistance = baseCameraDist * 0.48; // 100% more zoom-in range
+          const minDistance = baseCameraDist * 0.65; // Safe magnification range
           const maxDistance = baseCameraDist * 1.5;
           targetCameraDist = Math.max(minDistance, Math.min(maxDistance, targetCameraDist + pinchDelta));
         }
