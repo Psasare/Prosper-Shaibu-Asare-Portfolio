@@ -69,8 +69,8 @@ const TIMELINE_DATA: TimelineItem[] = [
     id: "ho-teaching",
     period: "Sep 2024 - Dec 2024",
     role: "Information Technology Intern",
-    organization: "Ho Teaching Hospital",
-    shortOrg: "Ho Teaching Hosp.",
+    organization: "Ho Teaching Hospital (Trafalgar)",
+    shortOrg: "Ho Teaching (Trafalgar)",
     location: "Ho, Ghana",
     description: [
       "Supported the deployment, installation, and network configuration of hospital workstations and clinical communications infrastructure.",
@@ -176,7 +176,7 @@ export function Experience() {
             Experience & Education
           </TextMaskReveal>
           <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-5 sm:mt-6">
-            A curated timeline of analytical science foundations, hospital systems engineering, University of Ghana studies, and customer operations.
+            A curated timeline of General Science foundations, hospital systems engineering, University of Ghana studies, and customer operations.
           </p>
         </Reveal>
 

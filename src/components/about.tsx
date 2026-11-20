@@ -66,7 +66,7 @@ export function About() {
 
             <Reveal direction="up" delay={0.22}>
               <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Grounded in analytical science foundations from Kpando Senior High, my journey bridges physical technology infrastructure with modern software engineering. Having administered hospital Local Area Networks (LANs), resolved critical hardware and software faults across medical workstations, and trained personnel at <span className="text-foreground font-medium">Volta Regional Hospital (Hohoe)</span> and <span className="text-foreground font-medium">Ho Teaching Hospital</span>, I build software with deep respect for uptime, data accuracy, and user experience.
+                Grounded in General Science foundations from Kpando Senior High, my journey bridges physical technology infrastructure with modern software engineering. Having administered hospital Local Area Networks (LANs), resolved critical hardware and software faults across medical workstations, and trained personnel at <span className="text-foreground font-medium">Volta Regional Hospital (Hohoe)</span> and <span className="text-foreground font-medium">Ho Teaching Hospital (Trafalgar)</span>, I build software with deep respect for uptime, data accuracy, and user experience.
               </p>
             </Reveal>
 
@@ -85,7 +85,7 @@ export function About() {
                   Volta Regional Hospital &bull; IT Intern
                 </span>
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  Ho Teaching Hospital &bull; Systems & Network
+                  Ho Teaching Hospital (Trafalgar) &bull; Systems & Network
                 </span>
                 <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
                   General Science &bull; Kpando SHS

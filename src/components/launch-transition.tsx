@@ -46,15 +46,15 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
       category: "ENTERPRISE // INFRASTRUCTURE",
       title: "Hospital & Network Systems",
       subtitle: "Administered hospital Local Area Networks (LAN) and maintained clinical workstation & server infrastructure.",
-      detail: "Volta Regional Hospital • Ho Teaching Hospital • LAN Administration",
+      detail: "Volta Regional Hospital • Ho Teaching Hospital (Trafalgar) • LAN Administration",
       sector: "INFRASTRUCTURE & LAN",
     },
     {
       code: "05",
       category: "ACADEMICS // FOUNDATION",
       title: "University of Ghana IT Undergraduate",
-      subtitle: "BSc. in Information Technology with analytical science foundations from Kpando Senior High.",
-      detail: "BSc. Information Technology '26 • Analytical Science (Kpando SHS)",
+      subtitle: "BSc. in Information Technology with General Science foundations from Kpando Senior High.",
+      detail: "BSc. Information Technology '26 • General Science (Kpando SHS)",
       sector: "UNIVERSITY OF GHANA",
     },
   ];
@@ -320,16 +320,6 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
                 {/* Outstanding Element: Interactive 3D Kinetic Gyroscopic Core */}
                 <div className="relative w-full max-w-[360px] sm:max-w-[420px] mx-auto flex items-center justify-center -my-2 sm:-my-4">
                   <LaunchKineticCore />
-
-                  {/* Central Monogram Glass Plaque */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-                    <div className="px-3.5 py-1.5 rounded-xl bg-card/85 backdrop-blur-md border border-border shadow-md flex items-center gap-1.5">
-                      <span className="font-montserrat font-black text-sm tracking-[0.25em] text-foreground">
-                        PSA
-                      </span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-foreground" />
-                    </div>
-                  </div>
                 </div>
 
                 {/* Master Monolithic Display Name */}

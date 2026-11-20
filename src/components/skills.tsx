@@ -7,10 +7,150 @@ import {
   Smartphone,
   Workflow,
   CheckCircle2,
+  Sparkles,
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
 import { TextMaskReveal } from "./animated-text";
+import SphereImageGrid, { type ImageData } from "@/components/ui/img-sphere";
+
+// ==========================================
+// TECH STACK SPHERE DATASET
+// Specialized technologies Prosper utilizes across Web, Mobile & Systems
+// ==========================================
+const BASE_TECH_STACK: Omit<ImageData, "id">[] = [
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
+    alt: "GitHub",
+    title: "GitHub • CI/CD & Version Control",
+    description: "Branching strategies, GitHub Actions automation, pull request workflows, and repository management.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framermotion/framermotion-original.svg",
+    alt: "Framer Motion",
+    title: "Framer Motion • Fluid Micro-Interactions",
+    description: "Spring physics, layout transitions, exit sequences, and hardware-accelerated UI feedback.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
+    alt: "Next.js",
+    title: "Next.js 16 • Full-Stack Web Architecture",
+    description: "App Router, Server Actions, Route Handlers, Edge optimization, and hybrid SSR/SSG rendering.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+    alt: "React",
+    title: "React 19 & React Native • Web & Mobile",
+    description: "Declarative component architectures, custom hooks, cross-platform mobile apps, and concurrent features.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
+    alt: "TypeScript",
+    title: "TypeScript • Strict Type Safety",
+    description: "End-to-end interface contracts, generic utility types, type inference, and scalable enterprise codebases.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+    alt: "Tailwind CSS",
+    title: "Tailwind CSS v4 • Modern Design Tokens",
+    description: "Modern design token architectures, custom dark/light themes, fluid grids, and responsive layouts.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
+    alt: "Node.js",
+    title: "Node.js • Backend Runtime & Services",
+    description: "Asynchronous backend logic, microservice middleware, streaming APIs, and server administration.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+    alt: "Python",
+    title: "Python • Systems & Data Engineering",
+    description: "Automated network scripting, backend data processing, algorithmic logic, and computational tasks.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+    alt: "PostgreSQL",
+    title: "PostgreSQL • Relational Database Schemas",
+    description: "ACID-compliant relational modeling, structured schemas, indexing optimization, and SQL performance.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
+    alt: "Docker",
+    title: "Docker • Containerized Infrastructure",
+    description: "Multi-stage Docker builds, container orchestration, environment isolation, and deployment consistency.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg",
+    alt: "Linux",
+    title: "Linux • Server & Network Systems",
+    description: "Server room operations, bash scripting, network socket diagnostics, and hospital infrastructure.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threejs/threejs-original.svg",
+    alt: "Three.js",
+    title: "Three.js • 3D Spatial Computing",
+    description: "WebGL viewports, procedural geometry, lighting, particle nebulae, and interactive 3D simulations.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
+    alt: "Git",
+    title: "Git • Distributed Version Control",
+    description: "Atomic commit discipline, trunk-based branching, rebasing, and merge conflict resolution.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+    alt: "JavaScript",
+    title: "Modern JavaScript (ESNext)",
+    description: "Modern asynchronous architecture, event loop mechanics, closures, and browser APIs.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
+    alt: "HTML5",
+    title: "HTML5 • Accessible Semantic Tree",
+    description: "Accessible ARIA labeling, semantic tree structuring, SEO metadata, and web standard compliance.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
+    alt: "CSS3",
+    title: "Modern CSS3 • Animations & Subgrids",
+    description: "Container queries, fluid typography clamps, CSS variables, and GPU-accelerated keyframe animations.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
+    alt: "Express.js",
+    title: "Express.js • RESTful APIs & Middleware",
+    description: "Scalable endpoint routing, CORS handling, token verification, and JSON payload handling.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg",
+    alt: "Vercel",
+    title: "Vercel • Serverless Edge Cloud",
+    description: "Edge networks, continuous integration preview builds, global DNS, and performance analytics.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg",
+    alt: "Vite",
+    title: "Vite • Next-Gen Frontend Bundler",
+    description: "Instant hot module reloading (HMR), optimized Rollup bundling, and fast modern development.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg",
+    alt: "Figma",
+    title: "Figma • Interface & Systems Prototyping",
+    description: "Design system tokens, user experience wireframes, interactive flows, and visual design assets.",
+  },
+];
+
+// Generate 42 items using Fibonacci coverage
+const TECH_SPHERE_IMAGES: ImageData[] = [];
+for (let i = 0; i < 42; i++) {
+  const baseIndex = i % BASE_TECH_STACK.length;
+  const item = BASE_TECH_STACK[baseIndex];
+  TECH_SPHERE_IMAGES.push({
+    id: `tech-${i + 1}-${item.alt.toLowerCase()}`,
+    ...item,
+  });
+}
 
 export function Skills() {
   const sectionRef = React.useRef<HTMLElement>(null);
@@ -19,7 +159,8 @@ export function Skills() {
     offset: ["start end", "end start"],
   });
 
-  const cardsY = useTransform(scrollYProgress, [0, 1], [20, -20]);
+  const cardsY = useTransform(scrollYProgress, [0, 1], [15, -15]);
+
   const categories = [
     {
       title: "Frontend & Web Design",
@@ -82,7 +223,8 @@ export function Skills() {
   return (
     <section ref={sectionRef} id="skills" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        {/* Section Header */}
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
             Capabilities & Focus
           </h2>
@@ -97,6 +239,46 @@ export function Skills() {
           </p>
         </Reveal>
 
+        {/* Interactive 3D Technology Sphere Showcase */}
+        <Reveal direction="up" className="mb-16 md:mb-20">
+          <div className="relative w-full max-w-3xl mx-auto flex flex-col items-center justify-center p-6 sm:p-10 rounded-3xl bg-card/65 border border-border backdrop-blur-xs shadow-xs overflow-hidden">
+            {/* Ambient Ambient Radial Beam */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-accent/8 rounded-full blur-[90px] pointer-events-none -z-10" />
+
+            {/* Header Readout Badge */}
+            <div className="text-center mb-4 space-y-2 z-10">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent/10 border border-accent/25 text-accent font-mono text-[11px] font-bold uppercase tracking-widest">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Interactive 3D Stack Constellation</span>
+              </div>
+              <h4 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground pt-1">
+                Specialized Engineering Ecosystem
+              </h4>
+              <p className="font-sans text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
+                Drag to spin the 3D Fibonacci sphere &bull; Click any technology logo for details
+              </p>
+            </div>
+
+            {/* 3D Sphere Mount */}
+            <div className="w-full flex items-center justify-center overflow-visible py-2">
+              <SphereImageGrid
+                images={TECH_SPHERE_IMAGES}
+                containerSize={480}
+                sphereRadius={190}
+                dragSensitivity={0.75}
+                momentumDecay={0.96}
+                maxRotationSpeed={5}
+                baseImageScale={0.14}
+                hoverScale={1.3}
+                perspective={1000}
+                autoRotate={true}
+                autoRotateSpeed={0.25}
+              />
+            </div>
+          </div>
+        </Reveal>
+
+        {/* 4 Categorized Pillars Grid */}
         <motion.div style={{ y: cardsY }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {categories.map((category, index) => {
             const Icon = category.icon;
