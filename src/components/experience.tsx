@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { Briefcase, Calendar, MapPin, ChevronLeft, ChevronRight, CheckCircle2, ShieldCheck } from "lucide-react";
+import { Briefcase, Calendar, MapPin, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "./reveal";
 import { TextMaskReveal } from "./animated-text";
@@ -64,7 +64,7 @@ const EXPERIENCES: ExperienceItem[] = [
     shortOrg: "Solidere Ghana (PremierBet)",
     period: "Jan 2022 - Jan 2023",
     location: "Adabraka, Accra",
-    image: "https://images.unsplash.com/photo-1556742049-0a67e557224f?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1200&q=80",
     badge: "Operations & Support",
     description: [
       "Provided responsive, client-centered assistance across digital chat, telephone, email, and direct in-person inquiries with consistent satisfaction ratings.",
@@ -209,31 +209,18 @@ export function Experience() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: High-Resolution Contextual Image with Ambient Glare */}
-                <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-full overflow-hidden border-t lg:border-t-0 lg:border-l border-border bg-neutral-950">
+                {/* RIGHT COLUMN: High-Resolution Contextual Image */}
+                <div className="lg:col-span-5 relative min-h-[320px] sm:min-h-[380px] lg:min-h-full overflow-hidden border-t lg:border-t-0 lg:border-l border-border bg-neutral-950 group">
                   <Image
                     src={current.image}
                     alt={current.organization}
                     fill
                     unoptimized
                     sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-95"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                  {/* Subtle Cinematic Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent lg:bg-gradient-to-r lg:from-black/70 lg:via-black/20 lg:to-transparent" />
-
-                  {/* Overlay Badge at Bottom */}
-                  <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10 text-white">
-                    <div className="flex items-center gap-2 mb-1">
-                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                      <span className="font-montserrat font-bold text-xs uppercase tracking-wider">
-                        {current.organization}
-                      </span>
-                    </div>
-                    <p className="font-sans text-[11px] text-white/80 leading-normal">
-                      Continuous operational uptime, systems deployment, and medical workflow stability.
-                    </p>
-                  </div>
+                  {/* Subtle Natural Vignette Edge */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
                 </div>
               </motion.div>
             </AnimatePresence>
