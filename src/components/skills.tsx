@@ -239,32 +239,26 @@ export function Skills() {
           </p>
         </Reveal>
 
-        {/* Interactive 3D Technology Sphere Showcase */}
+        {/* Interactive 3D Technology Sphere Showcase - 100% Unboxed, Free-Floating (NO CANVAS / NO CARD BOX) */}
         <Reveal direction="up" className="mb-16 md:mb-20">
-          <div className="relative w-full max-w-3xl mx-auto flex flex-col items-center justify-center p-6 sm:p-10 rounded-3xl bg-card/65 border border-border backdrop-blur-xs shadow-xs overflow-hidden">
-            {/* Ambient Ambient Radial Beam */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-accent/8 rounded-full blur-[90px] pointer-events-none -z-10" />
-
+          <div className="relative w-full flex flex-col items-center justify-center">
             {/* Header Readout Badge */}
-            <div className="text-center mb-4 space-y-2 z-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-accent/10 border border-accent/25 text-accent font-mono text-[11px] font-bold uppercase tracking-widest">
-                <Sparkles className="w-3.5 h-3.5" />
+            <div className="text-center mb-6 space-y-2">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-muted border border-border text-foreground font-mono text-[11px] font-bold uppercase tracking-widest shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-accent" />
                 <span>Interactive 3D Stack Constellation</span>
               </div>
-              <h4 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground pt-1">
-                Specialized Engineering Ecosystem
-              </h4>
               <p className="font-sans text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
-                Drag to spin the 3D Fibonacci sphere &bull; Click any technology logo for details
+                Drag to rotate the 3D Fibonacci sphere &bull; Click any technology logo for details
               </p>
             </div>
 
-            {/* 3D Sphere Mount */}
+            {/* 3D Sphere - Floating freely directly on the page background */}
             <div className="w-full flex items-center justify-center overflow-visible py-2">
               <SphereImageGrid
                 images={TECH_SPHERE_IMAGES}
-                containerSize={480}
-                sphereRadius={190}
+                containerSize={500}
+                sphereRadius={195}
                 dragSensitivity={0.75}
                 momentumDecay={0.96}
                 maxRotationSpeed={5}
