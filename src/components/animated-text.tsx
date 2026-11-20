@@ -69,7 +69,7 @@ export function TypographicMarquee() {
     { text: "HEALTHCARE SYSTEMS ARCHITECTURE", type: "solid" },
     { text: "Accessible UI Systems", type: "serif" },
     { text: "UHAS ADMINISTRATIVE COMPUTING", type: "outline" },
-    { text: "[ UG LEGON // CS SCHOLAR ]", type: "mono" },
+    { text: "[ UG LEGON // IT UNDERGRADUATE ]", type: "mono" },
   ];
 
   return (
