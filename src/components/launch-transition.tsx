@@ -110,14 +110,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
             aria-label="Loading portfolio. Press Escape or click Enter to proceed."
           >
             {/* Top Bar: Discreet, Minimalist Skip / Enter Control */}
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center gap-2.5">
-                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                <span className="font-montserrat text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-                  Portfolio Edition &bull; 2026
-                </span>
-              </div>
-
+            <div className="flex items-center justify-end w-full">
               <button
                 type="button"
                 onClick={handleSkip}
@@ -165,9 +158,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
               </div>
             </div>
 
-            {/* Bottom Footer: Minimalist Attribution & Skip Hint */}
-            <div className="flex flex-col sm:flex-row items-center justify-between w-full text-center sm:text-left text-muted-foreground font-sans text-xs gap-2 pt-2">
-              <span>University of Ghana, Legon &bull; BSc. Information Technology</span>
+            {/* Bottom Footer: Minimalist Skip Hint */}
+            <div className="flex items-center justify-center sm:justify-end w-full pt-2">
               <span className="font-montserrat text-[10px] uppercase tracking-wider text-muted-foreground/60">
                 Press Esc to skip
               </span>
