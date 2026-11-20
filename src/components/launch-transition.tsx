@@ -160,12 +160,14 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
         {!isDone && (
           <motion.div
             key="launch-curtain"
-            initial={{ y: 0 }}
+            initial={{ opacity: 1, scale: 1 }}
             exit={{
-              y: "-100%",
+              opacity: 0,
+              scale: 1.08,
+              filter: "blur(16px)",
               transition: {
-                duration: 0.95,
-                ease: [0.76, 0, 0.24, 1], // Signature luxury architectural wipe
+                duration: 0.85,
+                ease: [0.76, 0, 0.24, 1], // Signature luxury architectural zoom-through
               },
             }}
             className="fixed inset-0 z-[9999] flex flex-col justify-between bg-background text-foreground select-none overflow-hidden p-4 sm:p-8 md:p-10 lg:p-12 transition-colors duration-300"
@@ -488,12 +490,19 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
         )}
       </AnimatePresence>
 
-      {/* Main Page: Rendered with pristine 100% clarity and zero blur */}
+      {/* Main Page: Morphing from spatial depth into crisp focus */}
       <motion.div
-        initial={{ opacity: 0.96 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full min-h-screen"
+        initial={{ opacity: 0, scale: 0.94, filter: "blur(10px)" }}
+        animate={
+          isDone
+            ? { opacity: 1, scale: 1, filter: "blur(0px)" }
+            : { opacity: 0, scale: 0.94, filter: "blur(10px)" }
+        }
+        transition={{
+          duration: 1.05,
+          ease: [0.16, 1, 0.3, 1], // Signature fluid cinematic glide
+        }}
+        className="w-full min-h-screen origin-center"
       >
         {children}
       </motion.div>

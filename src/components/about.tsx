@@ -1,7 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { Server, Code2, Users2, Smartphone } from "lucide-react";
+import {
+  Server,
+  Code2,
+  Users2,
+  Smartphone,
+  GraduationCap,
+  Building2,
+  Activity,
+  Atom,
+} from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
 import { TextMaskReveal } from "./animated-text";
@@ -14,8 +23,8 @@ export function About() {
   });
 
   // Parallax subtle counter-drift between bio narrative and pillars grid
-  const bioY = useTransform(scrollYProgress, [0, 1], [22, -22]);
-  const gridY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const bioY = useTransform(scrollYProgress, [0, 1], [20, -20]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [-18, 18]);
 
   const values = [
     {
@@ -40,56 +49,122 @@ export function About() {
     },
   ];
 
+  const credentialBadges = [
+    {
+      icon: GraduationCap,
+      label: "BSc. IT Scholar '26",
+      detail: "University of Ghana, Legon",
+    },
+    {
+      icon: Building2,
+      label: "UHAS ICT Directorate",
+      detail: "Administrative Computing (NSS '27)",
+    },
+    {
+      icon: Activity,
+      label: "Clinical IT Systems",
+      detail: "Volta Regional & Ho Teaching Hosp.",
+    },
+    {
+      icon: Atom,
+      label: "Analytical Science",
+      detail: "Kpando Senior High School",
+    },
+  ];
+
   return (
     <section ref={sectionRef} id="about" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Bio text with Parallax */}
+          {/* Bio text with Parallax & Elevated Editorial Typography */}
           <motion.div style={{ y: bioY }} className="lg:col-span-6 space-y-7">
+            {/* Section Eyebrow & Master Title */}
             <Reveal direction="up">
-              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
-                About Me
-              </h2>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border shadow-2xs mb-3.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                <span className="font-montserrat text-[11px] font-bold uppercase tracking-widest text-accent">
+                  About Me &bull; Philosophy & Systems
+                </span>
+              </div>
               <TextMaskReveal
                 as="h3"
-                className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]"
+                className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.18]"
               >
                 Bridging dependable infrastructure with modern software engineering.
               </TextMaskReveal>
             </Reveal>
 
-            <Reveal direction="up" delay={0.15}>
-              <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed">
-                I am an Information Technology professional and scholar at the <span className="font-semibold text-foreground">University of Ghana, Legon</span>, dedicated to building dependable full-stack web platforms, elegant responsive interfaces, and cross-platform mobile applications.
-              </p>
+            {/* Paragraph 1: Editorial Lead with Signature Accent Border */}
+            <Reveal direction="up" delay={0.12}>
+              <div className="pl-4 border-l-2 border-accent/80 space-y-1.5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-accent font-bold block">
+                  01 // THE STANCE
+                </span>
+                <p className="font-sans text-base sm:text-lg text-foreground/90 font-medium leading-relaxed">
+                  At the intersection of dependable systems infrastructure and modern application craft, I engineer digital platforms built to perform under real-world pressure. As an Information Technology scholar at the{" "}
+                  <span className="font-semibold text-foreground underline decoration-accent/70 decoration-2 underline-offset-4">
+                    University of Ghana, Legon
+                  </span>
+                  , my work centers on delivering resilient full-stack web platforms, refined responsive interfaces, and high-performance cross-platform mobile apps.
+                </p>
+              </div>
             </Reveal>
 
-            <Reveal direction="up" delay={0.22}>
-              <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Grounded in analytical science foundations from Kpando Senior High, my journey bridges physical technology infrastructure with modern software design. Having administered hospital networks, supported clinical workstations at <span className="text-foreground font-medium">Volta Regional</span> and <span className="text-foreground font-medium">Ho Teaching Hospitals</span>, and prepared for enterprise systems management at the <span className="text-foreground font-medium">UHAS ICT Directorate</span>, I build software with deep respect for uptime, data accuracy, and user experience.
-              </p>
+            {/* Paragraph 2: The Enterprise & Clinical Crucible */}
+            <Reveal direction="up" delay={0.2}>
+              <div className="space-y-1.5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-accent font-bold block">
+                  02 // OPERATIONAL CRUCIBLE
+                </span>
+                <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
+                  Rooted in rigorous analytical science from{" "}
+                  <span className="font-semibold text-foreground">Kpando Senior High</span>, my engineering mindset was forged hands-on across demanding physical network infrastructure and clinical facilities. Having administered hospital LAN backbones, supported mission-critical workstations at{" "}
+                  <span className="font-semibold text-foreground">Volta Regional</span> and{" "}
+                  <span className="font-semibold text-foreground">Ho Teaching Hospitals</span>, and directed administrative computing platforms at the{" "}
+                  <span className="font-semibold text-foreground">UHAS ICT Directorate</span>, I build software with profound respect for 99.9% uptime, zero-downtime deployments, and rock-solid data integrity.
+                </p>
+              </div>
             </Reveal>
 
-            <Reveal direction="up" delay={0.28}>
-              <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Whether deploying university academic platforms, architecting healthcare digital companions, or crafting mobile wellness tools, my objective is simple: engineering resilient software that solves genuine everyday challenges.
-              </p>
+            {/* Paragraph 3: The Engineering Creed & Impact */}
+            <Reveal direction="up" delay={0.26}>
+              <div className="space-y-1.5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-accent font-bold block">
+                  03 // ENGINEERING CREED
+                </span>
+                <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
+                  From institutional university enrollment platforms to community maternal health companions and real-time clinical tools, my objective remains simple:{" "}
+                  <span className="font-semibold text-foreground">
+                    engineering resilient, human-centered software that solves genuine everyday challenges and scales effortlessly.
+                  </span>
+                </p>
+              </div>
             </Reveal>
 
-            <Reveal direction="up" delay={0.34}>
-              <div className="pt-3 flex flex-wrap gap-2.5 font-montserrat text-xs font-semibold text-foreground">
-                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  BSc. IT Graduate &bull; 2026 (UG Legon)
-                </span>
-                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  UHAS ICT Directorate &bull; NSS &apos;27
-                </span>
-                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  Administrative Computing
-                </span>
-                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  General Science &bull; Kpando SHS
-                </span>
+            {/* Credential & Institutional Badges */}
+            <Reveal direction="up" delay={0.32}>
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {credentialBadges.map((badge) => {
+                  const Icon = badge.icon;
+                  return (
+                    <div
+                      key={badge.label}
+                      className="group flex items-center gap-3 p-2.5 rounded-xl bg-card border border-border hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 shadow-2xs"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <div className="truncate">
+                        <span className="font-montserrat text-xs font-bold text-foreground block truncate">
+                          {badge.label}
+                        </span>
+                        <span className="font-sans text-[11px] text-muted-foreground block truncate">
+                          {badge.detail}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </Reveal>
           </motion.div>
