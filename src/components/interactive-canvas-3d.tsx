@@ -612,7 +612,6 @@ export function InteractiveCanvas3D() {
       <div
         ref={mountRef}
         className="w-full h-full cursor-grab active:cursor-grabbing"
-        title="Interactive 3D Devices - Drag to orbit 360°, scroll to zoom, double-click to reset"
       />
     </div>
   );
