@@ -83,9 +83,9 @@ export function Projects() {
       : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-24 md:py-28 border-t border-border relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+    <section id="projects" className="py-28 md:py-36 lg:py-44 border-t border-border relative">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20 gap-6">
           <Reveal direction="up">
             <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center gap-2">
               <Layers className="w-3.5 h-3.5" /> Featured Work
@@ -119,7 +119,7 @@ export function Projects() {
         </div>
 
         {/* Project Grid with Rich Image Cards */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <motion.div layout className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-14">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
               <motion.div
@@ -132,7 +132,7 @@ export function Projects() {
                 className="group flex flex-col rounded-3xl border border-border bg-card overflow-hidden hover:border-accent/50 hover:shadow-2xl transition-all duration-500"
               >
                 {/* Project Image Banner */}
-                <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-neutral-950">
+                <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden bg-neutral-950">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -167,7 +167,7 @@ export function Projects() {
                 </div>
 
                 {/* Project Body */}
-                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
+                <div className="p-8 sm:p-10 lg:p-12 flex-1 flex flex-col justify-between space-y-8">
                   <div>
                     <div className="flex items-start justify-between gap-4 mb-3">
                       <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground group-hover:text-accent transition-colors leading-snug">

@@ -41,10 +41,10 @@ const EDUCATION_ITEMS: MenuItem[] = [
 
 export function Education() {
   return (
-    <section id="education" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="education" className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
             <GraduationCap className="w-3.5 h-3.5" /> Academic Foundations
           </h2>

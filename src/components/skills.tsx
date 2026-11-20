@@ -221,10 +221,10 @@ export function Skills() {
   ];
 
   return (
-    <section ref={sectionRef} id="skills" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} id="skills" className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
             Capabilities & Focus
           </h2>
@@ -257,8 +257,8 @@ export function Skills() {
             <div className="w-full flex items-center justify-center overflow-visible py-2">
               <SphereImageGrid
                 images={TECH_SPHERE_IMAGES}
-                containerSize={500}
-                sphereRadius={195}
+                containerSize={580}
+                sphereRadius={225}
                 dragSensitivity={0.75}
                 momentumDecay={0.96}
                 maxRotationSpeed={5}
@@ -273,12 +273,12 @@ export function Skills() {
         </Reveal>
 
         {/* 4 Categorized Pillars Grid */}
-        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-12">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
               <Reveal key={category.title} delay={index * 0.12} direction="up">
-                <div className="h-full group p-7 sm:p-8 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs flex flex-col justify-between">
+                <div className="h-full group p-8 sm:p-10 lg:p-12 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-4 mb-4">
                       <div className="w-12 h-12 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform duration-300">

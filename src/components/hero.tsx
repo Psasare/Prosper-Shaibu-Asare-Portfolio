@@ -20,15 +20,15 @@ export function Hero() {
   const bgGlowY = useTransform(scrollYProgress, [0, 1], [0, -40]);
 
   return (
-    <section ref={sectionRef} className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+    <section ref={sectionRef} className="relative pt-36 pb-24 md:pt-44 md:pb-32 lg:pt-52 lg:pb-36 overflow-hidden">
       {/* Parallax Ambient Radial Beam */}
       <motion.div
         style={{ y: bgGlowY }}
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-accent/8 rounded-full blur-[100px] pointer-events-none -z-10"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-accent/8 rounded-full blur-[130px] pointer-events-none -z-10"
       />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-center">
           {/* Left Column: Text & CTA with Parallax */}
           <motion.div
             style={{ y: textY }}

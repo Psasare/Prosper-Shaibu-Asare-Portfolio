@@ -19,8 +19,8 @@ export function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 pt-4">
-      <nav className="max-w-6xl mx-auto backdrop-blur-xl bg-card/85 border border-border rounded-2xl px-5 py-3 shadow-xs flex items-center justify-between transition-all">
+    <header className="fixed top-0 left-0 right-0 z-50 px-6 sm:px-10 lg:px-12 xl:px-16 pt-5">
+      <nav className="max-w-7xl xl:max-w-[1400px] mx-auto backdrop-blur-xl bg-card/85 border border-border rounded-2xl px-6 sm:px-8 py-3.5 shadow-xs flex items-center justify-between transition-all">
         {/* Brand with Montserrat */}
         <Link
           href="/"
@@ -73,7 +73,7 @@ export function Navbar() {
 
       {/* Mobile Drawer */}
       {isOpen && (
-        <div className="md:hidden max-w-6xl mx-auto mt-2 p-4 rounded-2xl bg-card border border-border shadow-lg space-y-3 font-montserrat text-xs uppercase tracking-wider font-semibold">
+        <div className="md:hidden max-w-7xl xl:max-w-[1400px] mx-auto mt-2 p-4 rounded-2xl bg-card border border-border shadow-lg space-y-3 font-montserrat text-xs uppercase tracking-wider font-semibold">
           {navLinks.map((link) => (
             <a
               key={link.label}

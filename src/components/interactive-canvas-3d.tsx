@@ -57,8 +57,8 @@ export function InteractiveCanvas3D() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full max-w-[540px] h-[460px] sm:h-[500px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
-      style={{ perspective: 1200 }}
+      className="relative w-full max-w-[620px] lg:max-w-[660px] h-[520px] sm:h-[560px] lg:h-[620px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
+      style={{ perspective: 1400 }}
     >
       {/* Master 3D Rotational Stage - No Canvas, No Box */}
       <motion.div

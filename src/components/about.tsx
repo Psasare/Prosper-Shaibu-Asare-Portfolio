@@ -41,83 +41,90 @@ export function About() {
   ];
 
   return (
-    <section ref={sectionRef} id="about" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Bio text with Parallax */}
-          <motion.div style={{ y: bioY }} className="lg:col-span-6 space-y-7">
+    <section ref={sectionRef} id="about" className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+        {/* Top Part: Asymmetric Editorial Narrative */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-start mb-20 lg:mb-28">
+          {/* Left Column: Section Title & Quick Credential Tags */}
+          <motion.div style={{ y: bioY }} className="lg:col-span-5 space-y-7 lg:space-y-8">
             <Reveal direction="up">
-              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent font-montserrat text-xs uppercase tracking-widest font-bold">
                 About Me
-              </h2>
+              </div>
+            </Reveal>
+
+            <Reveal direction="up" delay={0.08}>
               <TextMaskReveal
                 as="h3"
-                className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]"
+                className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
               >
                 Bridging dependable infrastructure with modern software engineering.
               </TextMaskReveal>
             </Reveal>
 
-            <Reveal direction="up" delay={0.15}>
-              <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed">
-                I am an analytical, driven, and detail-oriented <span className="font-semibold text-foreground">Information Technology undergraduate</span> at the <span className="font-semibold text-foreground">University of Ghana, Legon</span>, with comprehensive experience across technology infrastructure, full-stack software development, and systems administration.
-              </p>
-            </Reveal>
-
-            <Reveal direction="up" delay={0.22}>
-              <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Grounded in General Science foundations from Kpando Senior High, my journey bridges physical technology infrastructure with modern software engineering. Having administered hospital Local Area Networks (LANs), resolved critical hardware and software faults across medical workstations, and trained personnel at <span className="text-foreground font-medium">Volta Regional Hospital (Hohoe)</span> and <span className="text-foreground font-medium">Ho Teaching Hospital (Trafalgar)</span>, I build software with deep respect for uptime, data accuracy, and user experience.
-              </p>
-            </Reveal>
-
-            <Reveal direction="up" delay={0.28}>
-              <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
-                Whether deploying university academic platforms, architecting healthcare digital companions, or crafting mobile wellness tools, my objective is simple: engineering resilient software that solves genuine everyday challenges.
-              </p>
-            </Reveal>
-
-            <Reveal direction="up" delay={0.34}>
-              <div className="pt-3 flex flex-wrap gap-2.5 font-montserrat text-xs font-semibold text-foreground">
-                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  BSc. IT Undergraduate &bull; 2026 (UG Legon)
+            <Reveal direction="up" delay={0.16}>
+              <div className="flex flex-wrap gap-2.5 pt-2 font-montserrat text-xs font-semibold text-foreground">
+                <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
+                  BSc. IT &bull; UG Legon &apos;26
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  Volta Regional Hospital &bull; IT Intern
+                <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
+                  Volta Regional Hosp. (Hohoe)
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
-                  Ho Teaching Hospital (Trafalgar) &bull; Systems & Network
+                <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
+                  Ho Teaching Hosp. (Trafalgar)
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-secondary border border-border">
+                <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
                   General Science &bull; Kpando SHS
                 </span>
               </div>
             </Reveal>
           </motion.div>
 
-          {/* Pillars grid with Parallax */}
-          <motion.div style={{ y: gridY }} className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {values.map((v, i) => {
-              const Icon = v.icon;
-              return (
-                <Reveal key={v.title} delay={i * 0.1} direction="up">
-                  <div className="p-7 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1 transition-all duration-300 shadow-xs group h-full flex flex-col justify-between">
-                    <div>
-                      <div className="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent mb-4 group-hover:scale-105 transition-transform">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <h3 className="font-montserrat font-bold text-base text-foreground mb-2">
-                        {v.title}
-                      </h3>
-                      <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                        {v.text}
-                      </p>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </motion.div>
+          {/* Right Column: Generous, Comfortable Reading Typography */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-7 lg:pt-2">
+            <Reveal direction="up" delay={0.12}>
+              <p className="font-sans text-lg sm:text-xl lg:text-2xl text-foreground font-medium leading-relaxed">
+                I am an analytical, driven, and detail-oriented <span className="text-accent underline decoration-accent/30 underline-offset-4 font-semibold">Information Technology undergraduate</span> at the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration.
+              </p>
+            </Reveal>
+
+            <Reveal direction="up" delay={0.2}>
+              <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed lg:leading-[1.85]">
+                Grounded in General Science foundations from Kpando Senior High, my journey bridges physical technology infrastructure with modern software engineering. Having administered hospital Local Area Networks (LANs), resolved critical hardware and software faults across medical workstations, and trained personnel at <span className="text-foreground font-medium">Volta Regional Hospital (Hohoe)</span> and <span className="text-foreground font-medium">Ho Teaching Hospital (Trafalgar)</span>, I build software with deep respect for uptime, data accuracy, and user experience.
+              </p>
+            </Reveal>
+
+            <Reveal direction="up" delay={0.28}>
+              <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed lg:leading-[1.85]">
+                Whether deploying university academic platforms, architecting healthcare digital companions, or crafting mobile wellness tools, my objective is simple: engineering resilient software that solves genuine everyday challenges.
+              </p>
+            </Reveal>
+          </div>
         </div>
+
+        {/* Bottom Part: Spacious 4-Column Horizontal Engineering Pillars */}
+        <motion.div style={{ y: gridY }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {values.map((v, i) => {
+            const Icon = v.icon;
+            return (
+              <Reveal key={v.title} delay={i * 0.08} direction="up">
+                <div className="p-8 sm:p-9 lg:p-10 rounded-2xl border border-border bg-card/80 hover:bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs group h-full flex flex-col justify-between">
+                  <div>
+                    <div className="w-13 h-13 rounded-2xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h4 className="font-montserrat font-bold text-lg text-foreground mb-3 group-hover:text-accent transition-colors">
+                      {v.title}
+                    </h4>
+                    <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                      {v.text}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

@@ -97,10 +97,10 @@ export function Experience() {
   const current = EXPERIENCES[currentIndex];
 
   return (
-    <section id="experience" className="py-24 md:py-28 border-t border-border relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
             <Briefcase className="w-3.5 h-3.5" /> Career Journey
           </h2>
@@ -148,7 +148,7 @@ export function Experience() {
                 className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px]"
               >
                 {/* LEFT COLUMN: Role Details & Achievements */}
-                <div className="lg:col-span-7 p-6 sm:p-10 md:p-12 flex flex-col justify-between space-y-6">
+                <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 flex flex-col justify-between space-y-8">
                   <div>
                     {/* Header Row */}
                     <div className="flex flex-wrap items-center justify-between gap-3 mb-4">

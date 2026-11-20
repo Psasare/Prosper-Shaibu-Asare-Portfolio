@@ -20,9 +20,9 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-28 border-t border-border relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14">
+    <section id="contact" className="py-28 md:py-36 lg:py-44 border-t border-border relative">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24">
           {/* Contact Details */}
           <div className="lg:col-span-5 space-y-7">
             <Reveal direction="left">
@@ -135,7 +135,7 @@ export function Contact() {
           {/* Form */}
           <div className="lg:col-span-7">
             <Reveal direction="right" delay={0.15}>
-              <div className="p-8 sm:p-9 rounded-3xl border border-border bg-card shadow-xs">
+              <div className="p-8 sm:p-12 lg:p-14 rounded-3xl border border-border bg-card shadow-xs">
                 {submitted ? (
                   <div className="py-14 text-center space-y-4">
                     <div className="w-12 h-12 rounded-full bg-accent/20 text-accent flex items-center justify-center mx-auto">
