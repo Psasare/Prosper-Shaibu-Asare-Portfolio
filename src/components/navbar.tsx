@@ -24,13 +24,13 @@ export function Navbar() {
         {/* Brand with Montserrat */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-montserrat font-extrabold text-base tracking-tight hover:opacity-85 transition-opacity"
+          className="flex items-center gap-2.5 hover:opacity-85 transition-opacity"
         >
           <div className="w-8 h-8 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent">
             <Terminal className="w-4 h-4" />
           </div>
-          <span className="text-foreground">
-            Prosper <span className="font-medium text-accent">Asare</span>
+          <span className="font-montserrat font-black text-sm uppercase tracking-[0.18em] text-foreground">
+            PROSPER <span className="text-accent">ASARE</span>
           </span>
         </Link>
 
