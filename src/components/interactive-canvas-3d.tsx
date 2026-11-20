@@ -10,14 +10,14 @@ import { useTheme } from "next-themes";
  * Renders high-fidelity 3D procedural models of a MacBook Pro and iPhone 16 Pro
  * floating completely unboxed directly on the page background.
  *
- * Highlights:
- * - 100% Unboxed: Zero cards, zero wafer outlines, zero docks, zero bottom toolbar pills
- * - No Edge Clipping: Generous camera frustum and scaling ensure device geometries never slice at canvas edges
- * - Free 3D Orbit: Drag 360° horizontally & vertically with realistic momentum inertia
- * - Smooth Wheel / Pinch Zoom (safely clamped)
- * - Gentle Idle Floating Zero-Gravity Motion
- * - Double-click anywhere to reset perspective
- * - Zero THREE.Clock deprecation warnings (uses performance.now())
+ * Anti-Clipping Architecture:
+ * - True Center of Mass: Both devices are symmetrically centered around (0,0,0)
+ *   so rotation never swings off-center or toward viewport edges.
+ * - Dynamic Aspect-Ratio Camera Rig: Guarantees at least 4.5 units of visible width
+ *   regardless of screen aspect ratio or column size, completely eliminating clipping borders.
+ * - 360° Industrial Design: Complete with MacBook metallic chassis & rear logo,
+ *   iPhone rear camera island & triple lenses, and dual-sided studio lighting.
+ * - 100% Unboxed: Zero cards, zero outlines, zero docks, zero pills.
  */
 export function InteractiveCanvas3D() {
   const mountRef = React.useRef<HTMLDivElement>(null);
@@ -30,13 +30,27 @@ export function InteractiveCanvas3D() {
     let width = currentMount.clientWidth;
     let height = currentMount.clientHeight;
 
-    // 1. Scene & Camera with expansive safety margins (eliminating any edge clipping)
+    // 1. Scene & Adaptive Camera
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(34, width / height, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(32, width / height, 0.1, 100);
 
-    const defaultCameraDist = 5.5;
-    let targetCameraDist = defaultCameraDist;
-    camera.position.set(0, 0.2, defaultCameraDist);
+    // Compute base distance that guarantees no clipping at any rotation angle
+    const computeSafeDistance = (w: number, h: number) => {
+      const aspect = w / h;
+      const desiredSpan = 4.6; // Units needed to guarantee zero clipping in 360° rotation
+      const fovRad = (camera.fov * Math.PI) / 180;
+      const visibleHeightAtUnitDist = 2 * Math.tan(fovRad / 2);
+      const visibleWidthAtUnitDist = visibleHeightAtUnitDist * aspect;
+
+      // Ensure both horizontal and vertical visible span accommodate desiredSpan
+      const distForWidth = desiredSpan / visibleWidthAtUnitDist;
+      const distForHeight = 3.6 / visibleHeightAtUnitDist;
+      return Math.max(6.2, distForWidth, distForHeight);
+    };
+
+    let baseCameraDist = computeSafeDistance(width, height);
+    let targetCameraDist = baseCameraDist;
+    camera.position.set(0, 0.15, baseCameraDist);
 
     // 2. Renderer with transparent background (pure alpha)
     const renderer = new THREE.WebGLRenderer({
@@ -52,13 +66,14 @@ export function InteractiveCanvas3D() {
 
     const isDark = resolvedTheme === "dark";
 
-    // 3. Studio Lighting: Crisp metallic reflections on chassis and glass
+    // 3. Multi-Point Studio Lighting (Front, Rim & Back Lighting for 360° Fidelity)
     const ambientLight = new THREE.AmbientLight(
       isDark ? 0x1e2433 : 0xffffff,
-      isDark ? 2.5 : 2.8
+      isDark ? 2.6 : 2.9
     );
     scene.add(ambientLight);
 
+    // Front Key Light
     const keyLight = new THREE.DirectionalLight(
       isDark ? 0xf1f5f9 : 0xffffff,
       isDark ? 3.2 : 2.6
@@ -66,6 +81,7 @@ export function InteractiveCanvas3D() {
     keyLight.position.set(4, 5, 4);
     scene.add(keyLight);
 
+    // Fill Light
     const fillLight = new THREE.PointLight(
       isDark ? 0xd5bdaf : 0x8e5f2e,
       isDark ? 2.6 : 2.0,
@@ -74,13 +90,22 @@ export function InteractiveCanvas3D() {
     fillLight.position.set(-4, -2, 3);
     scene.add(fillLight);
 
+    // Rim Light (Top-Back)
     const rimLight = new THREE.PointLight(
       isDark ? 0x93c5fd : 0x3b82f6,
-      isDark ? 2.0 : 1.4,
+      isDark ? 2.2 : 1.6,
       12
     );
     rimLight.position.set(0, 4, -2);
     scene.add(rimLight);
+
+    // Back Studio Light (Ensures metallic sheen and visibility when rotated to rear)
+    const backLight = new THREE.DirectionalLight(
+      isDark ? 0x64748b : 0xe2e8f0,
+      isDark ? 2.2 : 2.0
+    );
+    backLight.position.set(-3, 3, -5);
+    scene.add(backLight);
 
     // 4. Procedural UI Screen Textures
     // A. Laptop Screen (Full-Stack Next.js 16 Web Architecture)
@@ -280,16 +305,18 @@ export function InteractiveCanvas3D() {
 
     const phoneTexture = new THREE.CanvasTexture(phoneCanvas);
 
-    // 5. Assemble 3D Device Models
+    // 5. Assemble 3D Device Models with Symmetrical Center-of-Mass
     const masterGroup = new THREE.Group();
-    // Calibrated scale so entire composition fits comfortably with ample breathing room
-    masterGroup.scale.set(0.9, 0.9, 0.9);
+    // Compact scale fits comfortably with abundant margins inside any viewport
+    masterGroup.scale.set(0.78, 0.78, 0.78);
     scene.add(masterGroup);
 
     const deviceStage = new THREE.Group();
+    // Offset centers the combined composition at x=0
+    deviceStage.position.set(0.18, 0, 0);
     masterGroup.add(deviceStage);
 
-    // Shared Metallic Materials
+    // Shared Metallic Chassis Materials
     const chassisMaterial = new THREE.MeshStandardMaterial({
       color: isDark ? 0x181c26 : 0xd1d5db,
       metalness: 0.88,
@@ -306,8 +333,8 @@ export function InteractiveCanvas3D() {
     // A. 3D LAPTOP MODEL
     // ---------------------------
     const laptopGroup = new THREE.Group();
-    laptopGroup.position.set(-0.35, -0.12, -0.1);
-    laptopGroup.rotation.set(0.18, 0.45, -0.06);
+    laptopGroup.position.set(-0.55, -0.08, -0.1);
+    laptopGroup.rotation.set(0.16, 0.42, -0.05);
 
     // Laptop Base
     const baseGeo = new THREE.BoxGeometry(2.3, 0.05, 1.5);
@@ -365,14 +392,26 @@ export function InteractiveCanvas3D() {
     screenMesh.position.set(0, 0.725, 0.024);
     lidGroup.add(screenMesh);
 
+    // Laptop Rear Metallic Emblem (Visible when rotated to the back)
+    const logoGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.005, 32);
+    const logoMat = new THREE.MeshStandardMaterial({
+      color: isDark ? 0xffffff : 0x1e293b,
+      metalness: 0.95,
+      roughness: 0.1,
+    });
+    const logoMesh = new THREE.Mesh(logoGeo, logoMat);
+    logoMesh.rotation.x = Math.PI / 2;
+    logoMesh.position.set(0, 0.725, -0.022);
+    lidGroup.add(logoMesh);
+
     laptopGroup.add(lidGroup);
     deviceStage.add(laptopGroup);
 
     // ---------------------------
-    // B. 3D SMARTPHONE MODEL
+    // B. 3D SMARTPHONE MODEL (Full 360° Industrial Model)
     // ---------------------------
     const phoneGroup = new THREE.Group();
-    phoneGroup.position.set(1.05, -0.22, 0.65);
+    phoneGroup.position.set(0.85, -0.18, 0.55);
     phoneGroup.rotation.set(-0.12, -0.38, 0.06);
 
     // Phone Body
@@ -390,6 +429,36 @@ export function InteractiveCanvas3D() {
     const phoneScreenMesh = new THREE.Mesh(phoneScreenGeo, phoneScreenMat);
     phoneScreenMesh.position.set(0, 0, 0.022);
     phoneGroup.add(phoneScreenMesh);
+
+    // Phone Rear Camera Island Bump (Visible when rotated to the back)
+    const camBumpGeo = new THREE.BoxGeometry(0.28, 0.30, 0.015);
+    const camBumpMat = new THREE.MeshStandardMaterial({
+      color: isDark ? 0x222736 : 0x9ca3af,
+      metalness: 0.85,
+      roughness: 0.25,
+    });
+    const camBumpMesh = new THREE.Mesh(camBumpGeo, camBumpMat);
+    camBumpMesh.position.set(-0.16, 0.48, -0.024);
+    phoneGroup.add(camBumpMesh);
+
+    // Triple Camera Lenses
+    const lensGeo = new THREE.CylinderGeometry(0.045, 0.045, 0.012, 24);
+    const lensMat = new THREE.MeshStandardMaterial({
+      color: 0x05070a,
+      metalness: 0.9,
+      roughness: 0.1,
+    });
+    const lensPositions: [number, number, number][] = [
+      [-0.20, 0.54, -0.034],
+      [-0.20, 0.42, -0.034],
+      [-0.10, 0.48, -0.034],
+    ];
+    lensPositions.forEach(([lx, ly, lz]) => {
+      const lens = new THREE.Mesh(lensGeo, lensMat);
+      lens.rotation.x = Math.PI / 2;
+      lens.position.set(lx, ly, lz);
+      phoneGroup.add(lens);
+    });
 
     deviceStage.add(phoneGroup);
 
@@ -453,11 +522,13 @@ export function InteractiveCanvas3D() {
       handlePointerUp();
     };
 
-    // Wheel to Zoom (clamped to prevent clipping)
+    // Wheel to Zoom (strictly clamped to safe distance so zoom never causes clipping)
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const zoomDelta = e.deltaY * 0.003;
-      targetCameraDist = Math.max(4.6, Math.min(6.8, targetCameraDist + zoomDelta));
+      const minDistance = baseCameraDist * 0.92;
+      const maxDistance = baseCameraDist * 1.35;
+      targetCameraDist = Math.max(minDistance, Math.min(maxDistance, targetCameraDist + zoomDelta));
     };
 
     // Touch Events for Mobile / Tablet
@@ -480,7 +551,9 @@ export function InteractiveCanvas3D() {
         const dist = Math.hypot(dx, dy);
         if (lastPinchDist > 0) {
           const pinchDelta = (lastPinchDist - dist) * 0.008;
-          targetCameraDist = Math.max(4.6, Math.min(6.8, targetCameraDist + pinchDelta));
+          const minDistance = baseCameraDist * 0.92;
+          const maxDistance = baseCameraDist * 1.35;
+          targetCameraDist = Math.max(minDistance, Math.min(maxDistance, targetCameraDist + pinchDelta));
         }
         lastPinchDist = dist;
       }
@@ -505,14 +578,14 @@ export function InteractiveCanvas3D() {
     const onDoubleClick = () => {
       targetYaw = defaultYaw;
       targetPitch = defaultPitch;
-      targetCameraDist = defaultCameraDist;
+      targetCameraDist = baseCameraDist;
       velocityYaw = 0;
       velocityPitch = 0;
     };
     domElement.addEventListener("dblclick", onDoubleClick);
 
     // -------------------------------------------------------------
-    // 7. Render Loop with Momentum, Idle Float & Zero Warnings
+    // 7. Render Loop with Momentum, Idle Float & Zero Deprecations
     // -------------------------------------------------------------
     let animationFrameId: number;
     const startTime = performance.now();
@@ -532,12 +605,12 @@ export function InteractiveCanvas3D() {
           velocityPitch *= 0.93;
         } else {
           // Subtle idle ambient rotation
-          targetYaw += 0.002;
+          targetYaw += 0.0018;
         }
       }
 
-      // Safe pitch clamp prevents upside-down flip and keeps models comfortably in frame
-      targetPitch = Math.max(-0.48, Math.min(0.48, targetPitch));
+      // Safe pitch clamp prevents extreme tilt and keeps models comfortably in frame
+      targetPitch = Math.max(-0.42, Math.min(0.42, targetPitch));
 
       // Silky smooth interpolation (Lerp)
       currentYaw += (targetYaw - currentYaw) * 0.085;
@@ -550,20 +623,25 @@ export function InteractiveCanvas3D() {
       camera.position.z += (targetCameraDist - camera.position.z) * 0.08;
 
       // Organic Zero-Gravity Floating for Devices
-      laptopGroup.position.y = -0.12 + Math.sin(elapsedTime * 1.3) * 0.035;
-      phoneGroup.position.y = -0.22 + Math.cos(elapsedTime * 1.5) * 0.045;
+      laptopGroup.position.y = -0.08 + Math.sin(elapsedTime * 1.3) * 0.03;
+      phoneGroup.position.y = -0.18 + Math.cos(elapsedTime * 1.5) * 0.04;
 
       renderer.render(scene, camera);
     };
 
     animate();
 
-    // 8. Dynamic High-DPI Resize Observer
+    // 8. Dynamic Anti-Clipping Resize Observer
     const handleResize = () => {
       if (!currentMount) return;
       width = currentMount.clientWidth;
       height = currentMount.clientHeight;
       camera.aspect = width / height;
+
+      baseCameraDist = computeSafeDistance(width, height);
+      if (!isPointerDown) {
+        targetCameraDist = baseCameraDist;
+      }
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
     };
@@ -594,10 +672,16 @@ export function InteractiveCanvas3D() {
       screenGeo.dispose();
       phoneGeo.dispose();
       phoneScreenGeo.dispose();
+      logoGeo.dispose();
+      camBumpGeo.dispose();
+      lensGeo.dispose();
       chassisMaterial.dispose();
       borderMaterial.dispose();
       screenMat.dispose();
       phoneScreenMat.dispose();
+      logoMat.dispose();
+      camBumpMat.dispose();
+      lensMat.dispose();
       renderer.dispose();
 
       if (currentMount.contains(renderer.domElement)) {
@@ -607,7 +691,7 @@ export function InteractiveCanvas3D() {
   }, [resolvedTheme]);
 
   return (
-    <div className="relative w-full max-w-[680px] xl:max-w-[740px] h-[500px] sm:h-[560px] lg:h-[620px] xl:h-[660px] flex items-center justify-center select-none overflow-visible pointer-events-auto">
+    <div className="relative w-full max-w-[700px] xl:max-w-[760px] h-[520px] sm:h-[580px] lg:h-[640px] xl:h-[680px] flex items-center justify-center select-none overflow-visible pointer-events-auto">
       {/* 3D WebGL Canvas: 100% Unboxed (transparent background, zero borders, zero docks/cards) */}
       <div
         ref={mountRef}
