@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import * as React from "react";
@@ -26,7 +27,7 @@ const BASE_TECH_STACK: Omit<ImageData, "id">[] = [
     description: "Branching strategies, GitHub Actions automation, pull request workflows, and repository management.",
   },
   {
-    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framermotion/framermotion-original.svg",
+    src: "https://www.vectorlogo.zone/logos/framer/framer-icon.svg",
     alt: "Framer Motion",
     title: "Framer Motion • Fluid Micro-Interactions",
     description: "Spring physics, layout transitions, exit sequences, and hardware-accelerated UI feedback.",
@@ -139,6 +140,30 @@ const BASE_TECH_STACK: Omit<ImageData, "id">[] = [
     title: "Figma • Interface & Systems Prototyping",
     description: "Design system tokens, user experience wireframes, interactive flows, and visual design assets.",
   },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redux/redux-original.svg",
+    alt: "Redux",
+    title: "Redux Toolkit • Predictable State Management",
+    description: "Global client state slices, immutable updates, memoized selectors, and middleware workflows.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/graphql/graphql-plain.svg",
+    alt: "GraphQL",
+    title: "GraphQL • Strongly Typed Data Schemas",
+    description: "Declarative queries, fine-grained mutation resolvers, and efficient payload fetching.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg",
+    alt: "Firebase",
+    title: "Firebase • Cloud Services & Push Notifications",
+    description: "Firestore document databases, authentication rules, remote config, and push notifications.",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg",
+    alt: "Supabase",
+    title: "Supabase • Postgres Backend as a Service",
+    description: "Postgres schema modeling, Row Level Security (RLS) policies, and real-time database subscriptions.",
+  },
 ];
 
 // Generate 42 items using Fibonacci coverage
@@ -153,6 +178,7 @@ for (let i = 0; i < 42; i++) {
 }
 
 export function Skills() {
+  const [inspectedTech, setInspectedTech] = React.useState<ImageData | null>(TECH_SPHERE_IMAGES[0] || null);
   const sectionRef = React.useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -267,7 +293,42 @@ export function Skills() {
                 perspective={1000}
                 autoRotate={true}
                 autoRotateSpeed={0.25}
+                onHoverImage={(img) => img && setInspectedTech(img)}
+                onSelectImage={(img) => img && setInspectedTech(img)}
               />
+            </div>
+
+            {/* Live Interactive Stack Inspector HUD */}
+            <div className="w-full max-w-2xl mx-auto mt-6 px-4">
+              {inspectedTech ? (
+                <div className="p-5 sm:p-6 rounded-2xl bg-card/90 border border-border/80 shadow-lg flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5 transition-all">
+                  <div className="w-16 h-16 rounded-2xl bg-white border border-neutral-200/90 shadow-md p-2.5 flex items-center justify-center shrink-0">
+                    <img
+                      src={inspectedTech.src}
+                      alt={inspectedTech.alt}
+                      className="w-full h-full object-contain filter drop-shadow-xs"
+                    />
+                  </div>
+                  <div className="flex-1 text-center sm:text-left space-y-1.5">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                      <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-accent/15 text-accent border border-accent/25">
+                        Selected Architecture
+                      </span>
+                      <h4 className="font-montserrat font-bold text-base text-foreground">
+                        {inspectedTech.title || inspectedTech.alt}
+                      </h4>
+                    </div>
+                    <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {inspectedTech.description}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="py-3 px-6 rounded-xl bg-card/60 border border-border/80 text-center font-mono text-xs text-muted-foreground flex items-center justify-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                  <span>Click or hover any technology node to inspect Prosper&apos;s architectural usage</span>
+                </div>
+              )}
             </div>
           </div>
         </Reveal>

@@ -57,6 +57,8 @@ export interface SphereImageGridProps {
   autoRotate?: boolean;
   autoRotateSpeed?: number;
   className?: string;
+  onSelectImage?: (image: ImageData | null) => void;
+  onHoverImage?: (image: ImageData | null) => void;
 }
 
 interface RotationState {
@@ -119,7 +121,9 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   perspective = 1000,
   autoRotate = false,
   autoRotateSpeed = 0.3,
-  className = ''
+  className = '',
+  onSelectImage,
+  onHoverImage,
 }) => {
 
   // ==========================================
@@ -135,9 +139,23 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const lastMousePos = useRef<MousePosition>({ x: 0, y: 0 });
+  const dragStartPos = useRef<MousePosition>({ x: 0, y: 0 });
+  const isClickCandidate = useRef<boolean>(true);
   const animationFrame = useRef<number | null>(null);
 
   const [responsiveSize, setResponsiveSize] = useState<number>(containerSize);
+
+  // Keyboard navigation: Escape key closes modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedImage(null);
+        onSelectImage?.(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onSelectImage]);
 
   useEffect(() => {
     const updateSize = () => {
@@ -368,14 +386,23 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   // ==========================================
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
     setIsDragging(true);
     setVelocity({ x: 0, y: 0 });
     lastMousePos.current = { x: e.clientX, y: e.clientY };
+    dragStartPos.current = { x: e.clientX, y: e.clientY };
+    isClickCandidate.current = true;
   }, []);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging) return;
+
+    const totalDist = Math.hypot(
+      e.clientX - dragStartPos.current.x,
+      e.clientY - dragStartPos.current.y
+    );
+    if (totalDist > 6) {
+      isClickCandidate.current = false;
+    }
 
     const deltaX = e.clientX - lastMousePos.current.x;
     const deltaY = e.clientY - lastMousePos.current.y;
@@ -405,18 +432,26 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   }, []);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    e.preventDefault();
     const touch = e.touches[0];
     setIsDragging(true);
     setVelocity({ x: 0, y: 0 });
     lastMousePos.current = { x: touch.clientX, y: touch.clientY };
+    dragStartPos.current = { x: touch.clientX, y: touch.clientY };
+    isClickCandidate.current = true;
   }, []);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
     if (!isDragging) return;
-    e.preventDefault();
 
     const touch = e.touches[0];
+    const totalDist = Math.hypot(
+      touch.clientX - dragStartPos.current.x,
+      touch.clientY - dragStartPos.current.y
+    );
+    if (totalDist > 6) {
+      isClickCandidate.current = false;
+    }
+
     const deltaX = touch.clientX - lastMousePos.current.x;
     const deltaY = touch.clientY - lastMousePos.current.y;
 
@@ -500,6 +535,11 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
   // Calculate world positions once per render
   const worldPositions = calculateWorldPositions();
 
+  const handleSelectImage = useCallback((image: ImageData) => {
+    setSelectedImage(image);
+    onSelectImage?.(image);
+  }, [onSelectImage]);
+
   const renderImageNode = useCallback((image: ImageData, index: number) => {
     const position = worldPositions[index];
 
@@ -508,6 +548,13 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
     const imageSize = baseImageSize * position.scale;
     const isHovered = hoveredIndex === index;
     const finalScale = isHovered ? Math.min(hoverScale, hoverScale / position.scale) : 1;
+
+    const onNodeAction = (e: React.SyntheticEvent) => {
+      if (isClickCandidate.current) {
+        e.stopPropagation();
+        handleSelectImage(image);
+      }
+    };
 
     return (
       <div
@@ -522,50 +569,70 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
           transform: `translate(-50%, -50%) scale(${finalScale})`,
           zIndex: position.zIndex
         }}
-        onMouseEnter={() => setHoveredIndex(index)}
-        onMouseLeave={() => setHoveredIndex(null)}
-        onClick={() => setSelectedImage(image)}
+        onMouseEnter={() => {
+          setHoveredIndex(index);
+          onHoverImage?.(image);
+        }}
+        onMouseLeave={() => {
+          setHoveredIndex(null);
+          onHoverImage?.(null);
+        }}
+        onPointerUp={onNodeAction}
+        onClick={onNodeAction}
       >
-        <div className="relative w-full h-full rounded-full overflow-hidden shadow-md border border-border/80 bg-card/95 backdrop-blur-xs p-2 sm:p-2.5 flex items-center justify-center hover:border-accent hover:shadow-lg transition-all">
+        <div className="relative w-full h-full rounded-full overflow-hidden shadow-md hover:shadow-xl border border-neutral-200/90 dark:border-white/30 bg-white p-2 sm:p-2.5 flex items-center justify-center hover:scale-120 hover:border-accent transition-all duration-300">
           <img
             src={image.src}
             alt={image.alt}
             className="w-full h-full object-contain filter drop-shadow-xs"
             draggable={false}
-            loading={index < 3 ? 'eager' : 'lazy'}
+            loading="eager"
+            onError={(e) => {
+              const target = e.currentTarget;
+              target.style.display = 'none';
+              const parent = target.parentElement;
+              if (parent && !parent.querySelector('.fallback-monogram')) {
+                const mono = document.createElement('span');
+                mono.className = 'fallback-monogram font-montserrat font-bold text-xs text-neutral-900';
+                mono.innerText = image.alt.slice(0, 2).toUpperCase();
+                parent.appendChild(mono);
+              }
+            }}
           />
         </div>
       </div>
     );
-  }, [worldPositions, baseImageSize, responsiveSize, hoveredIndex, hoverScale]);
+  }, [worldPositions, baseImageSize, responsiveSize, hoveredIndex, hoverScale, handleSelectImage, onHoverImage]);
 
   const renderSpotlightModal = () => {
     if (!selectedImage) return null;
 
     return (
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs"
-        onClick={() => setSelectedImage(null)}
-        style={{
-          animation: 'fadeIn 0.25s ease-out'
+        className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
+        onClick={() => {
+          setSelectedImage(null);
+          onSelectImage?.(null);
         }}
+        style={{ animation: 'fadeIn 0.2s ease-out' }}
       >
         <div
-          className="bg-card text-card-foreground border border-border rounded-2xl max-w-sm w-full overflow-hidden shadow-2xl p-6 relative"
+          className="bg-card text-card-foreground border border-border rounded-3xl max-w-md w-full overflow-hidden shadow-2xl p-7 sm:p-8 relative"
           onClick={(e) => e.stopPropagation()}
-          style={{
-            animation: 'scaleIn 0.25s ease-out'
-          }}
+          style={{ animation: 'scaleIn 0.25s ease-out' }}
         >
           <button
-            onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-muted border border-border text-foreground flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all cursor-pointer shadow-xs"
+            onClick={() => {
+              setSelectedImage(null);
+              onSelectImage?.(null);
+            }}
+            className="absolute top-5 right-5 w-9 h-9 rounded-full bg-muted border border-border text-foreground flex items-center justify-center hover:bg-accent hover:text-white transition-all cursor-pointer shadow-xs"
             aria-label="Close modal"
           >
-            <X size={16} />
+            <X size={18} />
           </button>
 
-          <div className="w-20 h-20 mx-auto mb-4 p-3 rounded-2xl bg-muted/60 border border-border flex items-center justify-center shadow-inner">
+          <div className="w-22 h-22 mx-auto mb-5 p-4 rounded-3xl bg-white border border-neutral-200 shadow-md flex items-center justify-center">
             <img
               src={selectedImage.src}
               alt={selectedImage.alt}
@@ -573,17 +640,33 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
             />
           </div>
 
-          <div className="text-center">
-            {selectedImage.title && (
-              <h3 className="font-montserrat font-bold text-lg text-foreground mb-1.5">
-                {selectedImage.title}
-              </h3>
-            )}
-            {selectedImage.description && (
-              <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                {selectedImage.description}
+          <div className="text-center space-y-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/15 border border-accent/25 text-accent font-mono text-[11px] font-bold uppercase tracking-wider">
+              <span>SPECIALIZED STACK</span>
+            </div>
+
+            <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground">
+              {selectedImage.title || selectedImage.alt}
+            </h3>
+
+            <div className="p-4 rounded-2xl bg-muted/60 border border-border/70 text-left space-y-1.5 mt-3">
+              <span className="font-montserrat text-[11px] uppercase tracking-wider text-accent font-bold block">
+                Role &amp; Architectural Use
+              </span>
+              <p className="font-sans text-sm text-foreground/90 leading-relaxed">
+                {selectedImage.description || "Core component of Prosper's engineering and architecture toolchain."}
               </p>
-            )}
+            </div>
+
+            <button
+              onClick={() => {
+                setSelectedImage(null);
+                onSelectImage?.(null);
+              }}
+              className="mt-5 w-full py-3 rounded-xl bg-primary text-primary-foreground font-montserrat text-xs uppercase tracking-wider font-bold hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer shadow-sm"
+            >
+              Done Inspecting
+            </button>
           </div>
         </div>
       </div>
