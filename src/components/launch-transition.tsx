@@ -15,6 +15,24 @@ const STEPS = [
 ];
 const MARKS = [0.22, 0.50, 0.80, 1.0];
 
+function getInitialGreeting() {
+  const hr = new Date().getHours();
+  return hr < 12 ? "Good morning" : hr < 17 ? "Good afternoon" : "Good evening";
+}
+
+function getInitialAccraClock() {
+  try {
+    const clockStr = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Africa/Accra",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(new Date());
+    return `Accra ${clockStr}`;
+  } catch {
+    return "Accra GMT";
+  }
+}
+
 /**
  * Editorial Swiss/Apple-Minimalist Launch Screen Transition
  *
@@ -32,25 +50,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
   const [progressVal, setProgressVal] = React.useState(0);
   const [stepStates, setStepStates] = React.useState<boolean[]>([false, false, false, false]);
 
-  const [greeting] = React.useState(() => {
-    if (typeof window === "undefined") return "Good day";
-    const hr = new Date().getHours();
-    return hr < 12 ? "Good morning" : hr < 17 ? "Good afternoon" : "Good evening";
-  });
-
-  const [accraClock] = React.useState(() => {
-    if (typeof window === "undefined") return "Accra --:--";
-    try {
-      const clockStr = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Africa/Accra",
-        hour: "2-digit",
-        minute: "2-digit",
-      }).format(new Date());
-      return `Accra ${clockStr}`;
-    } catch {
-      return "Accra GMT";
-    }
-  });
+  const [greeting] = React.useState(getInitialGreeting);
+  const [accraClock] = React.useState(getInitialAccraClock);
 
   const loaderRef = React.useRef<HTMLDivElement>(null);
   const nameRef = React.useRef<HTMLDivElement>(null);
@@ -231,8 +232,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
               phase === "out" && "opacity-0 -translate-y-3.5"
             )}
           >
-            <span className="font-medium tracking-tight text-foreground">{greeting}</span>
-            <span className="font-mono text-[11px] sm:text-xs text-muted-foreground">{accraClock}</span>
+            <span suppressHydrationWarning className="font-medium tracking-tight text-foreground">{greeting}</span>
+            <span suppressHydrationWarning className="font-mono text-[11px] sm:text-xs text-muted-foreground">{accraClock}</span>
           </div>
 
           {/* Middle Section: Massive Variable Font Name & Monospace Steps */}

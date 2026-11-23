@@ -15,7 +15,7 @@ export function Footer() {
           <span className="font-bold text-foreground">
             Prosper Shaibu Asare
           </span>
-          <span className="font-normal font-sans text-muted-foreground">&copy; {currentYear}. All rights reserved.</span>
+          <span suppressHydrationWarning className="font-normal font-sans text-muted-foreground">&copy; {currentYear}. All rights reserved.</span>
         </div>
 
         <div className="flex items-center gap-4">
