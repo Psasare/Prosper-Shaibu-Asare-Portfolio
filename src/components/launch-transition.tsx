@@ -1,182 +1,323 @@
 "use client";
 
 import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { AnimatedNameLogo } from "./ui/animated-name-logo";
+import { cn } from "@/lib/utils";
 
 interface LaunchTransitionProps {
   children: React.ReactNode;
 }
 
+const STEPS = [
+  "01 Loading fonts",
+  "02 Setting the theme",
+  "03 Preparing the work",
+  "04 Ready",
+];
+const MARKS = [0.22, 0.50, 0.80, 1.0];
+
 /**
- * Apple-Minimalist Launch Screen Transition
+ * Editorial Swiss/Apple-Minimalist Launch Screen Transition
  *
- * Designed with pure Apple aesthetic discipline:
- * - Serene, distraction-free typography and breathing whitespace
- * - ZERO sci-fi telemetry, ZERO gridlines, ZERO coordinate headers, ZERO equalizer bars
- * - Pure centered typographic presentation with rotating disciplines
- * - Refined hairline progress indicator (5-second progression)
- * - Seamless luxury curtain dissolve into the portfolio
+ * Designed with pure typographic and architectural discipline:
+ * - Three subtle vertical hairline drafting guides (25%, 50%, 75%)
+ * - Time-aware greeting & live Accra GMT clock
+ * - Variable font-weight wave sweeping across "Prosper Shaibu Asare" (100 -> 800 weight)
+ * - Monospace system loading steps checklist with accent status badges
+ * - Monumental 3-digit tabular counter (000 -> 100) and hairline bottom progress track
+ * - Luxury upward curtain lift exit transition via cubic-bezier clip-path
  */
 export function LaunchTransition({ children }: LaunchTransitionProps) {
-  const [isDone, setIsDone] = React.useState(false);
-  const [progress, setProgress] = React.useState(0);
-  const [phaseIndex, setPhaseIndex] = React.useState(0);
+  const [phase, setPhase] = React.useState<"loading" | "out" | "lift" | "gone">("loading");
+  const [counterText, setCounterText] = React.useState("000");
+  const [progressVal, setProgressVal] = React.useState(0);
+  const [stepStates, setStepStates] = React.useState<boolean[]>([false, false, false, false]);
 
-  const disciplines = [
-    "Full-Stack Software Engineering",
-    "Modern Web Design & Architecture",
-    "Mobile Application Development",
-    "Enterprise Infrastructure & Systems",
+  const [greeting] = React.useState(() => {
+    if (typeof window === "undefined") return "Good day";
+    const hr = new Date().getHours();
+    return hr < 12 ? "Good morning" : hr < 17 ? "Good afternoon" : "Good evening";
+  });
+
+  const [accraClock] = React.useState(() => {
+    if (typeof window === "undefined") return "Accra --:--";
+    try {
+      const clockStr = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Africa/Accra",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(new Date());
+      return `Accra ${clockStr}`;
+    } catch {
+      return "Accra GMT";
+    }
+  });
+
+  const loaderRef = React.useRef<HTMLDivElement>(null);
+  const nameRef = React.useRef<HTMLDivElement>(null);
+  const barRef = React.useRef<HTMLDivElement>(null);
+  const isSkippingRef = React.useRef(false);
+
+  const nameWords = [
+    { word: "Prosper", className: "block" },
+    { word: "Shaibu Asare", className: "block mt-1 sm:mt-2" },
   ];
 
-  // ~5-second smooth progression (Apple calm & deliberate pace)
   React.useEffect(() => {
+    // 1. Lock body scroll during launch
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const totalDuration = 4800; // ~5 seconds total
-    const startTime = Date.now();
+    // 2. Collect character spans for variable font weight sweep
+    const chElements: HTMLElement[] = [];
+    if (nameRef.current) {
+      const chars = nameRef.current.querySelectorAll<HTMLElement>(".ch-glyph");
+      chars.forEach((c) => chElements.push(c));
+    }
 
-    const interval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const pct = Math.min(Math.round((elapsed / totalDuration) * 100), 100);
-      setProgress(pct);
+    // 3. Animation loop using requestAnimationFrame
+    let rafId = 0;
+    const timers: NodeJS.Timeout[] = [];
+    const dur = 4200; // 4.2 seconds smooth progression
+    const t0 = performance.now();
 
-      if (pct < 28) {
-        setPhaseIndex(0);
-      } else if (pct < 55) {
-        setPhaseIndex(1);
-      } else if (pct < 82) {
-        setPhaseIndex(2);
+    const finish = () => {
+      // Step 1: Elements fade out slightly and slide up
+      setPhase("out");
+
+      // Step 2: Curtain lifts upward via clip-path
+      const timerLift = setTimeout(() => {
+        setPhase("lift");
+      }, 350);
+      timers.push(timerLift);
+
+      // Step 3: Loader is completely removed and scroll is restored
+      const timerGone = setTimeout(() => {
+        setPhase("gone");
+        document.body.style.overflow = originalOverflow;
+      }, 1250);
+      timers.push(timerGone);
+    };
+
+    function frame(currentTime: number) {
+      const p = Math.min((currentTime - t0) / dur, 1);
+      const isSkip = isSkippingRef.current;
+      const e = isSkip ? 1 : 0.5 - Math.cos(Math.PI * p) / 2;
+      const sw = isSkip ? 1 : Math.min(1, (currentTime - t0) / 2400);
+
+      // Update counter
+      const pct = Math.round(e * 100);
+      setCounterText(String(pct).padStart(3, "0"));
+      setProgressVal(e);
+
+      // Update bottom progress bar directly for 120fps smoothness
+      if (barRef.current) {
+        barRef.current.style.transform = `scaleX(${e})`;
+      }
+
+      // Update steps
+      setStepStates((prev) => {
+        const next = [...prev];
+        let changed = false;
+        MARKS.forEach((m, i) => {
+          if (e >= m - 0.001 && !next[i]) {
+            next[i] = true;
+            changed = true;
+          }
+        });
+        return changed ? next : prev;
+      });
+
+      // Variable font weight wave sweep across characters
+      chElements.forEach((c, i) => {
+        const l = Math.max(0, Math.min(1, sw * 1.6 - i * 0.08));
+        const k = l * l * (3 - 2 * l); // Smoothstep curve
+        const weight = Math.round(100 + 700 * k); // 100 -> 800 weight
+        const opacity = (0.15 + 0.85 * k).toFixed(2);
+        c.style.fontWeight = String(weight);
+        c.style.opacity = opacity;
+      });
+
+      if (p < 1 && !isSkip) {
+        rafId = requestAnimationFrame(frame);
       } else {
-        setPhaseIndex(3);
+        setStepStates([true, true, true, true]);
+        finish();
       }
+    }
 
-      if (pct >= 100) {
-        clearInterval(interval);
-        setTimeout(() => {
-          setIsDone(true);
-          document.body.style.overflow = originalOverflow;
-        }, 400);
+    rafId = requestAnimationFrame(frame);
+
+    // 4. Skip event listeners (tap or keydown Escape / Space / Enter)
+    const handleSkip = () => {
+      if (!isSkippingRef.current) {
+        isSkippingRef.current = true;
       }
-    }, 20);
+    };
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" || e.key === " " || e.key === "Enter") {
-        setIsDone(true);
-        document.body.style.overflow = originalOverflow;
+        handleSkip();
       }
     };
+
     window.addEventListener("keydown", handleKeyDown);
 
-    const safetyTimeout = setTimeout(() => {
-      setIsDone(true);
-      document.body.style.overflow = originalOverflow;
-    }, 8000);
-
     return () => {
-      clearInterval(interval);
-      clearTimeout(safetyTimeout);
+      cancelAnimationFrame(rafId);
+      timers.forEach(clearTimeout);
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = originalOverflow;
     };
   }, []);
 
-  const handleSkip = (e: React.MouseEvent) => {
+  const triggerSkip = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsDone(true);
-    document.body.style.overflow = "";
+    if (phase === "loading") {
+      isSkippingRef.current = true;
+    }
   };
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {!isDone && (
-          <motion.div
-            key="launch-curtain"
-            initial={{ opacity: 1 }}
-            exit={{
-              opacity: 0,
-              scale: 1.02,
-              filter: "blur(12px)",
-              transition: {
-                duration: 0.75,
-                ease: [0.16, 1, 0.3, 1],
-              },
-            }}
-            className="fixed inset-0 z-[9999] flex flex-col justify-between bg-background text-foreground select-none p-6 sm:p-10 lg:p-14"
-            aria-label="Loading portfolio. Press Escape or click Enter to proceed."
+      {phase !== "gone" && (
+        <div
+          ref={loaderRef}
+          onClick={triggerSkip}
+          role="status"
+          aria-label="Loading portfolio. Tap to skip."
+          style={{
+            clipPath: phase === "lift" ? "inset(0 0 100% 0)" : "inset(0 0 0 0)",
+            transition: phase === "lift" ? "clip-path 0.9s cubic-bezier(0.76, 0, 0.24, 1)" : "none",
+          }}
+          className={cn(
+            "fixed inset-0 z-[100] flex flex-col justify-between cursor-pointer select-none overflow-hidden",
+            "bg-[#F6F6F7] text-[#16161A] dark:bg-[#0C0C10] dark:text-[#F2F2F5]",
+            "px-6 sm:px-10 lg:px-14 py-6 sm:py-8",
+            phase === "out" && "pointer-events-none"
+          )}
+        >
+          {/* Subtle Vertical Drafting Guide Lines (25%, 50%, 75%) */}
+          <i
+            style={{ left: "25%" }}
+            className={cn(
+              "absolute top-0 bottom-0 w-[1px] pointer-events-none transition-opacity duration-400 hidden sm:block",
+              "bg-black/[0.08] dark:bg-white/[0.08]",
+              phase === "out" && "opacity-0"
+            )}
+          />
+          <i
+            style={{ left: "50%" }}
+            className={cn(
+              "absolute top-0 bottom-0 w-[1px] pointer-events-none transition-opacity duration-400",
+              "bg-black/[0.08] dark:bg-white/[0.08]",
+              phase === "out" && "opacity-0"
+            )}
+          />
+          <i
+            style={{ left: "75%" }}
+            className={cn(
+              "absolute top-0 bottom-0 w-[1px] pointer-events-none transition-opacity duration-400 hidden sm:block",
+              "bg-black/[0.08] dark:bg-white/[0.08]",
+              phase === "out" && "opacity-0"
+            )}
+          />
+
+          {/* Top Bar: Time-aware greeting & live Accra GMT clock */}
+          <div
+            className={cn(
+              "relative z-10 flex items-center justify-between gap-4 pb-4 border-b text-xs sm:text-sm font-sans",
+              "border-black/[0.09] dark:border-white/[0.11]",
+              "transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]",
+              phase === "out" && "opacity-0 -translate-y-3.5"
+            )}
           >
-            {/* Top Bar: Discreet, Minimalist Skip / Enter Control */}
-            <div className="flex items-center justify-end w-full">
-              <button
-                type="button"
-                onClick={handleSkip}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border text-foreground hover:bg-muted font-montserrat font-bold text-[11px] uppercase tracking-wider transition-all cursor-pointer shadow-2xs group"
-              >
-                <span>Enter</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+            <span className="font-medium tracking-tight text-foreground">{greeting}</span>
+            <span className="font-mono text-[11px] sm:text-xs text-muted-foreground">{accraClock}</span>
+          </div>
+
+          {/* Middle Section: Massive Variable Font Name & Monospace Steps */}
+          <div
+            className={cn(
+              "relative z-10 flex-1 flex flex-col lg:flex-row lg:items-end justify-center lg:justify-between gap-8 py-6 sm:py-8",
+              "transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]",
+              phase === "out" && "opacity-0 -translate-y-3.5"
+            )}
+          >
+            {/* The Name with Variable Font-Weight Wave Sweep */}
+            <div
+              ref={nameRef}
+              aria-hidden="true"
+              className="font-montserrat text-[clamp(44px,11.5vw,168px)] leading-[0.92] tracking-[-0.05em] flex flex-col select-none"
+            >
+              {nameWords.map((item, lineIdx) => (
+                <span key={lineIdx} className={item.className}>
+                  {item.word.split("").map((c, charIdx) => (
+                    <i
+                      key={charIdx}
+                      className="ch-glyph not-italic inline-block font-[100] opacity-15 transition-[font-weight,opacity] duration-75"
+                    >
+                      {c === " " ? "\u00A0" : c}
+                    </i>
+                  ))}
+                </span>
+              ))}
             </div>
 
-            {/* Centered Monolithic Focus: MoZoo-Style Animated Name Logo & Rotating Disciplines */}
-            <div className="flex flex-col items-center justify-center text-center my-auto px-4 max-w-4xl mx-auto w-full">
-              {/* Dynamic Animated Monoline Tubular Logo (Prosper Shaibu Asare) */}
-              <AnimatedNameLogo className="mb-4 sm:mb-6" />
-
-              {/* Dynamic Rotating Subtitle: Smooth Crossfade */}
-              <div className="h-8 sm:h-9 flex items-center justify-center overflow-hidden">
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={phaseIndex}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.35, ease: "easeInOut" }}
-                    className="font-montserrat text-xs sm:text-sm uppercase tracking-[0.2em] text-accent font-bold"
+            {/* Checklist of Loading Steps */}
+            <ul className="w-full max-w-[280px] sm:max-w-[320px] font-mono text-xs sm:text-[13px] list-none p-0 flex flex-col">
+              {STEPS.map((label, idx) => {
+                const isDone = stepStates[idx];
+                return (
+                  <li
+                    key={idx}
+                    className={cn(
+                      "flex items-center justify-between gap-4 py-2.5 border-t border-black/[0.09] dark:border-white/[0.11] transition-colors duration-300",
+                      idx === STEPS.length - 1 && "border-b border-black/[0.09] dark:border-white/[0.11]",
+                      isDone ? "text-foreground font-medium" : "text-muted-foreground/70"
+                    )}
                   >
-                    {disciplines[phaseIndex]}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
+                    <span>{label}</span>
+                    <b className={cn("font-medium", isDone ? "text-accent" : "text-muted-foreground/50")}>
+                      {isDone ? "ok" : "…"}
+                    </b>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
-              {/* Apple-Style Hairline Progress Bar & Percentage */}
-              <div className="w-full max-w-xs sm:max-w-sm mt-8 space-y-3">
-                <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-accent rounded-full"
-                    style={{ width: `${progress}%` }}
-                    transition={{ ease: "linear" }}
-                  />
-                </div>
-                <div className="flex items-center justify-between font-montserrat text-[10px] font-bold text-muted-foreground/80 tracking-widest uppercase">
-                  <span>Loading</span>
-                  <span className="font-semibold text-foreground">{progress}%</span>
-                </div>
-              </div>
+          {/* Bottom Bar: Tabular Counter & Skip Hint */}
+          <div
+            className={cn(
+              "relative z-10 flex items-end justify-between gap-4 pt-4 border-t",
+              "border-black/[0.09] dark:border-white/[0.11]",
+              "transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]",
+              phase === "out" && "opacity-0 -translate-y-3.5"
+            )}
+          >
+            {/* Monumental Tabular 3-Digit Counter */}
+            <div className="font-montserrat font-[200] text-[clamp(50px,9vw,120px)] leading-[0.85] tracking-[-0.05em] tabular-nums select-none text-foreground">
+              {counterText}
             </div>
 
-            {/* Bottom Footer: Minimalist Skip Hint */}
-            <div className="flex items-center justify-center sm:justify-end w-full pt-2">
-              <span className="font-montserrat text-[10px] uppercase tracking-wider text-muted-foreground/60">
-                Press Esc to skip
-              </span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <span className="font-sans text-xs sm:text-sm text-muted-foreground pb-1 cursor-pointer hover:text-foreground transition-colors">
+              Tap to skip
+            </span>
+          </div>
 
-      {/* Main Page: Fluid Cinematic Fade-In */}
-      <motion.div
-        initial={{ opacity: 0.95 }}
-        animate={isDone ? { opacity: 1 } : { opacity: 0.95 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full min-h-screen"
-      >
+          {/* Hairline Bottom Progress Bar (3px) */}
+          <div
+            ref={barRef}
+            style={{ transform: `scaleX(${progressVal})` }}
+            className="absolute left-0 right-0 bottom-0 h-[3px] bg-accent origin-left transition-transform duration-75"
+          />
+        </div>
+      )}
+
+      {/* The Main Application Page */}
+      <div className={cn("w-full min-h-screen transition-opacity duration-700", phase === "loading" ? "opacity-95" : "opacity-100")}>
         {children}
-      </motion.div>
+      </div>
     </>
   );
 }
