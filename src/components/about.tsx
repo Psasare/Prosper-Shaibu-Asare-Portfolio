@@ -84,7 +84,7 @@ export function About() {
           <div className="lg:col-span-7 space-y-6 sm:space-y-7 lg:pt-2">
             <Reveal direction="up" delay={0.12}>
               <p className="font-sans text-lg sm:text-xl lg:text-2xl text-foreground font-medium leading-relaxed">
-                I am an analytical, driven, and detail-oriented <span className="text-accent underline decoration-accent/30 underline-offset-4 font-semibold">Information Technology Graduate</span> of the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration.
+                I am an analytical driven, and detail-oriented <span className="text-accent underline decoration-accent/30 underline-offset-4 font-semibold">Information Technology Graduate</span> from the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration.
               </p>
             </Reveal>
 
