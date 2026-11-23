@@ -37,25 +37,21 @@ function getInitialAccraClock() {
  * Editorial Swiss/Apple-Minimalist Launch Screen Transition
  *
  * Designed with pure typographic and architectural discipline:
- * - Three subtle vertical hairline drafting guides (25%, 50%, 75%)
- * - Time-aware greeting & live Accra GMT clock
- * - Variable font-weight wave sweeping across "Prosper Shaibu Asare" (100 -> 800 weight)
- * - Monospace system loading steps checklist with accent status badges
- * - Monumental 3-digit tabular counter (000 -> 100) and hairline bottom progress track
- * - Luxury upward curtain lift exit transition via cubic-bezier clip-path
+ * - 100% theme-consistent: leverages semantic tokens (--background, --foreground, --border, --accent)
+ * - Buttery 120fps hardware-accelerated rendering: 0 React re-renders during progress wave
+ * - Waits for variable font readiness before initiation to avoid FOUT/FOIT
+ * - Luxury upward curtain lift via cubic-bezier clip-path
  */
 export function LaunchTransition({ children }: LaunchTransitionProps) {
   const [phase, setPhase] = React.useState<"loading" | "out" | "lift" | "gone">("loading");
-  const [counterText, setCounterText] = React.useState("000");
-  const [progressVal, setProgressVal] = React.useState(0);
-  const [stepStates, setStepStates] = React.useState<boolean[]>([false, false, false, false]);
-
   const [greeting] = React.useState(getInitialGreeting);
   const [accraClock] = React.useState(getInitialAccraClock);
 
   const loaderRef = React.useRef<HTMLDivElement>(null);
   const nameRef = React.useRef<HTMLDivElement>(null);
   const barRef = React.useRef<HTMLDivElement>(null);
+  const countRef = React.useRef<HTMLDivElement>(null);
+  const stepsRef = React.useRef<HTMLUListElement>(null);
   const isSkippingRef = React.useRef(false);
 
   const nameWords = [
@@ -75,11 +71,9 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
       chars.forEach((c) => chElements.push(c));
     }
 
-    // 3. Animation loop using requestAnimationFrame
     let rafId = 0;
     const timers: NodeJS.Timeout[] = [];
-    const dur = 4200; // 4.2 seconds smooth progression
-    const t0 = performance.now();
+    let isCleanedUp = false;
 
     const finish = () => {
       // Step 1: Elements fade out slightly and slide up
@@ -95,60 +89,105 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
       const timerGone = setTimeout(() => {
         setPhase("gone");
         document.body.style.overflow = originalOverflow;
-      }, 1250);
+      }, 1450);
       timers.push(timerGone);
     };
 
-    function frame(currentTime: number) {
-      const p = Math.min((currentTime - t0) / dur, 1);
-      const isSkip = isSkippingRef.current;
-      const e = isSkip ? 1 : 0.5 - Math.cos(Math.PI * p) / 2;
-      const sw = isSkip ? 1 : Math.min(1, (currentTime - t0) / 2400);
+    const startAnimation = () => {
+      if (isCleanedUp) return;
 
-      // Update counter
-      const pct = Math.round(e * 100);
-      setCounterText(String(pct).padStart(3, "0"));
-      setProgressVal(e);
+      const dur = 4000; // 4 seconds smooth, deliberate progression
+      const t0 = performance.now();
 
-      // Update bottom progress bar directly for 120fps smoothness
-      if (barRef.current) {
-        barRef.current.style.transform = `scaleX(${e})`;
-      }
+      function frame(currentTime: number) {
+        if (isCleanedUp) return;
 
-      // Update steps
-      setStepStates((prev) => {
-        const next = [...prev];
-        let changed = false;
-        MARKS.forEach((m, i) => {
-          if (e >= m - 0.001 && !next[i]) {
-            next[i] = true;
-            changed = true;
-          }
+        const p = Math.min((currentTime - t0) / dur, 1);
+        const isSkip = isSkippingRef.current;
+        const e = isSkip ? 1 : 0.5 - Math.cos(Math.PI * p) / 2;
+        const sw = isSkip ? 1 : Math.min(1, (currentTime - t0) / 2400);
+
+        // 1. Update counter directly without triggering React re-renders (120fps)
+        const pct = Math.round(e * 100);
+        if (countRef.current) {
+          countRef.current.textContent = String(pct).padStart(3, "0");
+        }
+
+        // 2. Update bottom progress bar directly
+        if (barRef.current) {
+          barRef.current.style.transform = `scaleX(${e})`;
+        }
+
+        // 3. Update loading steps directly in DOM
+        if (stepsRef.current) {
+          const listItems = stepsRef.current.children;
+          MARKS.forEach((m, i) => {
+            if (e >= m - 0.001) {
+              const li = listItems[i] as HTMLElement | undefined;
+              if (li && !li.dataset.done) {
+                li.dataset.done = "true";
+                li.className =
+                  "flex items-center justify-between gap-4 py-2.5 border-t border-border transition-colors duration-300 text-foreground font-medium" +
+                  (i === MARKS.length - 1 ? " border-b border-border" : "");
+                const b = li.querySelector("b");
+                if (b) {
+                  b.className = "font-semibold text-accent transition-colors duration-300";
+                  b.textContent = "ok";
+                }
+              }
+            }
+          });
+        }
+
+        // 4. Variable font weight wave sweep across characters (100 -> 800)
+        chElements.forEach((c, i) => {
+          const l = Math.max(0, Math.min(1, sw * 1.6 - i * 0.08));
+          const k = l * l * (3 - 2 * l); // Smoothstep curve
+          const weight = Math.round(100 + 700 * k);
+          const opacity = (0.18 + 0.82 * k).toFixed(2);
+          c.style.fontWeight = String(weight);
+          c.style.opacity = opacity;
         });
-        return changed ? next : prev;
-      });
 
-      // Variable font weight wave sweep across characters
-      chElements.forEach((c, i) => {
-        const l = Math.max(0, Math.min(1, sw * 1.6 - i * 0.08));
-        const k = l * l * (3 - 2 * l); // Smoothstep curve
-        const weight = Math.round(100 + 700 * k); // 100 -> 800 weight
-        const opacity = (0.15 + 0.85 * k).toFixed(2);
-        c.style.fontWeight = String(weight);
-        c.style.opacity = opacity;
-      });
-
-      if (p < 1 && !isSkip) {
-        rafId = requestAnimationFrame(frame);
-      } else {
-        setStepStates([true, true, true, true]);
-        finish();
+        if (p < 1 && !isSkip) {
+          rafId = requestAnimationFrame(frame);
+        } else {
+          // If skipped, ensure all steps show completed
+          if (stepsRef.current) {
+            const listItems = stepsRef.current.children;
+            for (let i = 0; i < listItems.length; i++) {
+              const li = listItems[i] as HTMLElement;
+              li.dataset.done = "true";
+              li.className =
+                "flex items-center justify-between gap-4 py-2.5 border-t border-border transition-colors duration-300 text-foreground font-medium" +
+                (i === listItems.length - 1 ? " border-b border-border" : "");
+              const b = li.querySelector("b");
+              if (b) {
+                b.className = "font-semibold text-accent transition-colors duration-300";
+                b.textContent = "ok";
+              }
+            }
+          }
+          finish();
+        }
       }
+
+      rafId = requestAnimationFrame(frame);
+    };
+
+    // 3. Ensure fonts are loaded before starting animation to prevent layout jumps/FOUT
+    if (typeof document !== "undefined" && "fonts" in document) {
+      Promise.race([
+        document.fonts.ready,
+        new Promise((resolve) => setTimeout(resolve, 250)),
+      ]).then(() => {
+        startAnimation();
+      });
+    } else {
+      startAnimation();
     }
 
-    rafId = requestAnimationFrame(frame);
-
-    // 4. Skip event listeners (tap or keydown Escape / Space / Enter)
+    // 4. Skip event listeners
     const handleSkip = () => {
       if (!isSkippingRef.current) {
         isSkippingRef.current = true;
@@ -164,6 +203,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      isCleanedUp = true;
       cancelAnimationFrame(rafId);
       timers.forEach(clearTimeout);
       window.removeEventListener("keydown", handleKeyDown);
@@ -188,11 +228,12 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
           aria-label="Loading portfolio. Tap to skip."
           style={{
             clipPath: phase === "lift" ? "inset(0 0 100% 0)" : "inset(0 0 0 0)",
-            transition: phase === "lift" ? "clip-path 0.9s cubic-bezier(0.76, 0, 0.24, 1)" : "none",
+            transition: "clip-path 1.1s cubic-bezier(0.76, 0, 0.24, 1)",
+            willChange: "clip-path",
           }}
           className={cn(
             "fixed inset-0 z-[100] flex flex-col justify-between cursor-pointer select-none overflow-hidden",
-            "bg-[#F6F6F7] text-[#16161A] dark:bg-[#0C0C10] dark:text-[#F2F2F5]",
+            "bg-background text-foreground",
             "px-6 sm:px-10 lg:px-14 py-6 sm:py-8",
             phase === "out" && "pointer-events-none"
           )}
@@ -202,7 +243,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
             style={{ left: "25%" }}
             className={cn(
               "absolute top-0 bottom-0 w-[1px] pointer-events-none transition-opacity duration-400 hidden sm:block",
-              "bg-black/[0.08] dark:bg-white/[0.08]",
+              "bg-border/60",
               phase === "out" && "opacity-0"
             )}
           />
@@ -210,7 +251,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
             style={{ left: "50%" }}
             className={cn(
               "absolute top-0 bottom-0 w-[1px] pointer-events-none transition-opacity duration-400",
-              "bg-black/[0.08] dark:bg-white/[0.08]",
+              "bg-border/60",
               phase === "out" && "opacity-0"
             )}
           />
@@ -218,7 +259,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
             style={{ left: "75%" }}
             className={cn(
               "absolute top-0 bottom-0 w-[1px] pointer-events-none transition-opacity duration-400 hidden sm:block",
-              "bg-black/[0.08] dark:bg-white/[0.08]",
+              "bg-border/60",
               phase === "out" && "opacity-0"
             )}
           />
@@ -227,13 +268,17 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
           <div
             className={cn(
               "relative z-10 flex items-center justify-between gap-4 pb-4 border-b text-xs sm:text-sm font-sans",
-              "border-black/[0.09] dark:border-white/[0.11]",
+              "border-border",
               "transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]",
               phase === "out" && "opacity-0 -translate-y-3.5"
             )}
           >
-            <span suppressHydrationWarning className="font-medium tracking-tight text-foreground">{greeting}</span>
-            <span suppressHydrationWarning className="font-mono text-[11px] sm:text-xs text-muted-foreground">{accraClock}</span>
+            <span suppressHydrationWarning className="font-medium tracking-tight text-foreground">
+              {greeting}
+            </span>
+            <span suppressHydrationWarning className="font-mono text-[11px] sm:text-xs text-muted-foreground">
+              {accraClock}
+            </span>
           </div>
 
           {/* Middle Section: Massive Variable Font Name & Monospace Steps */}
@@ -255,7 +300,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
                   {item.word.split("").map((c, charIdx) => (
                     <i
                       key={charIdx}
-                      className="ch-glyph not-italic inline-block font-[100] opacity-15 transition-[font-weight,opacity] duration-75"
+                      className="ch-glyph not-italic inline-block font-[100] opacity-20 transition-[font-weight,opacity] duration-75"
                     >
                       {c === " " ? "\u00A0" : c}
                     </i>
@@ -265,25 +310,24 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
             </div>
 
             {/* Checklist of Loading Steps */}
-            <ul className="w-full max-w-[280px] sm:max-w-[320px] font-mono text-xs sm:text-[13px] list-none p-0 flex flex-col">
-              {STEPS.map((label, idx) => {
-                const isDone = stepStates[idx];
-                return (
-                  <li
-                    key={idx}
-                    className={cn(
-                      "flex items-center justify-between gap-4 py-2.5 border-t border-black/[0.09] dark:border-white/[0.11] transition-colors duration-300",
-                      idx === STEPS.length - 1 && "border-b border-black/[0.09] dark:border-white/[0.11]",
-                      isDone ? "text-foreground font-medium" : "text-muted-foreground/70"
-                    )}
-                  >
-                    <span>{label}</span>
-                    <b className={cn("font-medium", isDone ? "text-accent" : "text-muted-foreground/50")}>
-                      {isDone ? "ok" : "…"}
-                    </b>
-                  </li>
-                );
-              })}
+            <ul
+              ref={stepsRef}
+              className="w-full max-w-[280px] sm:max-w-[320px] font-mono text-xs sm:text-[13px] list-none p-0 flex flex-col"
+            >
+              {STEPS.map((label, idx) => (
+                <li
+                  key={idx}
+                  className={cn(
+                    "flex items-center justify-between gap-4 py-2.5 border-t border-border transition-colors duration-300 text-muted-foreground/60",
+                    idx === STEPS.length - 1 && "border-b border-border"
+                  )}
+                >
+                  <span>{label}</span>
+                  <b className="font-medium text-muted-foreground/40 transition-colors duration-300">
+                    …
+                  </b>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -291,14 +335,17 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
           <div
             className={cn(
               "relative z-10 flex items-end justify-between gap-4 pt-4 border-t",
-              "border-black/[0.09] dark:border-white/[0.11]",
+              "border-border",
               "transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]",
               phase === "out" && "opacity-0 -translate-y-3.5"
             )}
           >
             {/* Monumental Tabular 3-Digit Counter */}
-            <div className="font-montserrat font-[200] text-[clamp(50px,9vw,120px)] leading-[0.85] tracking-[-0.05em] tabular-nums select-none text-foreground">
-              {counterText}
+            <div
+              ref={countRef}
+              className="font-montserrat font-[200] text-[clamp(50px,9vw,120px)] leading-[0.85] tracking-[-0.05em] tabular-nums select-none text-foreground"
+            >
+              000
             </div>
 
             <span className="font-sans text-xs sm:text-sm text-muted-foreground pb-1 cursor-pointer hover:text-foreground transition-colors">
@@ -309,14 +356,19 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
           {/* Hairline Bottom Progress Bar (3px) */}
           <div
             ref={barRef}
-            style={{ transform: `scaleX(${progressVal})` }}
-            className="absolute left-0 right-0 bottom-0 h-[3px] bg-accent origin-left transition-transform duration-75"
+            style={{ transform: "scaleX(0)" }}
+            className="absolute left-0 right-0 bottom-0 h-[3px] bg-accent origin-left"
           />
         </div>
       )}
 
       {/* The Main Application Page */}
-      <div className={cn("w-full min-h-screen transition-opacity duration-700", phase === "loading" ? "opacity-95" : "opacity-100")}>
+      <div
+        className={cn(
+          "w-full min-h-screen transition-opacity duration-700",
+          phase === "loading" ? "opacity-95 pointer-events-none" : "opacity-100 pointer-events-auto"
+        )}
+      >
         {children}
       </div>
     </>
