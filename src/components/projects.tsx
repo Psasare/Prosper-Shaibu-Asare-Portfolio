@@ -92,22 +92,22 @@ export function Projects() {
             </h2>
             <TextMaskReveal
               as="h3"
-              className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
+              className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
             >
-              Projects & Engineering Cases
+              Projects &amp; Engineering Cases
             </TextMaskReveal>
-            <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mt-4">
+            <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-xl mt-4">
               Production applications, healthcare platforms, and institutional portals engineered with TypeScript, React Native, and resilient system architectures.
             </p>
           </Reveal>
 
-          {/* Filter Pills with Montserrat font */}
+          {/* Filter Pills with JetBrains Mono font */}
           <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-2 rounded-xl font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === cat
+                className={`px-4 py-2 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === cat
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
@@ -197,7 +197,7 @@ export function Projects() {
                       </div>
                     </div>
 
-                    <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/85 leading-relaxed">
                       {project.description}
                     </p>
                   </div>
@@ -207,7 +207,7 @@ export function Projects() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-mono text-[11px] font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border/80"
+                        className="font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border/80"
                       >
                         {tag}
                       </span>

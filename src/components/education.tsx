@@ -48,11 +48,11 @@ export function Education() {
           </h2>
           <TextMaskReveal
             as="h3"
-            className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
+            className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
           >
-            Education & Science
+            Education &amp; Science
           </TextMaskReveal>
-          <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
+          <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
             B.Sc. Information Technology studies at the University of Ghana, Legon, grounded in General Science foundations from Kpando Senior High School.
           </p>
         </Reveal>

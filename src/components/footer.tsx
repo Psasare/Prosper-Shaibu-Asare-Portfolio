@@ -15,7 +15,7 @@ export function Footer() {
           <span className="font-bold text-foreground">
             Prosper Shaibu Asare
           </span>
-          <span suppressHydrationWarning className="font-normal font-sans text-muted-foreground">&copy; {currentYear}. All rights reserved.</span>
+          <span suppressHydrationWarning className="font-normal font-dm text-muted-foreground">&copy; {currentYear}. All rights reserved.</span>
         </div>
 
         <div className="flex items-center gap-4">
@@ -29,8 +29,8 @@ export function Footer() {
             <span>GitHub</span>
           </a>
           <span>&bull;</span>
-          <span className="font-sans text-muted-foreground">
-            Built with Next.js, TypeScript & Three.js
+          <span className="font-dm text-muted-foreground">
+            Built with Next.js, TypeScript &amp; Three.js
           </span>
         </div>
       </div>

@@ -37,11 +37,11 @@ export function Hero() {
             transition={{ duration: 0.65, ease: "easeOut" }}
             className="lg:col-span-7 space-y-7 text-center lg:text-left z-10"
           >
-            {/* Status Pill with Montserrat uppercase tracking */}
+            {/* Status Pill with JetBrains Mono uppercase tracking */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card border border-border shadow-xs">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="font-montserrat text-[11px] font-bold uppercase tracking-wider text-foreground">
-                Available for Full-Stack, Web & Mobile Projects
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground">
+                Available for Full-Stack, Web &amp; Mobile Projects
               </span>
             </div>
 
@@ -54,8 +54,8 @@ export function Hero() {
               &amp; Mobile Application Development.
             </h1>
 
-            {/* Intro Subtitle: Disciplined typography with seamless rotating word */}
-            <p className="font-sans text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+            {/* Intro Subtitle: Disciplined DM Sans typography with seamless rotating word */}
+            <p className="font-dm text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
               Hi, I&apos;m <span className="font-semibold text-foreground">Prosper Shaibu Asare</span>.
               I architect{" "}
               <RotatingWords

@@ -250,16 +250,16 @@ export function Skills() {
       <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
         {/* Section Header */}
         <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
-          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3">
-            Capabilities & Focus
+          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
+            <Layers className="w-3.5 h-3.5" /> Capabilities &amp; Focus
           </h2>
           <TextMaskReveal
             as="h3"
-            className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
+            className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
           >
-            Technical Stack & Craft
+            Technical Stack &amp; Craft
           </TextMaskReveal>
-          <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-5 sm:mt-6">
+          <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
             A comprehensive engineering toolkit cultivated through enterprise systems administration, academic rigor, and production software delivery.
           </p>
         </Reveal>
@@ -269,11 +269,11 @@ export function Skills() {
           <div className="relative w-full flex flex-col items-center justify-center">
             {/* Header Readout Badge */}
             <div className="text-center mb-6 space-y-2.5">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card border border-border text-foreground font-montserrat text-xs font-bold uppercase tracking-wider shadow-2xs">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card border border-border text-foreground font-mono text-xs font-semibold uppercase tracking-wider shadow-2xs">
                 <Cpu className="w-3.5 h-3.5 text-accent" />
-                <span>Technical Architecture & Frameworks</span>
+                <span>Technical Architecture &amp; Frameworks</span>
               </div>
-              <p className="font-sans text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              <p className="font-dm text-sm sm:text-[15px] text-muted-foreground/90 max-w-xl mx-auto leading-relaxed">
                 Explore the core frameworks, runtime environments, and infrastructure tooling applied across my full-stack web and mobile systems.
               </p>
             </div>
@@ -317,7 +317,7 @@ export function Skills() {
                         {inspectedTech.title || inspectedTech.alt}
                       </h4>
                     </div>
-                    <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    <p className="font-dm text-sm text-muted-foreground/90 leading-relaxed">
                       {inspectedTech.description}
                     </p>
                   </div>
@@ -351,7 +351,7 @@ export function Skills() {
                       </div>
                     </div>
 
-                    <p className="font-sans text-xs sm:text-sm text-muted-foreground mb-6 leading-relaxed">
+                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/85 mb-6 leading-relaxed">
                       {category.description}
                     </p>
                   </div>
@@ -360,7 +360,7 @@ export function Skills() {
                     {category.skills.map((skill) => (
                       <div
                         key={skill}
-                        className="flex items-center gap-2 font-montserrat text-xs font-bold text-foreground bg-muted/80 hover:bg-muted hover:border-accent/40 transition-all rounded-lg px-3 py-2 border border-border"
+                        className="flex items-center gap-2 font-mono text-xs font-semibold text-foreground bg-muted/80 hover:bg-muted hover:border-accent/40 transition-all rounded-lg px-3 py-2 border border-border"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-accent shrink-0" />
                         <span className="truncate">{skill}</span>

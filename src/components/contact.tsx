@@ -26,19 +26,19 @@ export function Contact() {
           {/* Contact Details */}
           <div className="lg:col-span-5 space-y-7">
             <Reveal direction="left">
-              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5">
-                Get in Touch
+              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5 flex items-center gap-2">
+                <Send className="w-3.5 h-3.5" /> Get in Touch
               </h2>
               <TextMaskReveal
                 as="h3"
-                className="font-montserrat text-3xl sm:text-4xl font-black tracking-tight text-foreground leading-[1.2]"
+                className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
               >
                 Let&apos;s build something exceptional together.
               </TextMaskReveal>
             </Reveal>
 
             <Reveal direction="left" delay={0.15}>
-              <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed">
+              <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed">
                 Whether you are launching an upcoming digital product, exploring a full-stack engineering hire, or seeking technical collaboration on web and mobile architectures, I welcome your message.
               </p>
             </Reveal>
@@ -144,12 +144,12 @@ export function Contact() {
                     <h3 className="font-montserrat text-xl font-bold text-foreground">
                       Message Received!
                     </h3>
-                    <p className="font-sans text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
+                    <p className="font-dm text-sm sm:text-base text-muted-foreground max-w-sm mx-auto leading-relaxed">
                       Thank you for reaching out, Prosper will review your message and reply promptly.
                     </p>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="px-6 py-2.5 rounded-xl bg-secondary text-secondary-foreground font-montserrat text-xs font-semibold uppercase tracking-wider hover:bg-muted transition-colors cursor-pointer"
+                      className="px-6 py-2.5 rounded-xl bg-secondary text-secondary-foreground font-mono text-xs font-semibold uppercase tracking-wider hover:bg-muted transition-colors cursor-pointer"
                     >
                       Send Another Message
                     </button>
@@ -165,7 +165,7 @@ export function Contact() {
                           required
                           type="text"
                           placeholder="e.g. Alex Morgan"
-                          className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-dm text-sm sm:text-[14.5px] focus:outline-none focus:border-accent transition-colors"
                         />
                       </div>
                       <div className="space-y-2">
@@ -176,7 +176,7 @@ export function Contact() {
                           required
                           type="email"
                           placeholder="alex@company.com"
-                          className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-dm text-sm sm:text-[14.5px] focus:outline-none focus:border-accent transition-colors"
                         />
                       </div>
                     </div>
@@ -189,7 +189,7 @@ export function Contact() {
                         required
                         type="text"
                         placeholder="Web platform, mobile app development, or software engineering opening"
-                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-dm text-sm sm:text-[14.5px] focus:outline-none focus:border-accent transition-colors"
                       />
                     </div>
 
@@ -201,7 +201,7 @@ export function Contact() {
                         required
                         rows={4}
                         placeholder="Tell me about your project, timeline, or engineering goals..."
-                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-sans text-sm focus:outline-none focus:border-accent transition-colors resize-none leading-relaxed"
+                        className="w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground font-dm text-sm sm:text-[14.5px] focus:outline-none focus:border-accent transition-colors resize-none leading-relaxed"
                       />
                     </div>
 

@@ -106,11 +106,11 @@ export function Experience() {
           </h2>
           <TextMaskReveal
             as="h3"
-            className="font-montserrat text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-foreground leading-tight"
+            className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
           >
             Work Experience
           </TextMaskReveal>
-          <p className="font-sans text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
+          <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
             Hands-on systems administration, hospital LAN engineering at Volta Regional Hospital (Hohoe) and Ho Teaching Hospital (Trafalgar), and customer operations in Accra.
           </p>
         </Reveal>
@@ -122,12 +122,12 @@ export function Experience() {
               <button
                 key={exp.id}
                 onClick={() => handleSelect(idx)}
-                className={`px-4 py-2 rounded-xl font-montserrat text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${currentIndex === idx
+                className={`px-4 py-2 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${currentIndex === idx
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
               >
-                <span className="font-mono text-[10px] opacity-75">{exp.num}</span>
+                <span className="opacity-75">{exp.num}</span>
                 <span>{exp.shortOrg}</span>
               </button>
             ))}
@@ -170,7 +170,7 @@ export function Experience() {
                     </h4>
 
                     {/* Location Badge */}
-                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-sans mb-6">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-mono mb-6">
                       <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
                       <span>{current.location}</span>
                     </div>
@@ -178,11 +178,11 @@ export function Experience() {
                     {/* Accomplishment Bullet Points */}
                     <div className="space-y-3 pt-2 border-t border-border/80">
                       <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground font-bold block">
-                        KEY CONTRIBUTIONS & IMPACT
+                        KEY CONTRIBUTIONS &amp; IMPACT
                       </span>
                       <ul className="space-y-2.5">
                         {current.description.map((item, dIdx) => (
-                          <li key={dIdx} className="flex items-start gap-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                          <li key={dIdx} className="flex items-start gap-3 font-dm text-sm sm:text-[14.5px] text-muted-foreground/90 leading-relaxed">
                             <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                             <span>{item}</span>
                           </li>
@@ -194,13 +194,13 @@ export function Experience() {
                   {/* Skills Pill Tags */}
                   <div className="pt-4 border-t border-border/80">
                     <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground font-bold block mb-2">
-                      CORE DOMAINS & TECHNOLOGIES
+                      CORE DOMAINS &amp; TECHNOLOGIES
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {current.skills.map((skill, sIdx) => (
                         <span
                           key={sIdx}
-                          className="font-mono text-[11px] font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border"
+                          className="font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border"
                         >
                           {skill}
                         </span>

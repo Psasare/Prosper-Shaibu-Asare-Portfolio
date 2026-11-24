@@ -473,7 +473,7 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
                 {selectedImage.title || selectedImage.alt}
               </h3>
 
-              <p className="font-sans text-sm text-muted-foreground leading-relaxed pt-1">
+              <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/90 leading-relaxed pt-1">
                 {selectedImage.description || "Core architectural technology used across production platforms and enterprise systems."}
               </p>
             </div>
