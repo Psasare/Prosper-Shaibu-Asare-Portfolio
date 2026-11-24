@@ -38,25 +38,25 @@ export function Hero() {
             className="lg:col-span-7 space-y-7 text-center lg:text-left z-10"
           >
             {/* Status Pill with JetBrains Mono uppercase tracking */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-card border border-border shadow-xs">
-              <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
-              <span className="font-mono text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-foreground">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card border border-border shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground">
                 Available for Full-Stack, Web &amp; Mobile Projects
               </span>
             </div>
 
-            {/* Main Headline: Bold Montserrat with Mondique editorial serif accent */}
-            <h1 className="font-montserrat text-4xl sm:text-5xl md:text-6xl lg:text-[68px] xl:text-[76px] font-black tracking-tight text-foreground leading-[1.08]">
+            {/* Main Headline: Bold Montserrat with editorial serif accent */}
+            <h1 className="font-montserrat text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground leading-[1.12]">
               Full-Stack Engineering,{" "}
-              <span className="font-mondique italic font-normal text-accent tracking-normal">
+              <span className="font-serif italic font-normal text-accent">
                 Web Designing
               </span>{" "}
               &amp; Mobile Application Development.
             </h1>
 
             {/* Intro Subtitle: Disciplined DM Sans typography with seamless rotating word */}
-            <p className="font-dm text-lg sm:text-xl lg:text-[22px] text-muted-foreground/95 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-              Hi, I&apos;m <span className="font-bold text-foreground">Prosper Shaibu Asare</span>.
+            <p className="font-dm text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+              Hi, I&apos;m <span className="font-semibold text-foreground">Prosper Shaibu Asare</span>.
               I architect{" "}
               <RotatingWords
                 words={[
@@ -65,7 +65,7 @@ export function Hero() {
                   "resilient full-stack web platforms",
                   "hospital network infrastructure",
                 ]}
-                className="font-mondique italic font-normal text-accent text-xl sm:text-2xl"
+                className="font-serif italic font-normal text-accent"
               />
               , engineered for precision, speed, and real-world scale.
             </p>
@@ -74,21 +74,21 @@ export function Hero() {
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-1">
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-montserrat font-bold text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-montserrat font-bold text-xs uppercase tracking-wider shadow-sm hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer"
               >
                 <span>Explore Projects</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-card border border-border text-foreground font-montserrat font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-muted/70 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-xs"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-card border border-border text-foreground font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-muted/70 active:scale-[0.98] transition-all cursor-pointer shadow-xs"
               >
                 <span>Get in Touch</span>
               </a>
             </div>
 
             {/* Highlights ticker */}
-            <div className="pt-6 border-t border-border flex flex-wrap items-center justify-center lg:justify-start gap-6 font-montserrat text-xs sm:text-sm text-muted-foreground font-bold tracking-wide">
+            <div className="pt-6 border-t border-border flex flex-wrap items-center justify-center lg:justify-start gap-6 font-montserrat text-xs text-muted-foreground font-semibold tracking-wide">
               <div className="flex items-center gap-2">
                 <Code2 className="w-4 h-4 text-accent" /> Full-Stack Engineering
               </div>

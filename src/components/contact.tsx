@@ -26,19 +26,19 @@ export function Contact() {
           {/* Contact Details */}
           <div className="lg:col-span-5 space-y-7">
             <Reveal direction="left">
-              <h2 className="font-ultramagnetic text-xs sm:text-[13px] uppercase tracking-widest font-bold text-accent mb-3.5 flex items-center gap-2">
+              <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3.5 flex items-center gap-2">
                 <Send className="w-3.5 h-3.5" /> Get in Touch
               </h2>
               <TextMaskReveal
                 as="h3"
-                className="font-montserrat text-4xl sm:text-5xl lg:text-6xl xl:text-[66px] font-black tracking-tight text-foreground leading-[1.08]"
+                className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
               >
                 Let&apos;s build something exceptional together.
               </TextMaskReveal>
             </Reveal>
 
             <Reveal direction="left" delay={0.15}>
-              <p className="font-dm text-lg sm:text-xl text-muted-foreground/95 leading-relaxed">
+              <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed">
                 Whether you are launching an upcoming digital product, exploring a full-stack engineering hire, or seeking technical collaboration on web and mobile architectures, I welcome your message.
               </p>
             </Reveal>
@@ -47,14 +47,14 @@ export function Contact() {
               <Reveal direction="left" delay={0.2}>
                 <a
                   href="mailto:asareprosper143@gmail.com"
-                  className="flex items-center gap-4 p-4 sm:p-4.5 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                  className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
-                    <Mail className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
+                    <Mail className="w-4 h-4" />
                   </div>
                   <div className="truncate">
-                    <div className="font-montserrat text-xs uppercase tracking-wider text-muted-foreground font-semibold">Email</div>
-                    <div className="font-montserrat text-base sm:text-lg font-bold text-foreground truncate">
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Email</div>
+                    <div className="font-montserrat text-sm font-bold text-foreground truncate">
                       asareprosper143@gmail.com
                     </div>
                   </div>
@@ -66,14 +66,14 @@ export function Contact() {
                   href="https://wa.me/233257560039"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 sm:p-4.5 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                  className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
-                    <MessageSquare className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
+                    <MessageSquare className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="font-montserrat text-xs uppercase tracking-wider text-muted-foreground font-semibold">WhatsApp</div>
-                    <div className="font-montserrat text-base sm:text-lg font-bold text-foreground">
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">WhatsApp</div>
+                    <div className="font-montserrat text-sm font-bold text-foreground">
                       025 756 0039
                     </div>
                   </div>
@@ -83,14 +83,14 @@ export function Contact() {
               <Reveal direction="left" delay={0.28}>
                 <a
                   href="tel:+233505695047"
-                  className="flex items-center gap-4 p-4 sm:p-4.5 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                  className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
-                    <Phone className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
+                    <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="font-montserrat text-xs uppercase tracking-wider text-muted-foreground font-semibold">Phone (Calls)</div>
-                    <div className="font-montserrat text-base sm:text-lg font-bold text-foreground">
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Phone (Calls)</div>
+                    <div className="font-montserrat text-sm font-bold text-foreground">
                       +233 50 569 5047 / 055 119 3833
                     </div>
                   </div>
@@ -102,14 +102,14 @@ export function Contact() {
                   href="https://github.com/Psasare"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 sm:p-4.5 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
+                  className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card hover:border-accent/50 hover:-translate-y-0.5 transition-all duration-300 group shadow-xs"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
-                    <GithubIcon className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform shrink-0">
+                    <GithubIcon className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="font-montserrat text-xs uppercase tracking-wider text-muted-foreground font-semibold">GitHub</div>
-                    <div className="font-montserrat text-base sm:text-lg font-bold text-foreground">
+                    <div className="font-montserrat text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">GitHub</div>
+                    <div className="font-montserrat text-sm font-bold text-foreground">
                       github.com/Psasare
                     </div>
                   </div>
@@ -117,7 +117,7 @@ export function Contact() {
               </Reveal>
 
               <Reveal direction="left" delay={0.36}>
-                <div className="flex items-center gap-4 p-4 sm:p-4.5 rounded-2xl border border-border bg-card shadow-xs">
+                <div className="flex items-center gap-3.5 p-4 rounded-xl border border-border bg-card shadow-xs">
                   <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>

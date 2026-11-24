@@ -101,28 +101,28 @@ export function Experience() {
       <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
         {/* Section Header */}
         <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <h2 className="font-ultramagnetic text-xs sm:text-[13px] uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
+          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
             <Briefcase className="w-3.5 h-3.5" /> Career Journey
           </h2>
           <TextMaskReveal
             as="h3"
-            className="font-montserrat text-4xl sm:text-5xl lg:text-6xl xl:text-[66px] font-black tracking-tight text-foreground leading-[1.08]"
+            className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
           >
             Work Experience
           </TextMaskReveal>
-          <p className="font-dm text-lg sm:text-xl text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
+          <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
             Hands-on systems administration, hospital LAN engineering at Volta Regional Hospital (Hohoe) and Ho Teaching Hospital (Trafalgar), and customer operations in Accra.
           </p>
         </Reveal>
 
         {/* Milestone Quick Selector Tabs */}
         <Reveal direction="up" delay={0.15}>
-          <div className="flex flex-wrap items-center justify-center gap-2.5 mb-8">
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
             {EXPERIENCES.map((exp, idx) => (
               <button
                 key={exp.id}
                 onClick={() => handleSelect(idx)}
-                className={`px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs sm:text-[13px] font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2.5 ${currentIndex === idx
+                className={`px-4 py-2 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${currentIndex === idx
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
@@ -152,38 +152,38 @@ export function Experience() {
                   <div>
                     {/* Header Row */}
                     <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                      <span className="font-ultramagnetic text-xs sm:text-[13px] font-bold text-accent uppercase tracking-widest px-3 py-1.5 rounded-md bg-accent/10 border border-accent/20">
+                      <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest px-2.5 py-1 rounded-md bg-accent/10 border border-accent/20">
                         {current.badge} &bull; MILESTONE {current.num}
                       </span>
-                      <span className="flex items-center gap-1.5 font-mono text-xs sm:text-[13px] text-muted-foreground font-semibold">
+                      <span className="flex items-center gap-1.5 font-mono text-xs text-muted-foreground font-semibold">
                         <Calendar className="w-3.5 h-3.5 text-accent" />
                         {current.period}
                       </span>
                     </div>
 
                     {/* Role Title & Organization */}
-                    <h3 className="font-montserrat text-3xl sm:text-4xl lg:text-[40px] font-black text-foreground tracking-tight leading-tight mb-2">
+                    <h3 className="font-montserrat text-2xl sm:text-3xl font-black text-foreground tracking-tight mb-1">
                       {current.role}
                     </h3>
-                    <h4 className="font-montserrat text-xl sm:text-2xl font-bold text-accent mb-4 flex items-center gap-2">
+                    <h4 className="font-montserrat text-lg font-bold text-accent mb-3 flex items-center gap-2">
                       {current.organization}
                     </h4>
 
                     {/* Location Badge */}
-                    <div className="flex items-center gap-2 text-xs sm:text-[13px] text-muted-foreground font-mono mb-6">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-mono mb-6">
                       <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
                       <span>{current.location}</span>
                     </div>
 
                     {/* Accomplishment Bullet Points */}
-                    <div className="space-y-3.5 pt-3 border-t border-border/80">
-                      <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-bold block">
+                    <div className="space-y-3 pt-2 border-t border-border/80">
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground font-bold block">
                         KEY CONTRIBUTIONS &amp; IMPACT
                       </span>
-                      <ul className="space-y-3">
+                      <ul className="space-y-2.5">
                         {current.description.map((item, dIdx) => (
-                          <li key={dIdx} className="flex items-start gap-3.5 font-dm text-base sm:text-[16.5px] text-muted-foreground/95 leading-relaxed">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-1" />
+                          <li key={dIdx} className="flex items-start gap-3 font-dm text-sm sm:text-[14.5px] text-muted-foreground/90 leading-relaxed">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -193,14 +193,14 @@ export function Experience() {
 
                   {/* Skills Pill Tags */}
                   <div className="pt-4 border-t border-border/80">
-                    <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-bold block mb-2.5">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground font-bold block mb-2">
                       CORE DOMAINS &amp; TECHNOLOGIES
                     </span>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {current.skills.map((skill, sIdx) => (
                         <span
                           key={sIdx}
-                          className="font-mono text-xs sm:text-[13px] font-semibold px-3 py-1.5 rounded-md bg-secondary text-foreground border border-border"
+                          className="font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border"
                         >
                           {skill}
                         </span>

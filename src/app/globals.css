@@ -105,50 +105,13 @@
   --accent-foreground: #090b10;
 }
 
-@font-face {
-  font-family: 'Wetzlar';
-  src: url('/fonts/YWFT-Wetzlar-Grotesk-Regular.otf') format('opentype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Mondique';
-  src: url('/fonts/Mondique-Regular.otf') format('opentype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Natux';
-  src: url('/fonts/YWFT-Natux-Regular.otf') format('opentype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Garadone';
-  src: url('/fonts/YWFT-Garadone-Regular.otf') format('opentype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Ultramagnetic';
-  src: url('/fonts/YWFT-Ultramagnetic-Expanded.otf') format('opentype');
-  font-display: swap;
-}
-
 @theme {
   --font-montserrat: 'Montserrat', sans-serif;
   --font-sans: 'DM Sans', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-dm: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-instrument: 'Instrument Sans', sans-serif;
-  --font-serif: var(--font-mondique), 'Mondique', 'Playfair Display', Georgia, serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
   --font-mono: 'JetBrains Mono', monospace;
-
-  /* Custom Editorial & Display Typography Suite */
-  --font-wetzlar: var(--font-wetzlar), 'Wetzlar', 'Instrument Sans', sans-serif;
-  --font-mondique: var(--font-mondique), 'Mondique', 'Playfair Display', Georgia, serif;
-  --font-natux: var(--font-natux), 'Natux', sans-serif;
-  --font-garadone: var(--font-garadone), 'Garadone', Georgia, serif;
-  --font-ultramagnetic: var(--font-ultramagnetic), 'Ultramagnetic', 'Montserrat', sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
