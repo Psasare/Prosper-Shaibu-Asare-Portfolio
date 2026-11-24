@@ -83,16 +83,22 @@ const EDUCATION_DATA: EducationCardData[] = [
     id: "kpando-shs",
     num: "02",
     institution: "Kpando Senior High School",
-    credential: "General Science Foundations",
-    division: "Pure Science Program • Secondary Education",
+    credential: "General Science & Elective ICT",
+    division: "Pure Science & Computing Track • Secondary Education",
     period: "Secondary Education",
     location: "Kpando, Volta Region",
-    statusBadge: "Scientific Grounding",
+    statusBadge: "Scientific & Computing Grounding",
     isCandidate: false,
     icon: Atom,
     overview:
-      "Rigorous secondary science education cultivating mathematical deduction, empirical laboratory experimentation, and quantitative problem-solving foundations.",
+      "Rigorous secondary science and computing education cultivating mathematical deduction, algorithm logic, empirical laboratory experimentation, and quantitative problem-solving foundations.",
     coreCurriculum: [
+      {
+        title: "Elective ICT & Computing Foundations",
+        description:
+          "Algorithmic logic, programming concepts, computer system architecture, relational database fundamentals, and digital information systems.",
+        icon: Binary,
+      },
       {
         title: "Elective Mathematics & Analytical Calculus",
         description:
@@ -105,20 +111,14 @@ const EDUCATION_DATA: EducationCardData[] = [
           "Electromagnetism, digital logic gates, electrical mechanics, wave dynamics, and empirical energy systems.",
         icon: Atom,
       },
-      {
-        title: "Scientific Methodology & Empirical Inquiry",
-        description:
-          "Systematic hypothesis formulation, experimental data collection, laboratory precision, and analytical error verification.",
-        icon: Award,
-      },
     ],
     keyCompetencies: [
+      "Elective ICT",
+      "Computing Principles",
       "Elective Mathematics",
       "Physics & Circuits",
       "Quantitative Deduction",
       "Empirical Methodology",
-      "Analytical Rigor",
-      "Scientific Inquiry",
     ],
   },
 ];
@@ -142,7 +142,7 @@ export function Education() {
             Education &amp; Science
           </TextMaskReveal>
           <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
-            B.Sc. Information Technology studies at the University of Ghana, Legon, grounded in General Science foundations from Kpando Senior High School.
+            B.Sc. Information Technology studies at the University of Ghana, Legon, grounded in General Science foundations and Elective ICT from Kpando Senior High School.
           </p>
         </Reveal>
 

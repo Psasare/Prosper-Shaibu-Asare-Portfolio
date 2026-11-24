@@ -77,28 +77,28 @@ export function About() {
                   Ho Teaching Hosp. (Trafalgar)
                 </span>
                 <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
-                  General Science &bull; Kpando SHS
+                  General Science &amp; Elective ICT &bull; Kpando SHS
                 </span>
               </div>
             </Reveal>
           </motion.div>
 
           {/* Right Column: Generous, Comfortable Reading Typography */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-7 lg:pt-2">
+          <div className="lg:col-span-7 space-y-7 lg:pt-2">
             <Reveal direction="up" delay={0.12}>
-              <p className="font-dm text-lg sm:text-xl lg:text-[22px] text-foreground/95 font-normal leading-[1.7] tracking-[-0.012em]">
-                I am an analytical, driven, and detail-oriented <span className="text-accent underline decoration-accent/35 underline-offset-4 font-medium">Information Technology Graduate</span> from the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration. I am currently undergoing my National Service at the <span className="text-foreground font-medium">IT Directorate of the University of Health and Allied Sciences (UHAS)</span>, supporting institutional digital systems and university network infrastructure.
+              <p className="font-jakarta text-lg sm:text-xl lg:text-[22px] text-foreground/90 font-normal leading-[1.78] tracking-[-0.012em]">
+                I am an analytical, driven, and detail-oriented <span className="text-accent underline decoration-accent/35 underline-offset-4 font-semibold">Information Technology Graduate</span> from the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration. I am currently undergoing my National Service at the <span className="text-foreground font-semibold">IT Directorate of the University of Health and Allied Sciences (UHAS)</span>, supporting institutional digital systems and university network infrastructure.
               </p>
             </Reveal>
 
             <Reveal direction="up" delay={0.2}>
-              <p className="font-dm text-base sm:text-[17px] text-muted-foreground/90 leading-[1.82] tracking-[-0.005em]">
-                Grounded in General Science foundations from Kpando Senior High, my journey bridges physical technology infrastructure with modern software engineering. Having administered hospital Local Area Networks (LANs), resolved critical hardware and software faults across medical workstations, and trained personnel at <span className="text-foreground font-medium">Volta Regional Hospital (Hohoe)</span> and <span className="text-foreground font-medium">Ho Teaching Hospital (Trafalgar)</span>, I build software with deep respect for uptime, data accuracy, and user experience.
+              <p className="font-jakarta text-lg sm:text-xl lg:text-[22px] text-foreground/90 font-normal leading-[1.78] tracking-[-0.012em]">
+                Grounded in General Science foundations and <span className="text-foreground font-semibold">Elective ICT</span> from Kpando Senior High, my journey bridges physical technology infrastructure with modern software engineering. Having administered hospital Local Area Networks (LANs), resolved critical hardware and software faults across medical workstations, and trained personnel at <span className="text-foreground font-semibold">Volta Regional Hospital (Hohoe)</span> and <span className="text-foreground font-semibold">Ho Teaching Hospital (Trafalgar)</span>, I build software with deep respect for uptime, data accuracy, and user experience.
               </p>
             </Reveal>
 
             <Reveal direction="up" delay={0.28}>
-              <p className="font-dm text-base sm:text-[17px] text-muted-foreground/90 leading-[1.82] tracking-[-0.005em]">
+              <p className="font-jakarta text-lg sm:text-xl lg:text-[22px] text-foreground/90 font-normal leading-[1.78] tracking-[-0.012em]">
                 Whether deploying university academic platforms, architecting healthcare digital companions, or crafting mobile wellness tools, my objective is simple: engineering resilient software that solves genuine everyday challenges.
               </p>
             </Reveal>
