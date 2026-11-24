@@ -94,6 +94,19 @@ export function TechHeroBackground() {
       radius: 190,
     };
 
+    // Parallax scroll tracking with smooth lerp
+    const scroll = {
+      y: 0,
+      targetY: 0,
+    };
+
+    const handleScroll = () => {
+      scroll.targetY = window.scrollY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    scroll.targetY = window.scrollY;
+    scroll.y = window.scrollY;
+
     const handleResize = () => {
       if (!canvas) return;
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -265,6 +278,9 @@ export function TechHeroBackground() {
         mouse.y = -1000;
       }
 
+      // Multi-plane spatial scroll parallax (smooth lerp)
+      scroll.y += (scroll.targetY - scroll.y) * 0.1;
+
       ctx.clearRect(0, 0, width, height);
 
       // Color palettes according to theme
@@ -293,16 +309,17 @@ export function TechHeroBackground() {
       }
 
       // -------------------------------------------------------------
-      // LAYER 2: Architectural CAD Grid & Interactive Crosshairs (+)
+      // LAYER 2: Architectural CAD Grid & Interactive Crosshairs (+) with Spatial Parallax
       // -------------------------------------------------------------
       const cols = Math.ceil(width / GRID_SIZE);
-      const rows = Math.ceil(height / GRID_SIZE);
+      const rows = Math.ceil(height / GRID_SIZE) + 1;
+      const gridOffsetY = -((scroll.y * 0.035) % GRID_SIZE);
 
       ctx.save();
       for (let c = 0; c <= cols; c++) {
         const gx = c * GRID_SIZE;
-        for (let r = 0; r <= rows; r++) {
-          const gy = r * GRID_SIZE;
+        for (let r = -1; r <= rows; r++) {
+          const gy = r * GRID_SIZE + gridOffsetY;
 
           // Distance to cursor
           const dmx = mouse.x - gx;
@@ -640,6 +657,7 @@ export function TechHeroBackground() {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [resolvedTheme]);
 
