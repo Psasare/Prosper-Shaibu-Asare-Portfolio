@@ -296,7 +296,7 @@ export function Skills() {
             <div className="w-full max-w-2xl mx-auto mt-6 px-4">
               {inspectedTech ? (
                 <div className="p-5 sm:p-6 rounded-2xl bg-card/90 border border-border/80 shadow-lg flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5 transition-all">
-                  <div className="w-16 h-16 rounded-2xl bg-white border border-neutral-200/90 shadow-md p-2.5 flex items-center justify-center shrink-0">
+                  <div className="w-16 h-16 rounded-2xl bg-white dark:bg-[#0f1420] border border-neutral-200/90 dark:border-white/10 shadow-md p-2.5 flex items-center justify-center shrink-0">
                     <img
                       src={inspectedTech.src}
                       alt={inspectedTech.alt}

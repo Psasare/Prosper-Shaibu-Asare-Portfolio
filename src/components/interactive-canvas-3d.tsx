@@ -71,23 +71,23 @@ export function InteractiveCanvas3D() {
 
     // 3. Multi-Point Studio Lighting (Front, Rim & Back Lighting for 360° Fidelity)
     const ambientLight = new THREE.AmbientLight(
-      isDark ? 0x1e2433 : 0xffffff,
-      isDark ? 2.6 : 2.9
+      isDark ? 0x0c101a : 0xffffff,
+      isDark ? 2.0 : 2.9
     );
     scene.add(ambientLight);
 
     // Front Key Light
     const keyLight = new THREE.DirectionalLight(
       isDark ? 0xf1f5f9 : 0xffffff,
-      isDark ? 3.2 : 2.6
+      isDark ? 3.0 : 2.6
     );
     keyLight.position.set(4, 5, 4);
     scene.add(keyLight);
 
     // Fill Light
     const fillLight = new THREE.PointLight(
-      isDark ? 0xd5bdaf : 0x8e5f2e,
-      isDark ? 2.6 : 2.0,
+      isDark ? 0xe2a365 : 0x8e5f2e,
+      isDark ? 2.2 : 2.0,
       16
     );
     fillLight.position.set(-4, -2, 3);

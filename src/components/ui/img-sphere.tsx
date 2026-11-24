@@ -442,7 +442,7 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
               onClick={onNodeAction}
             >
               <div
-                className="w-full h-full rounded-full shadow-md bg-white border border-neutral-200/90 dark:border-white/30 p-2 sm:p-2.5 flex items-center justify-center transition-all duration-200 ease-out hover:scale-125 hover:border-accent hover:shadow-xl group"
+                className="w-full h-full rounded-full shadow-md bg-white dark:bg-[#0f1420] border border-neutral-200/90 dark:border-white/10 p-2 sm:p-2.5 flex items-center justify-center transition-all duration-200 ease-out hover:scale-125 hover:border-accent hover:shadow-xl group"
               >
                 <img
                   src={image.src}
@@ -493,7 +493,7 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
               <X size={18} />
             </button>
 
-            <div className="w-20 h-20 mx-auto mb-5 p-3.5 rounded-3xl bg-white border border-neutral-200 shadow-md flex items-center justify-center">
+            <div className="w-20 h-20 mx-auto mb-5 p-3.5 rounded-3xl bg-white dark:bg-[#0f1420] border border-neutral-200 dark:border-white/10 shadow-md flex items-center justify-center">
               <img
                 src={selectedImage.src}
                 alt={selectedImage.alt}

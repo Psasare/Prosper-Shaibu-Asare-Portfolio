@@ -283,10 +283,10 @@ export function TechHeroBackground() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Color palettes according to theme
-      const accentRgb = isDark ? "213, 189, 175" : "142, 95, 46";
-      const busRgb = isDark ? "160, 175, 205" : "71, 85, 105";
-      const crossRgb = isDark ? "180, 195, 220" : "100, 116, 139";
+      // Color palettes according to theme: Dark mode uses sleek, deep, disciplined tones
+      const accentRgb = isDark ? "226, 163, 101" : "142, 95, 46";
+      const busRgb = isDark ? "40, 52, 74" : "71, 85, 105";
+      const crossRgb = isDark ? "30, 42, 60" : "100, 116, 139";
       const cyanGlowRgb = isDark ? "56, 189, 248" : "14, 165, 233";
 
       // -------------------------------------------------------------
@@ -632,14 +632,14 @@ export function TechHeroBackground() {
     >
       {/* Ambient Warm & Cool Atmospheric Radiance Blooms (Dual Tone Depth) */}
       <div
-        className="absolute -top-[15%] -right-[10%] w-[650px] sm:w-[900px] h-[650px] sm:h-[900px] rounded-full blur-[160px] opacity-[0.045] dark:opacity-[0.065] pointer-events-none"
+        className="absolute -top-[15%] -right-[10%] w-[650px] sm:w-[900px] h-[650px] sm:h-[900px] rounded-full blur-[160px] opacity-[0.035] dark:opacity-[0.015] pointer-events-none"
         style={{
           background:
             "radial-gradient(circle, var(--accent) 0%, rgba(213, 189, 175, 0) 70%)",
         }}
       />
       <div
-        className="absolute -bottom-[15%] -left-[10%] w-[600px] sm:w-[850px] h-[600px] sm:h-[850px] rounded-full blur-[170px] opacity-[0.035] dark:opacity-[0.055] pointer-events-none"
+        className="absolute -bottom-[15%] -left-[10%] w-[600px] sm:w-[850px] h-[600px] sm:h-[850px] rounded-full blur-[170px] opacity-[0.025] dark:opacity-[0.012] pointer-events-none"
         style={{
           background:
             "radial-gradient(circle, #38bdf8 0%, rgba(56, 189, 248, 0) 70%)",
