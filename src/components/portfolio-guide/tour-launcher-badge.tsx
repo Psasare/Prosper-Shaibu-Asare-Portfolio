@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { usePortfolioGuide } from "./portfolio-guide-context";
-import { Compass, Bot, Sparkles, UserCheck } from "lucide-react";
+import { Compass, Bot, UserCheck } from "lucide-react";
 
 export function TourLauncherBadge() {
   const { isTourActive, isWelcomeOpen, startTour, openWelcome, profile, hasCompletedTour } =

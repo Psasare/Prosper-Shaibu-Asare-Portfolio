@@ -10,7 +10,7 @@ import {
   X,
   Minimize2,
   Maximize2,
-  Sparkles,
+  Info,
   Compass,
   CheckCircle2,
 } from "lucide-react";
@@ -181,9 +181,9 @@ export function MiniInstructor() {
               {/* Pro Tip Box if available */}
               {currentStep.tip && (
                 <div className="flex items-start gap-2 p-2.5 rounded-xl bg-muted/40 border border-border/80 text-[11px] text-foreground">
-                  <Sparkles className="w-3.5 h-3.5 text-accent flex-shrink-0 mt-0.5" />
+                  <Info className="w-3.5 h-3.5 text-accent flex-shrink-0 mt-0.5" />
                   <span className="leading-tight text-muted-foreground">
-                    <strong className="text-foreground font-semibold">Tip:</strong> {currentStep.tip}
+                    <strong className="text-foreground font-semibold">Note:</strong> {currentStep.tip}
                   </span>
                 </div>
               )}
