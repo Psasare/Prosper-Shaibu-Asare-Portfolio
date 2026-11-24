@@ -3,44 +3,71 @@
 import * as React from "react";
 import { useTheme } from "next-themes";
 
-interface Particle {
+interface TraceBus {
+  points: { x: number; y: number }[];
+  viaStart: boolean;
+  viaEnd: boolean;
+  chipLabel?: string;
+}
+
+interface DataPacket {
+  busIndex: number;
+  segmentIndex: number;
+  progress: number;
+  speed: number;
+  length: number;
+}
+
+interface VectorAnchor {
+  x: number;
+  y: number;
+  handleAx: number;
+  handleAy: number;
+  handleBx: number;
+  handleBy: number;
+  driftVx: number;
+  driftVy: number;
+}
+
+interface FloatingTechToken {
   x: number;
   y: number;
   vx: number;
   vy: number;
-  size: number;
-  type: "node" | "code";
-  text?: string;
+  text: string;
   opacity: number;
   pulsePhase: number;
 }
 
-const TECH_SYMBOLS = [
-  "{ }",
-  "</>",
-  "=>",
-  "01",
-  "async",
-  "LAN",
-  "git:main",
-  "200 OK",
-  "0xFF",
-  "::1",
-  "API",
-  "v4.0",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "UHAS:IT",
-  "npm",
-  "Node.js",
+const TECH_TOKENS = [
+  "const [state, set] = use()",
+  "export async function",
+  "LAN 192.168.1.1/24",
+  "git::main",
+  "UHAS_IT_DIR // HO",
+  "200 OK [HTTP/3]",
+  "type Props<T> =",
+  "λ serverless_edge",
+  "0x7F // buffer",
+  "Next.js 16.4",
+  "React 19",
+  "TypeScript v5.7",
+  "PostgreSQL :: ACID",
+  "{ ...architecture }",
+  "UG_LEGON // BSC_IT",
+  "[06°36'N / 00°28'E]",
 ];
 
 /**
- * Full-Page Interactive Tech & Development Canvas
- * Pinned fixed in the background across the entire portfolio (Hero to Footer).
- * Renders 60-120fps hardware-accelerated circuit traces, data packets,
- * floating development syntax, and cursor-reactive node proximity.
+ * Advanced Architectural Design & Tech Background
+ *
+ * Implements a high-precision, bespoke CAD/circuit aesthetic:
+ * 1. Precision 56px Engineering Grid with dynamic crosshairs (+) that illuminate near cursor
+ * 2. 45° Chamfered Circuit Buses with solder-pad vias and silicon microchip outlines
+ * 3. Luminescent Data Packets gliding with fading comet trails
+ * 4. Vector Pen Tool & Bézier Anchor Handles reflecting UI/UX digital craft
+ * 5. Monospace Engineering Syntax & Telemetry (Ho, Ghana coordinates, UHAS IT, Next.js)
+ * 6. Smooth interactive magnetic cursor proximity & dual atmospheric radiance blooms
  */
 export function TechHeroBackground() {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -50,7 +77,7 @@ export function TechHeroBackground() {
   React.useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     let animId = 0;
@@ -62,7 +89,9 @@ export function TechHeroBackground() {
     const mouse = {
       x: -1000,
       y: -1000,
-      radius: 180,
+      targetX: -1000,
+      targetY: -1000,
+      radius: 190,
     };
 
     const handleResize = () => {
@@ -70,57 +99,142 @@ export function TechHeroBackground() {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
       ctx.scale(dpr, dpr);
     };
 
     handleResize();
     window.addEventListener("resize", handleResize, { passive: true });
 
-    // Track mouse anywhere on the viewport
     const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
     };
 
     const handleMouseLeave = () => {
-      mouse.x = -1000;
-      mouse.y = -1000;
+      mouse.targetX = -1000;
+      mouse.targetY = -1000;
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
-    // Initialize particles across full viewport (capped for peak 120 FPS performance)
-    const particleCount = Math.min(32, Math.max(16, Math.floor(width / 42)));
-    const particles: Particle[] = [];
+    // 1. Procedural Circuit Buses Generation
+    const GRID_SIZE = 56;
+    const generateBuses = (): TraceBus[] => {
+      const buses: TraceBus[] = [];
+      const numBuses = Math.min(14, Math.max(8, Math.floor(width / 130)));
 
-    for (let i = 0; i < particleCount; i++) {
-      const isCode = i % 4 === 0;
-      particles.push({
+      for (let i = 0; i < numBuses; i++) {
+        // Align to grid nodes
+        const startGridX = Math.floor((Math.random() * (width - 120) + 60) / GRID_SIZE);
+        const startGridY = Math.floor((Math.random() * (height - 120) + 60) / GRID_SIZE);
+
+        const x0 = startGridX * GRID_SIZE;
+        const y0 = startGridY * GRID_SIZE;
+
+        const points: { x: number; y: number }[] = [{ x: x0, y: y0 }];
+        let currX = x0;
+        let currY = y0;
+
+        const numSegments = 2 + Math.floor(Math.random() * 3);
+        let horizontal = Math.random() > 0.5;
+
+        for (let s = 0; s < numSegments; s++) {
+          const stepCount = (1 + Math.floor(Math.random() * 3)) * (Math.random() > 0.5 ? 1 : -1);
+          if (horizontal) {
+            const nextX = currX + stepCount * GRID_SIZE;
+            // 45° chamfer transition
+            const chamfer = Math.min(GRID_SIZE, Math.abs(nextX - currX) / 2);
+            const chamferX = nextX > currX ? currX + chamfer : currX - chamfer;
+            const chamferY = currY + (Math.random() > 0.5 ? 1 : -1) * (chamfer / 2);
+
+            points.push({ x: chamferX, y: chamferY });
+            points.push({ x: nextX, y: chamferY });
+            currX = nextX;
+            currY = chamferY;
+          } else {
+            const nextY = currY + stepCount * GRID_SIZE;
+            const chamfer = Math.min(GRID_SIZE, Math.abs(nextY - currY) / 2);
+            const chamferX = currX + (Math.random() > 0.5 ? 1 : -1) * (chamfer / 2);
+            const chamferY = nextY > currY ? currY + chamfer : currY - chamfer;
+
+            points.push({ x: chamferX, y: chamferY });
+            points.push({ x: chamferX, y: nextY });
+            currX = chamferX;
+            currY = nextY;
+          }
+          horizontal = !horizontal;
+        }
+
+        buses.push({
+          points,
+          viaStart: true,
+          viaEnd: true,
+          chipLabel: i % 3 === 0 ? (i % 2 === 0 ? "UHAS_RT" : "CORE_V4") : undefined,
+        });
+      }
+      return buses;
+    };
+
+    const buses = generateBuses();
+
+    // 2. Data Packets
+    const packets: DataPacket[] = [];
+    const maxPackets = 12;
+
+    for (let p = 0; p < 8; p++) {
+      if (buses.length > 0) {
+        packets.push({
+          busIndex: Math.floor(Math.random() * buses.length),
+          segmentIndex: 0,
+          progress: Math.random(),
+          speed: 0.35 + Math.random() * 0.45,
+          length: 18 + Math.random() * 14,
+        });
+      }
+    }
+
+    // 3. Vector Design Handles (Bézier UI/UX Engineering motifs)
+    const vectorAnchors: VectorAnchor[] = [];
+    const numAnchors = Math.min(6, Math.max(3, Math.floor(width / 320)));
+
+    for (let a = 0; a < numAnchors; a++) {
+      const ax = (0.15 + 0.7 * Math.random()) * width;
+      const ay = (0.15 + 0.7 * Math.random()) * height;
+      const armLength = 28 + Math.random() * 22;
+      const angle = Math.random() * Math.PI * 2;
+
+      vectorAnchors.push({
+        x: ax,
+        y: ay,
+        handleAx: ax + Math.cos(angle) * armLength,
+        handleAy: ay + Math.sin(angle) * armLength,
+        handleBx: ax - Math.cos(angle) * armLength,
+        handleBy: ay - Math.sin(angle) * armLength,
+        driftVx: (Math.random() - 0.5) * 0.15,
+        driftVy: (Math.random() - 0.5) * 0.15,
+      });
+    }
+
+    // 4. Floating Engineering Syntax Tokens
+    const tokens: FloatingTechToken[] = [];
+    const tokenCount = Math.min(10, Math.max(6, Math.floor(width / 160)));
+
+    for (let t = 0; t < tokenCount; t++) {
+      tokens.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.28,
-        vy: (Math.random() - 0.5) * 0.28,
-        size: isCode ? 10 : Math.random() * 2 + 1.5,
-        type: isCode ? "code" : "node",
-        text: isCode ? TECH_SYMBOLS[Math.floor(Math.random() * TECH_SYMBOLS.length)] : undefined,
-        opacity: Math.random() * 0.35 + 0.22,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        text: TECH_TOKENS[t % TECH_TOKENS.length],
+        opacity: 0.22 + Math.random() * 0.25,
         pulsePhase: Math.random() * Math.PI * 2,
       });
     }
 
-    // Packet pulses traveling along circuit traces
-    interface Packet {
-      fromIndex: number;
-      toIndex: number;
-      progress: number;
-      speed: number;
-    }
-    const packets: Packet[] = [];
-
-    // Pause when tab is hidden
+    // Tab visibility handling
     const handleVisibilityChange = () => {
       isVisible = !document.hidden;
     };
@@ -128,22 +242,40 @@ export function TechHeroBackground() {
 
     let lastTime = performance.now();
 
+    // -------------------------------------------------------------
+    // Main 120 FPS CAD & Tech Canvas Rendering Engine
+    // -------------------------------------------------------------
     const loop = (now: number) => {
+      animId = requestAnimationFrame(loop);
+
       if (!isVisible) {
-        animId = requestAnimationFrame(loop);
+        lastTime = now;
         return;
       }
 
       const dt = Math.min((now - lastTime) / 1000, 0.1);
       lastTime = now;
 
+      // Mouse position smoothing (Lerp)
+      if (mouse.targetX > 0) {
+        mouse.x += (mouse.targetX - mouse.x) * 0.15;
+        mouse.y += (mouse.targetY - mouse.y) * 0.15;
+      } else {
+        mouse.x = -1000;
+        mouse.y = -1000;
+      }
+
       ctx.clearRect(0, 0, width, height);
 
-      // Colors based on theme
+      // Color palettes according to theme
       const accentRgb = isDark ? "213, 189, 175" : "142, 95, 46";
-      const lineRgb = isDark ? "255, 255, 255" : "15, 23, 42";
+      const busRgb = isDark ? "160, 175, 205" : "71, 85, 105";
+      const crossRgb = isDark ? "180, 195, 220" : "100, 116, 139";
+      const cyanGlowRgb = isDark ? "56, 189, 248" : "14, 165, 233";
 
-      // 1. Interactive cursor spotlight glow
+      // -------------------------------------------------------------
+      // LAYER 1: Interactive Radial Cursor Energy
+      // -------------------------------------------------------------
       if (mouse.x > 0 && mouse.y > 0) {
         const radGrad = ctx.createRadialGradient(
           mouse.x,
@@ -151,125 +283,353 @@ export function TechHeroBackground() {
           0,
           mouse.x,
           mouse.y,
-          mouse.radius * 1.6
+          mouse.radius * 1.5
         );
-        radGrad.addColorStop(0, `rgba(${accentRgb}, ${isDark ? 0.08 : 0.05})`);
+        radGrad.addColorStop(0, `rgba(${accentRgb}, ${isDark ? 0.09 : 0.06})`);
+        radGrad.addColorStop(0.5, `rgba(${cyanGlowRgb}, ${isDark ? 0.03 : 0.02})`);
         radGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = radGrad;
         ctx.fillRect(0, 0, width, height);
       }
 
-      // 2. Circuit traces & connections
-      const maxDist = 145;
-      for (let i = 0; i < particles.length; i++) {
-        const p1 = particles[i];
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const dist = Math.hypot(dx, dy);
+      // -------------------------------------------------------------
+      // LAYER 2: Architectural CAD Grid & Interactive Crosshairs (+)
+      // -------------------------------------------------------------
+      const cols = Math.ceil(width / GRID_SIZE);
+      const rows = Math.ceil(height / GRID_SIZE);
 
-          if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * (isDark ? 0.085 : 0.055);
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            // 45-degree circuit chamfer routing for tech infrastructure look
-            const midX = (p1.x + p2.x) / 2;
-            ctx.lineTo(midX, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(${lineRgb}, ${alpha})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
+      ctx.save();
+      for (let c = 0; c <= cols; c++) {
+        const gx = c * GRID_SIZE;
+        for (let r = 0; r <= rows; r++) {
+          const gy = r * GRID_SIZE;
 
-            // Spawn data packet pulse
-            if (packets.length < 14 && Math.random() < 0.0035) {
-              packets.push({
-                fromIndex: i,
-                toIndex: j,
-                progress: 0,
-                speed: Math.random() * 0.8 + 0.45,
-              });
-            }
+          // Distance to cursor
+          const dmx = mouse.x - gx;
+          const dmy = mouse.y - gy;
+          const distMouse = Math.hypot(dmx, dmy);
+
+          let crossSize = 3;
+          let alpha = isDark ? 0.12 : 0.09;
+
+          if (distMouse < mouse.radius) {
+            const proximity = 1 - distMouse / mouse.radius;
+            crossSize = 3 + proximity * 4.5;
+            alpha = isDark ? 0.12 + proximity * 0.45 : 0.09 + proximity * 0.35;
+            ctx.strokeStyle = `rgba(${accentRgb}, ${alpha})`;
+          } else {
+            ctx.strokeStyle = `rgba(${crossRgb}, ${alpha})`;
           }
+
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          // Horizontal cross tick
+          ctx.moveTo(gx - crossSize, gy);
+          ctx.lineTo(gx + crossSize, gy);
+          // Vertical cross tick
+          ctx.moveTo(gx, gy - crossSize);
+          ctx.lineTo(gx, gy + crossSize);
+          ctx.stroke();
         }
       }
+      ctx.restore();
 
-      // 3. Render moving data packet pulses
-      for (let k = packets.length - 1; k >= 0; k--) {
-        const pkt = packets[k];
+      // -------------------------------------------------------------
+      // LAYER 3: Circuit Logic Buses, Vias & Microchip Dies
+      // -------------------------------------------------------------
+      ctx.save();
+      for (let b = 0; b < buses.length; b++) {
+        const bus = buses[b];
+        const pts = bus.points;
+        if (pts.length < 2) continue;
+
+        // Trace line
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let k = 1; k < pts.length; k++) {
+          ctx.lineTo(pts[k].x, pts[k].y);
+        }
+        ctx.strokeStyle = `rgba(${busRgb}, ${isDark ? 0.16 : 0.11})`;
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        // Terminal solder vias (double concentric circular pad)
+        const drawVia = (px: number, py: number) => {
+          // Outer via ring
+          ctx.beginPath();
+          ctx.arc(px, py, 4, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${accentRgb}, ${isDark ? 0.45 : 0.35})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          // Inner solid pin
+          ctx.beginPath();
+          ctx.arc(px, py, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${accentRgb}, ${isDark ? 0.75 : 0.6})`;
+          ctx.fill();
+        };
+
+        if (bus.viaStart) drawVia(pts[0].x, pts[0].y);
+        if (bus.viaEnd) drawVia(pts[pts.length - 1].x, pts[pts.length - 1].y);
+
+        // Microchip processor die badge if configured
+        if (bus.chipLabel && pts.length > 2) {
+          const midPt = pts[Math.floor(pts.length / 2)];
+          const chipW = 58;
+          const chipH = 20;
+          const chipX = midPt.x - chipW / 2;
+          const chipY = midPt.y - chipH / 2;
+
+          // Chip lead pins (3 on top, 3 on bottom)
+          ctx.strokeStyle = `rgba(${busRgb}, ${isDark ? 0.35 : 0.25})`;
+          ctx.lineWidth = 1;
+          for (let pin = 0; pin < 3; pin++) {
+            const pinX = chipX + 12 + pin * 17;
+            ctx.beginPath();
+            ctx.moveTo(pinX, chipY - 3);
+            ctx.lineTo(pinX, chipY);
+            ctx.moveTo(pinX, chipY + chipH);
+            ctx.lineTo(pinX, chipY + chipH + 3);
+            ctx.stroke();
+          }
+
+          // Chip Silicon Body
+          ctx.fillStyle = isDark ? "rgba(15, 23, 42, 0.75)" : "rgba(241, 245, 249, 0.85)";
+          ctx.strokeStyle = `rgba(${accentRgb}, ${isDark ? 0.38 : 0.3})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.roundRect(chipX, chipY, chipW, chipH, 4);
+          ctx.fill();
+          ctx.stroke();
+
+          // Chip Silicon Label
+          ctx.font = "bold 8.5px 'JetBrains Mono', monospace";
+          ctx.fillStyle = `rgba(${accentRgb}, ${isDark ? 0.8 : 0.7})`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(bus.chipLabel, midPt.x, midPt.y);
+        }
+      }
+      ctx.restore();
+
+      // -------------------------------------------------------------
+      // LAYER 4: Dynamic Luminescent Data Packets & Fading Comet Trails
+      // -------------------------------------------------------------
+      ctx.save();
+      for (let pIdx = packets.length - 1; pIdx >= 0; pIdx--) {
+        const pkt = packets[pIdx];
+        const bus = buses[pkt.busIndex];
+        if (!bus || bus.points.length < 2) continue;
+
         pkt.progress += pkt.speed * dt;
+
+        // Advance to next segment if progress >= 1
         if (pkt.progress >= 1) {
-          packets.splice(k, 1);
-          continue;
+          pkt.segmentIndex++;
+          pkt.progress = 0;
+          if (pkt.segmentIndex >= bus.points.length - 1) {
+            // Re-route to a new random bus or loop
+            pkt.busIndex = Math.floor(Math.random() * buses.length);
+            pkt.segmentIndex = 0;
+            pkt.progress = 0;
+            continue;
+          }
         }
 
-        const pA = particles[pkt.fromIndex];
-        const pB = particles[pkt.toIndex];
-        if (!pA || !pB) {
-          packets.splice(k, 1);
-          continue;
-        }
+        const pA = bus.points[pkt.segmentIndex];
+        const pB = bus.points[pkt.segmentIndex + 1];
+        if (!pA || !pB) continue;
 
         const curX = pA.x + (pB.x - pA.x) * pkt.progress;
         const curY = pA.y + (pB.y - pA.y) * pkt.progress;
 
+        // Trailing comet vector calculation
+        const dx = pB.x - pA.x;
+        const dy = pB.y - pA.y;
+        const segDist = Math.hypot(dx, dy);
+        const normDx = segDist > 0 ? dx / segDist : 1;
+        const normDy = segDist > 0 ? dy / segDist : 0;
+
+        const tailX = curX - normDx * pkt.length;
+        const tailY = curY - normDy * pkt.length;
+
+        // Glowing packet tail gradient
+        const cometGrad = ctx.createLinearGradient(tailX, tailY, curX, curY);
+        cometGrad.addColorStop(0, "rgba(0,0,0,0)");
+        cometGrad.addColorStop(0.7, `rgba(${cyanGlowRgb}, ${isDark ? 0.45 : 0.35})`);
+        cometGrad.addColorStop(1, `rgba(${accentRgb}, ${isDark ? 0.95 : 0.85})`);
+
+        ctx.strokeStyle = cometGrad;
+        ctx.lineWidth = 2.2;
         ctx.beginPath();
-        ctx.arc(curX, curY, 2.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${accentRgb}, ${0.85 * Math.sin(pkt.progress * Math.PI)})`;
-        ctx.shadowColor = `rgba(${accentRgb}, 0.55)`;
-        ctx.shadowBlur = 6;
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(curX, curY);
+        ctx.stroke();
+
+        // Packet Head Glow
+        ctx.beginPath();
+        ctx.arc(curX, curY, 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = isDark ? "#ffffff" : `rgb(${accentRgb})`;
+        ctx.shadowColor = `rgba(${accentRgb}, 0.8)`;
+        ctx.shadowBlur = 8;
         ctx.fill();
         ctx.shadowBlur = 0;
       }
+      ctx.restore();
 
-      // 4. Update and render particles & development tokens
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        // Move
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Wrap around viewport edges
-        if (p.x < -20) p.x = width + 20;
-        if (p.x > width + 20) p.x = -20;
-        if (p.y < -20) p.y = height + 20;
-        if (p.y > height + 20) p.y = -20;
-
-        // Interactive mouse proximity field
-        const dMouseX = mouse.x - p.x;
-        const dMouseY = mouse.y - p.y;
-        const distMouse = Math.hypot(dMouseX, dMouseY);
-        let mouseBoost = 0;
-
-        if (distMouse < mouse.radius) {
-          mouseBoost = (1 - distMouse / mouse.radius) * 0.55;
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(${accentRgb}, ${mouseBoost * 0.35})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-
-        // Ambient pulse
-        p.pulsePhase += dt * 1.5;
-        const pulse = 0.5 + 0.5 * Math.sin(p.pulsePhase);
-        const currentOpacity = Math.min(1, p.opacity * (0.6 + 0.4 * pulse) + mouseBoost);
-
-        if (p.type === "code" && p.text) {
-          ctx.font = "bold 11px 'JetBrains Mono', monospace";
-          ctx.fillStyle = `rgba(${accentRgb}, ${currentOpacity * (isDark ? 0.35 : 0.28)})`;
-          ctx.fillText(p.text, p.x, p.y);
-        } else {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${accentRgb}, ${currentOpacity * (isDark ? 0.52 : 0.42)})`;
-          ctx.fill();
-        }
+      // Spawn new packets occasionally
+      if (packets.length < maxPackets && Math.random() < 0.02) {
+        packets.push({
+          busIndex: Math.floor(Math.random() * buses.length),
+          segmentIndex: 0,
+          progress: 0,
+          speed: 0.3 + Math.random() * 0.5,
+          length: 16 + Math.random() * 12,
+        });
       }
 
-      animId = requestAnimationFrame(loop);
+      // -------------------------------------------------------------
+      // LAYER 5: Vector Pen Tool & Bézier Anchor Handles (Design Craft)
+      // -------------------------------------------------------------
+      ctx.save();
+      for (let a = 0; a < vectorAnchors.length; a++) {
+        const v = vectorAnchors[a];
+
+        // Drift slowly
+        v.x += v.driftVx;
+        v.y += v.driftVy;
+        v.handleAx += v.driftVx;
+        v.handleAy += v.driftVy;
+        v.handleBx += v.driftVx;
+        v.handleBy += v.driftVy;
+
+        if (v.x < 30 || v.x > width - 30) v.driftVx *= -1;
+        if (v.y < 30 || v.y > height - 30) v.driftVy *= -1;
+
+        // Proximity to cursor makes handles articulate slightly
+        const distM = Math.hypot(mouse.x - v.x, mouse.y - v.y);
+        const nearMouse = distM < mouse.radius;
+        const anchorAlpha = nearMouse ? (isDark ? 0.6 : 0.45) : isDark ? 0.22 : 0.16;
+
+        // Tangent Handle Line A to B
+        ctx.beginPath();
+        ctx.moveTo(v.handleAx, v.handleAy);
+        ctx.lineTo(v.handleBx, v.handleBy);
+        ctx.strokeStyle = `rgba(${accentRgb}, ${anchorAlpha * 0.7})`;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 3]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Handle Endpoint Circles (Figma/Vector Pen Style)
+        const drawHandleCircle = (hx: number, hy: number) => {
+          ctx.beginPath();
+          ctx.arc(hx, hy, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = isDark ? "rgba(15, 23, 42, 0.9)" : "rgba(255, 255, 255, 0.9)";
+          ctx.strokeStyle = `rgba(${accentRgb}, ${anchorAlpha})`;
+          ctx.lineWidth = 1;
+          ctx.fill();
+          ctx.stroke();
+        };
+
+        drawHandleCircle(v.handleAx, v.handleAy);
+        drawHandleCircle(v.handleBx, v.handleBy);
+
+        // Central Anchor Point: Rotated Square (Diamond Keyframe)
+        const sqSize = nearMouse ? 7 : 5.5;
+        ctx.save();
+        ctx.translate(v.x, v.y);
+        ctx.rotate(Math.PI / 4);
+        ctx.fillStyle = isDark ? `rgba(${accentRgb}, ${anchorAlpha})` : `rgba(${accentRgb}, ${anchorAlpha * 0.9})`;
+        ctx.strokeStyle = isDark ? "#ffffff" : "#000000";
+        ctx.lineWidth = 0.8;
+        ctx.fillRect(-sqSize / 2, -sqSize / 2, sqSize, sqSize);
+        ctx.strokeRect(-sqSize / 2, -sqSize / 2, sqSize, sqSize);
+        ctx.restore();
+      }
+      ctx.restore();
+
+      // -------------------------------------------------------------
+      // LAYER 6: Floating Monospace Code & Engineering Telemetry
+      // -------------------------------------------------------------
+      ctx.save();
+      ctx.font = "bold 10.5px 'JetBrains Mono', monospace";
+      ctx.textBaseline = "middle";
+
+      for (let t = 0; t < tokens.length; t++) {
+        const tok = tokens[t];
+
+        tok.x += tok.vx;
+        tok.y += tok.vy;
+
+        if (tok.x < -60) tok.x = width + 60;
+        if (tok.x > width + 60) tok.x = -60;
+        if (tok.y < -30) tok.y = height + 30;
+        if (tok.y > height + 30) tok.y = -30;
+
+        tok.pulsePhase += dt * 1.3;
+        const pulse = 0.7 + 0.3 * Math.sin(tok.pulsePhase);
+
+        // Proximity boost
+        const distM = Math.hypot(mouse.x - tok.x, mouse.y - tok.y);
+        const prox = distM < mouse.radius ? (1 - distM / mouse.radius) * 0.4 : 0;
+
+        const tokenAlpha = Math.min(1, tok.opacity * pulse + prox);
+
+        ctx.fillStyle = `rgba(${accentRgb}, ${tokenAlpha * (isDark ? 0.42 : 0.32)})`;
+        ctx.fillText(tok.text, tok.x, tok.y);
+      }
+      ctx.restore();
+
+      // -------------------------------------------------------------
+      // LAYER 7: Perimeter Engineering Framing & Crop Brackets
+      // -------------------------------------------------------------
+      ctx.save();
+      const bracketSize = 14;
+      const margin = 24;
+      const bracketAlpha = isDark ? 0.25 : 0.18;
+      ctx.strokeStyle = `rgba(${accentRgb}, ${bracketAlpha})`;
+      ctx.lineWidth = 1.2;
+
+      // Top-Left ⌜
+      ctx.beginPath();
+      ctx.moveTo(margin, margin + bracketSize);
+      ctx.lineTo(margin, margin);
+      ctx.lineTo(margin + bracketSize, margin);
+      ctx.stroke();
+
+      // Top-Right ⌝
+      ctx.beginPath();
+      ctx.moveTo(width - margin - bracketSize, margin);
+      ctx.lineTo(width - margin, margin);
+      ctx.lineTo(width - margin, margin + bracketSize);
+      ctx.stroke();
+
+      // Bottom-Left ⌞
+      ctx.beginPath();
+      ctx.moveTo(margin, height - margin - bracketSize);
+      ctx.lineTo(margin, height - margin);
+      ctx.lineTo(margin + bracketSize, height - margin);
+      ctx.stroke();
+
+      // Bottom-Right ⌟
+      ctx.beginPath();
+      ctx.moveTo(width - margin - bracketSize, height - margin);
+      ctx.lineTo(width - margin, height - margin);
+      ctx.lineTo(width - margin, height - margin - bracketSize);
+      ctx.stroke();
+
+      // Subtle Precision Coordinates Tag (Top Right)
+      ctx.font = "8px 'JetBrains Mono', monospace";
+      ctx.fillStyle = `rgba(${accentRgb}, ${bracketAlpha * 0.9})`;
+      ctx.textAlign = "right";
+      ctx.fillText("[CAD // 56PX_GRID]", width - margin - 20, margin + 4);
+
+      // Subtle Location Tag (Bottom Left)
+      ctx.textAlign = "left";
+      ctx.fillText("[LOC // HO, GH :: 06.60N 00.47E]", margin + 20, height - margin - 2);
+
+      ctx.restore();
     };
 
     animId = requestAnimationFrame(loop);
@@ -289,23 +649,25 @@ export function TechHeroBackground() {
       aria-hidden="true"
       className="fixed inset-0 -z-20 overflow-hidden pointer-events-none select-none"
     >
-      {/* Background Architectural Grid Pattern across entire page */}
+      {/* Ambient Warm & Cool Atmospheric Radiance Blooms (Dual Tone Depth) */}
       <div
-        className="absolute inset-0 opacity-[0.035] dark:opacity-[0.05]"
+        className="absolute -top-[15%] -right-[10%] w-[650px] sm:w-[900px] h-[650px] sm:h-[900px] rounded-full blur-[160px] opacity-[0.045] dark:opacity-[0.065] pointer-events-none"
         style={{
-          backgroundImage: `
-            linear-gradient(to right, currentColor 1px, transparent 1px),
-            linear-gradient(to bottom, currentColor 1px, transparent 1px)
-          `,
-          backgroundSize: "48px 48px",
+          background:
+            "radial-gradient(circle, var(--accent) 0%, rgba(213, 189, 175, 0) 70%)",
+        }}
+      />
+      <div
+        className="absolute -bottom-[15%] -left-[10%] w-[600px] sm:w-[850px] h-[600px] sm:h-[850px] rounded-full blur-[170px] opacity-[0.035] dark:opacity-[0.055] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, #38bdf8 0%, rgba(56, 189, 248, 0) 70%)",
         }}
       />
 
-      {/* Dynamic Interactive Tech & Development Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full block"
-      />
+      {/* Dynamic 120 FPS CAD Grid, Circuit Buses & Vector Engineering Canvas */}
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block" />
     </div>
   );
 }
+export default TechHeroBackground;
