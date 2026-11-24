@@ -135,11 +135,11 @@ export function Education() {
     <section
       ref={sectionRef}
       id="education"
-      className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
+      className="py-16 sm:py-24 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
     >
-      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
             <GraduationCap className="w-3.5 h-3.5" /> Academic Foundations
           </h2>
@@ -149,18 +149,18 @@ export function Education() {
           >
             Education &amp; Science
           </TextMaskReveal>
-          <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
+          <p className="font-dm text-sm sm:text-base md:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-3 sm:mt-5">
             B.Sc. Information Technology studies at the University of Ghana, Legon, grounded in General Science foundations and Elective ICT from Kpando Senior High School.
           </p>
         </Reveal>
 
         {/* Modern Dual Academic Bento Cards with Parallax Depth */}
-        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
           {EDUCATION_DATA.map((item, idx) => {
             const MainIcon = item.icon;
             return (
               <Reveal key={item.id} direction="up" delay={idx * 0.15}>
-                <div className="h-full rounded-3xl bg-card border border-border p-8 sm:p-10 lg:p-12 hover:border-accent/50 transition-all duration-300 shadow-xl flex flex-col justify-between group relative overflow-hidden">
+                <div className="h-full rounded-3xl bg-card border border-border p-5 sm:p-8 lg:p-12 hover:border-accent/50 transition-all duration-300 shadow-xl flex flex-col justify-between group relative overflow-hidden">
                   {/* Subtle Background Radial Warm Glow */}
                   <div className="absolute top-0 right-0 w-56 h-56 bg-accent/6 rounded-full blur-[90px] pointer-events-none group-hover:bg-accent/10 transition-colors" />
 
@@ -189,10 +189,10 @@ export function Education() {
 
                     {/* Degree Title & Institution */}
                     <div className="space-y-1.5">
-                      <h3 className="font-montserrat text-2xl sm:text-3xl font-black text-foreground tracking-tight group-hover:text-accent transition-colors">
+                      <h3 className="font-montserrat text-xl sm:text-2xl lg:text-3xl font-black text-foreground tracking-tight group-hover:text-accent transition-colors">
                         {item.credential}
                       </h3>
-                      <h4 className="font-montserrat text-lg font-bold text-foreground/90 flex items-center gap-2">
+                      <h4 className="font-montserrat text-base sm:text-lg font-bold text-foreground/90 flex items-center gap-2">
                         {item.institution}
                         <ArrowUpRight className="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 transition-opacity" />
                       </h4>
@@ -206,7 +206,7 @@ export function Education() {
                     </div>
 
                     {/* Overview Paragraph */}
-                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/90 leading-relaxed pt-1">
+                    <p className="font-dm text-xs sm:text-sm md:text-[14.5px] text-muted-foreground/90 leading-relaxed pt-1">
                       {item.overview}
                     </p>
 
@@ -221,7 +221,7 @@ export function Education() {
                           return (
                             <div
                               key={mIdx}
-                              className="p-3.5 sm:p-4 rounded-xl bg-secondary/50 border border-border/80 flex items-start gap-3.5"
+                              className="p-3 sm:p-4 rounded-xl bg-secondary/50 border border-border/80 flex items-start gap-3"
                             >
                               <div className="w-7 h-7 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent shrink-0 mt-0.5">
                                 <ModIcon className="w-3.5 h-3.5" />

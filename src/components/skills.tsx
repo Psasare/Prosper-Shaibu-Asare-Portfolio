@@ -241,10 +241,10 @@ export function Skills() {
   ];
 
   return (
-    <section ref={sectionRef} id="skills" className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden">
-      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+    <section ref={sectionRef} id="skills" className="py-16 sm:py-24 md:py-36 lg:py-44 border-t border-border relative overflow-hidden">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-24">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
             <Layers className="w-3.5 h-3.5" /> Capabilities &amp; Focus
           </h2>
@@ -328,34 +328,34 @@ export function Skills() {
         </Reveal>
 
         {/* 4 Categorized Pillars Grid */}
-        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-12">
+        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 xl:gap-12">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
               <Reveal key={category.title} delay={index * 0.12} direction="up">
-                <div className="h-full group p-8 sm:p-10 lg:p-12 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs flex flex-col justify-between">
+                <div className="h-full group p-5 sm:p-8 lg:p-12 rounded-2xl border border-border bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform duration-300">
-                        <Icon className="w-6 h-6" />
+                    <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform duration-300">
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                       </div>
                       <div>
-                        <h3 className="font-montserrat font-bold text-lg text-foreground group-hover:text-accent transition-colors">
+                        <h3 className="font-montserrat font-bold text-base sm:text-lg text-foreground group-hover:text-accent transition-colors">
                           {category.title}
                         </h3>
                       </div>
                     </div>
 
-                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/85 mb-6 leading-relaxed">
+                    <p className="font-dm text-xs sm:text-[14.5px] text-muted-foreground/85 mb-4 sm:mb-6 leading-relaxed">
                       {category.description}
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2.5 pt-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 pt-2">
                     {category.skills.map((skill) => (
                       <div
                         key={skill}
-                        className="flex items-center gap-2 font-mono text-xs font-semibold text-foreground bg-muted/80 hover:bg-muted hover:border-accent/40 transition-all rounded-lg px-3 py-2 border border-border"
+                        className="flex items-center gap-2 font-mono text-[11px] sm:text-xs font-semibold text-foreground bg-muted/80 hover:bg-muted hover:border-accent/40 transition-all rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2 border border-border"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-accent shrink-0" />
                         <span className="truncate">{skill}</span>

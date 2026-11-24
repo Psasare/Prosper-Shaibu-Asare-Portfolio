@@ -326,13 +326,13 @@ export function TechHeroBackground() {
           const dmy = mouse.y - gy;
           const distMouse = Math.hypot(dmx, dmy);
 
-          let crossSize = 3;
-          let alpha = isDark ? 0.12 : 0.09;
+          let crossSize = 2.5;
+          let alpha = isDark ? 0.05 : 0.035;
 
           if (distMouse < mouse.radius) {
             const proximity = 1 - distMouse / mouse.radius;
-            crossSize = 3 + proximity * 4.5;
-            alpha = isDark ? 0.12 + proximity * 0.45 : 0.09 + proximity * 0.35;
+            crossSize = 2.5 + proximity * 3;
+            alpha = isDark ? 0.05 + proximity * 0.18 : 0.035 + proximity * 0.12;
             ctx.strokeStyle = `rgba(${accentRgb}, ${alpha})`;
           } else {
             ctx.strokeStyle = `rgba(${crossRgb}, ${alpha})`;
@@ -366,23 +366,23 @@ export function TechHeroBackground() {
         for (let k = 1; k < pts.length; k++) {
           ctx.lineTo(pts[k].x, pts[k].y);
         }
-        ctx.strokeStyle = `rgba(${busRgb}, ${isDark ? 0.16 : 0.11})`;
-        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = `rgba(${busRgb}, ${isDark ? 0.06 : 0.04})`;
+        ctx.lineWidth = 1;
         ctx.stroke();
 
         // Terminal solder vias (double concentric circular pad)
         const drawVia = (px: number, py: number) => {
           // Outer via ring
           ctx.beginPath();
-          ctx.arc(px, py, 4, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${accentRgb}, ${isDark ? 0.45 : 0.35})`;
-          ctx.lineWidth = 1;
+          ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${accentRgb}, ${isDark ? 0.16 : 0.11})`;
+          ctx.lineWidth = 0.8;
           ctx.stroke();
 
           // Inner solid pin
           ctx.beginPath();
-          ctx.arc(px, py, 1.5, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${accentRgb}, ${isDark ? 0.75 : 0.6})`;
+          ctx.arc(px, py, 1.2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${accentRgb}, ${isDark ? 0.28 : 0.18})`;
           ctx.fill();
         };
 
@@ -392,36 +392,36 @@ export function TechHeroBackground() {
         // Microchip processor die badge if configured
         if (bus.chipLabel && pts.length > 2) {
           const midPt = pts[Math.floor(pts.length / 2)];
-          const chipW = 58;
-          const chipH = 20;
+          const chipW = 54;
+          const chipH = 18;
           const chipX = midPt.x - chipW / 2;
           const chipY = midPt.y - chipH / 2;
 
           // Chip lead pins (3 on top, 3 on bottom)
-          ctx.strokeStyle = `rgba(${busRgb}, ${isDark ? 0.35 : 0.25})`;
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = `rgba(${busRgb}, ${isDark ? 0.12 : 0.08})`;
+          ctx.lineWidth = 0.8;
           for (let pin = 0; pin < 3; pin++) {
-            const pinX = chipX + 12 + pin * 17;
+            const pinX = chipX + 11 + pin * 16;
             ctx.beginPath();
-            ctx.moveTo(pinX, chipY - 3);
+            ctx.moveTo(pinX, chipY - 2.5);
             ctx.lineTo(pinX, chipY);
             ctx.moveTo(pinX, chipY + chipH);
-            ctx.lineTo(pinX, chipY + chipH + 3);
+            ctx.lineTo(pinX, chipY + chipH + 2.5);
             ctx.stroke();
           }
 
           // Chip Silicon Body
-          ctx.fillStyle = isDark ? "rgba(15, 23, 42, 0.75)" : "rgba(241, 245, 249, 0.85)";
-          ctx.strokeStyle = `rgba(${accentRgb}, ${isDark ? 0.38 : 0.3})`;
-          ctx.lineWidth = 1;
+          ctx.fillStyle = isDark ? "rgba(15, 23, 42, 0.4)" : "rgba(241, 245, 249, 0.5)";
+          ctx.strokeStyle = `rgba(${accentRgb}, ${isDark ? 0.18 : 0.12})`;
+          ctx.lineWidth = 0.8;
           ctx.beginPath();
-          ctx.roundRect(chipX, chipY, chipW, chipH, 4);
+          ctx.roundRect(chipX, chipY, chipW, chipH, 3);
           ctx.fill();
           ctx.stroke();
 
           // Chip Silicon Label
-          ctx.font = "bold 8.5px 'JetBrains Mono', monospace";
-          ctx.fillStyle = `rgba(${accentRgb}, ${isDark ? 0.8 : 0.7})`;
+          ctx.font = "bold 8px 'JetBrains Mono', monospace";
+          ctx.fillStyle = `rgba(${accentRgb}, ${isDark ? 0.4 : 0.3})`;
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
           ctx.fillText(bus.chipLabel, midPt.x, midPt.y);
@@ -473,11 +473,11 @@ export function TechHeroBackground() {
         // Glowing packet tail gradient
         const cometGrad = ctx.createLinearGradient(tailX, tailY, curX, curY);
         cometGrad.addColorStop(0, "rgba(0,0,0,0)");
-        cometGrad.addColorStop(0.7, `rgba(${cyanGlowRgb}, ${isDark ? 0.45 : 0.35})`);
-        cometGrad.addColorStop(1, `rgba(${accentRgb}, ${isDark ? 0.95 : 0.85})`);
+        cometGrad.addColorStop(0.7, `rgba(${cyanGlowRgb}, ${isDark ? 0.2 : 0.12})`);
+        cometGrad.addColorStop(1, `rgba(${accentRgb}, ${isDark ? 0.35 : 0.25})`);
 
         ctx.strokeStyle = cometGrad;
-        ctx.lineWidth = 2.2;
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(tailX, tailY);
         ctx.lineTo(curX, curY);
@@ -485,10 +485,10 @@ export function TechHeroBackground() {
 
         // Packet Head Glow
         ctx.beginPath();
-        ctx.arc(curX, curY, 2.4, 0, Math.PI * 2);
-        ctx.fillStyle = isDark ? "#ffffff" : `rgb(${accentRgb})`;
-        ctx.shadowColor = `rgba(${accentRgb}, 0.8)`;
-        ctx.shadowBlur = 8;
+        ctx.arc(curX, curY, 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${accentRgb}, ${isDark ? 0.55 : 0.45})`;
+        ctx.shadowColor = `rgba(${accentRgb}, 0.4)`;
+        ctx.shadowBlur = 3;
         ctx.fill();
         ctx.shadowBlur = 0;
       }
@@ -506,13 +506,12 @@ export function TechHeroBackground() {
       }
 
       // -------------------------------------------------------------
-      // LAYER 5: Vector Pen Tool & Bézier Anchor Handles (Design Craft)
+      // LAYER 5: Vector Pen Tool & Bézier Anchor Handles (Subtle Design Craft)
       // -------------------------------------------------------------
       ctx.save();
       for (let a = 0; a < vectorAnchors.length; a++) {
         const v = vectorAnchors[a];
 
-        // Drift slowly
         v.x += v.driftVx;
         v.y += v.driftVy;
         v.handleAx += v.driftVx;
@@ -523,28 +522,25 @@ export function TechHeroBackground() {
         if (v.x < 30 || v.x > width - 30) v.driftVx *= -1;
         if (v.y < 30 || v.y > height - 30) v.driftVy *= -1;
 
-        // Proximity to cursor makes handles articulate slightly
         const distM = Math.hypot(mouse.x - v.x, mouse.y - v.y);
         const nearMouse = distM < mouse.radius;
-        const anchorAlpha = nearMouse ? (isDark ? 0.6 : 0.45) : isDark ? 0.22 : 0.16;
+        const anchorAlpha = nearMouse ? (isDark ? 0.22 : 0.15) : isDark ? 0.07 : 0.04;
 
-        // Tangent Handle Line A to B
         ctx.beginPath();
         ctx.moveTo(v.handleAx, v.handleAy);
         ctx.lineTo(v.handleBx, v.handleBy);
         ctx.strokeStyle = `rgba(${accentRgb}, ${anchorAlpha * 0.7})`;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 0.8;
         ctx.setLineDash([3, 3]);
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Handle Endpoint Circles (Figma/Vector Pen Style)
         const drawHandleCircle = (hx: number, hy: number) => {
           ctx.beginPath();
-          ctx.arc(hx, hy, 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = isDark ? "rgba(15, 23, 42, 0.9)" : "rgba(255, 255, 255, 0.9)";
+          ctx.arc(hx, hy, 2, 0, Math.PI * 2);
+          ctx.fillStyle = isDark ? "rgba(15, 23, 42, 0.7)" : "rgba(255, 255, 255, 0.7)";
           ctx.strokeStyle = `rgba(${accentRgb}, ${anchorAlpha})`;
-          ctx.lineWidth = 1;
+          ctx.lineWidth = 0.8;
           ctx.fill();
           ctx.stroke();
         };
@@ -552,14 +548,13 @@ export function TechHeroBackground() {
         drawHandleCircle(v.handleAx, v.handleAy);
         drawHandleCircle(v.handleBx, v.handleBy);
 
-        // Central Anchor Point: Rotated Square (Diamond Keyframe)
-        const sqSize = nearMouse ? 7 : 5.5;
+        const sqSize = nearMouse ? 5.5 : 4.5;
         ctx.save();
         ctx.translate(v.x, v.y);
         ctx.rotate(Math.PI / 4);
-        ctx.fillStyle = isDark ? `rgba(${accentRgb}, ${anchorAlpha})` : `rgba(${accentRgb}, ${anchorAlpha * 0.9})`;
-        ctx.strokeStyle = isDark ? "#ffffff" : "#000000";
-        ctx.lineWidth = 0.8;
+        ctx.fillStyle = `rgba(${accentRgb}, ${anchorAlpha * 0.8})`;
+        ctx.strokeStyle = isDark ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.3)";
+        ctx.lineWidth = 0.6;
         ctx.fillRect(-sqSize / 2, -sqSize / 2, sqSize, sqSize);
         ctx.strokeRect(-sqSize / 2, -sqSize / 2, sqSize, sqSize);
         ctx.restore();
@@ -567,46 +562,14 @@ export function TechHeroBackground() {
       ctx.restore();
 
       // -------------------------------------------------------------
-      // LAYER 6: Floating Monospace Code & Engineering Telemetry
+      // LAYER 6: Perimeter Engineering Framing & Crop Brackets (Low-noise)
       // -------------------------------------------------------------
       ctx.save();
-      ctx.font = "bold 10.5px 'JetBrains Mono', monospace";
-      ctx.textBaseline = "middle";
-
-      for (let t = 0; t < tokens.length; t++) {
-        const tok = tokens[t];
-
-        tok.x += tok.vx;
-        tok.y += tok.vy;
-
-        if (tok.x < -60) tok.x = width + 60;
-        if (tok.x > width + 60) tok.x = -60;
-        if (tok.y < -30) tok.y = height + 30;
-        if (tok.y > height + 30) tok.y = -30;
-
-        tok.pulsePhase += dt * 1.3;
-        const pulse = 0.7 + 0.3 * Math.sin(tok.pulsePhase);
-
-        // Proximity boost
-        const distM = Math.hypot(mouse.x - tok.x, mouse.y - tok.y);
-        const prox = distM < mouse.radius ? (1 - distM / mouse.radius) * 0.4 : 0;
-
-        const tokenAlpha = Math.min(1, tok.opacity * pulse + prox);
-
-        ctx.fillStyle = `rgba(${accentRgb}, ${tokenAlpha * (isDark ? 0.42 : 0.32)})`;
-        ctx.fillText(tok.text, tok.x, tok.y);
-      }
-      ctx.restore();
-
-      // -------------------------------------------------------------
-      // LAYER 7: Perimeter Engineering Framing & Crop Brackets
-      // -------------------------------------------------------------
-      ctx.save();
-      const bracketSize = 14;
-      const margin = 24;
-      const bracketAlpha = isDark ? 0.25 : 0.18;
+      const bracketSize = 12;
+      const margin = 20;
+      const bracketAlpha = isDark ? 0.12 : 0.08;
       ctx.strokeStyle = `rgba(${accentRgb}, ${bracketAlpha})`;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = 1;
 
       // Top-Left ⌜
       ctx.beginPath();
@@ -640,11 +603,11 @@ export function TechHeroBackground() {
       ctx.font = "8px 'JetBrains Mono', monospace";
       ctx.fillStyle = `rgba(${accentRgb}, ${bracketAlpha * 0.9})`;
       ctx.textAlign = "right";
-      ctx.fillText("[CAD // 56PX_GRID]", width - margin - 20, margin + 4);
+      ctx.fillText("[CAD // 56PX_GRID]", width - margin - 16, margin + 4);
 
       // Subtle Location Tag (Bottom Left)
       ctx.textAlign = "left";
-      ctx.fillText("[LOC // HO, GH :: 06.60N 00.47E]", margin + 20, height - margin - 2);
+      ctx.fillText("[LOC // HO, GH :: 06.60N 00.47E]", margin + 16, height - margin - 2);
 
       ctx.restore();
     };
@@ -665,7 +628,7 @@ export function TechHeroBackground() {
     <div
       ref={containerRef}
       aria-hidden="true"
-      className="fixed inset-0 -z-20 overflow-hidden pointer-events-none select-none"
+      className="fixed inset-0 -z-20 overflow-hidden pointer-events-none select-none opacity-40 dark:opacity-50 transition-opacity duration-700"
     >
       {/* Ambient Warm & Cool Atmospheric Radiance Blooms (Dual Tone Depth) */}
       <div

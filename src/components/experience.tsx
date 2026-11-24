@@ -224,11 +224,11 @@ export function Experience() {
     <section
       ref={sectionRef}
       id="experience"
-      className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
+      className="py-16 sm:py-24 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
     >
-      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20">
           <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
             <Briefcase className="w-3.5 h-3.5" /> Career Journey
           </h2>
@@ -238,16 +238,16 @@ export function Experience() {
           >
             Work Experience
           </TextMaskReveal>
-          <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
+          <p className="font-dm text-sm sm:text-base md:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-3 sm:mt-5">
             Practical systems administration, hospital LAN engineering at Volta Regional Hospital (Hohoe) and Ho Teaching Hospital (Trafalgar), and current National Service at UHAS IT Directorate.
           </p>
         </Reveal>
 
         {/* Modern Split-Pane Architecture (Image-Free, Executive & Clean) */}
         <Reveal direction="up" delay={0.15}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-start">
             {/* LEFT RAIL: Interactive Milestone Navigator */}
-            <div className="lg:col-span-5 space-y-3">
+            <div className="lg:col-span-5 space-y-2.5 sm:space-y-3">
               <div className="flex items-center justify-between pb-2 px-1">
                 <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-semibold">
                   Select Milestone
@@ -257,14 +257,14 @@ export function Experience() {
                 </span>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2.5 sm:space-y-3">
                 {EXPERIENCES.map((exp, idx) => {
                   const isSelected = selectedIndex === idx;
                   return (
                     <button
                       key={exp.id}
                       onClick={() => setSelectedIndex(idx)}
-                      className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-4 group relative overflow-hidden ${
+                      className={`w-full text-left p-4 sm:p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 sm:gap-4 group relative overflow-hidden ${
                         isSelected
                           ? "bg-card border-accent/60 shadow-lg shadow-accent/5 ring-1 ring-accent/30"
                           : "bg-card/60 border-border/80 hover:bg-card hover:border-accent/30"
@@ -279,7 +279,7 @@ export function Experience() {
                         />
                       )}
 
-                      <div className="space-y-1.5 flex-1 min-w-0">
+                      <div className="space-y-1 sm:space-y-1.5 flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="font-mono text-[11px] font-bold text-accent">
                             {exp.num}
@@ -296,7 +296,7 @@ export function Experience() {
                           )}
                         </div>
 
-                        <h4 className="font-montserrat font-bold text-base text-foreground truncate group-hover:text-accent transition-colors">
+                        <h4 className="font-montserrat font-bold text-sm sm:text-base text-foreground truncate group-hover:text-accent transition-colors">
                           {exp.organization}
                         </h4>
 
@@ -327,7 +327,7 @@ export function Experience() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -16 }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="rounded-3xl bg-card border border-border p-7 sm:p-10 lg:p-12 shadow-xl space-y-8 relative overflow-hidden"
+                  className="rounded-3xl bg-card border border-border p-5 sm:p-8 lg:p-12 shadow-xl space-y-6 sm:space-y-8 relative overflow-hidden"
                 >
                   {/* Subtle Corner Ambient Glow */}
                   <div className="absolute top-0 right-0 w-64 h-64 bg-accent/8 rounded-full blur-[100px] pointer-events-none" />
@@ -390,16 +390,16 @@ export function Experience() {
                         return (
                           <div
                             key={dIdx}
-                            className="p-4 sm:p-5 rounded-2xl bg-secondary/50 border border-border/80 hover:border-accent/40 transition-colors flex items-start gap-4"
+                            className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-secondary/50 border border-border/80 hover:border-accent/40 transition-colors flex items-start gap-3 sm:gap-4"
                           >
-                            <div className="w-10 h-10 rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent shrink-0 mt-0.5">
-                              <Icon className="w-5 h-5" />
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent shrink-0 mt-0.5">
+                              <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                             </div>
                             <div className="space-y-1">
-                              <h5 className="font-montserrat font-bold text-sm text-foreground">
+                              <h5 className="font-montserrat font-bold text-xs sm:text-sm text-foreground">
                                 {item.title}
                               </h5>
-                              <p className="font-dm text-sm text-muted-foreground/90 leading-relaxed">
+                              <p className="font-dm text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">
                                 {item.detail}
                               </p>
                             </div>

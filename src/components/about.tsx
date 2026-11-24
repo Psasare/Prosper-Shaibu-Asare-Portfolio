@@ -101,13 +101,13 @@ export function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
+      className="py-16 sm:py-24 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
     >
-      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Top Part: Editorial Narrative Grid with Progressive Scroll Transition */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start mb-20 lg:mb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 xl:gap-20 items-start mb-14 sm:mb-20 lg:mb-28">
           {/* Left Column: Pinned Context & Credential Badges */}
-          <motion.div style={{ y: bioY }} className="lg:col-span-5 space-y-7 lg:space-y-8">
+          <motion.div style={{ y: bioY }} className="lg:col-span-5 space-y-5 sm:space-y-7 lg:space-y-8">
             <Reveal direction="up">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent font-montserrat text-xs uppercase tracking-widest font-bold">
                 About Me
@@ -117,34 +117,34 @@ export function About() {
             <Reveal direction="up" delay={0.08}>
               <TextMaskReveal
                 as="h3"
-                className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
+                className="font-montserrat text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.18] sm:leading-[1.12]"
               >
                 Bridging dependable infrastructure with modern software engineering.
               </TextMaskReveal>
             </Reveal>
 
             <Reveal direction="up" delay={0.16}>
-              <div className="flex flex-wrap gap-2.5 pt-2 font-mono text-xs font-medium text-foreground">
-                <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
+              <div className="flex flex-wrap gap-2 pt-1 font-mono text-[11px] sm:text-xs font-medium text-foreground">
+                <span className="px-3 py-1.5 rounded-xl bg-card border border-border shadow-2xs">
                   BSc. IT &bull; UG Legon &apos;26
                 </span>
-                <span className="px-3.5 py-2 rounded-xl bg-accent/10 border border-accent/25 text-accent shadow-2xs font-semibold">
+                <span className="px-3 py-1.5 rounded-xl bg-accent/10 border border-accent/25 text-accent shadow-2xs font-semibold">
                   NSS &bull; UHAS IT Directorate
                 </span>
-                <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
+                <span className="px-3 py-1.5 rounded-xl bg-card border border-border shadow-2xs">
                   Volta Regional Hosp. (Hohoe)
                 </span>
-                <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
+                <span className="px-3 py-1.5 rounded-xl bg-card border border-border shadow-2xs">
                   Ho Teaching Hosp. (Trafalgar)
                 </span>
-                <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
+                <span className="px-3 py-1.5 rounded-xl bg-card border border-border shadow-2xs">
                   General Science &amp; Elective ICT &bull; Kpando SHS
                 </span>
               </div>
             </Reveal>
 
             <Reveal direction="up" delay={0.22}>
-              <div className="p-4 rounded-2xl bg-card/70 border border-border/80 flex items-center gap-3 font-mono text-xs text-muted-foreground">
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-card/70 border border-border/80 flex items-center gap-3 font-mono text-xs text-muted-foreground">
                 <div className="w-8 h-8 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent shrink-0">
                   <Terminal className="w-4 h-4" />
                 </div>
@@ -157,7 +157,7 @@ export function About() {
 
           {/* Right Column: Progressive Scroll-Driven Narrative Timeline */}
           <div className="lg:col-span-7 lg:pt-2">
-            <div className="relative pl-6 sm:pl-8 border-l-2 border-border/80 space-y-8 sm:space-y-10">
+            <div className="relative pl-5 sm:pl-8 border-l-2 border-border/80 space-y-7 sm:space-y-10">
               {narrativeChapters.map((chap, idx) => (
                 <motion.div
                   key={chap.num}
@@ -172,12 +172,12 @@ export function About() {
                   className="relative group"
                 >
                   {/* Glowing Active Spine Node */}
-                  <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-card border-2 border-accent shadow-xs group-hover:scale-125 group-hover:bg-accent transition-all duration-300">
+                  <div className="absolute -left-[27px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-card border-2 border-accent shadow-xs group-hover:scale-125 group-hover:bg-accent transition-all duration-300">
                     <div className="w-1.5 h-1.5 rounded-full bg-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:bg-white transition-colors" />
                   </div>
 
                   {/* Chapter Header Micro-Tag */}
-                  <div className="flex items-center gap-2 mb-2.5">
+                  <div className="flex items-center gap-2 mb-2">
                     <span className="font-mono text-xs font-bold text-accent">
                       {chap.num}
                     </span>
@@ -188,7 +188,7 @@ export function About() {
                   </div>
 
                   {/* Chapter Paragraph in Plus Jakarta Sans with Calibrated Elegant Scale */}
-                  <p className="font-jakarta text-[16px] sm:text-[17px] md:text-[18px] text-foreground/85 leading-[1.82] tracking-[-0.006em] font-normal">
+                  <p className="font-jakarta text-[15px] sm:text-[17px] md:text-[18px] text-foreground/90 leading-[1.78] sm:leading-[1.82] tracking-[-0.005em] font-normal">
                     {chap.content}
                   </p>
                 </motion.div>
@@ -198,20 +198,20 @@ export function About() {
         </div>
 
         {/* Bottom Part: Spacious 4-Column Horizontal Engineering Pillars */}
-        <motion.div style={{ y: gridY }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <motion.div style={{ y: gridY }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {values.map((v, i) => {
             const Icon = v.icon;
             return (
               <Reveal key={v.title} delay={i * 0.08} direction="up">
-                <div className="p-8 sm:p-9 lg:p-10 rounded-2xl border border-border bg-card/80 hover:bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs group h-full flex flex-col justify-between">
+                <div className="p-5 sm:p-7 lg:p-10 rounded-2xl border border-border bg-card/80 hover:bg-card hover:border-accent/50 hover:-translate-y-1.5 transition-all duration-300 shadow-xs group h-full flex flex-col justify-between">
                   <div>
-                    <div className="w-13 h-13 rounded-2xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-6 h-6" />
+                    <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
-                    <h4 className="font-montserrat font-bold text-lg text-foreground tracking-tight mb-3 group-hover:text-accent transition-colors">
+                    <h4 className="font-montserrat font-bold text-base sm:text-lg text-foreground tracking-tight mb-2 sm:mb-3 group-hover:text-accent transition-colors">
                       {v.title}
                     </h4>
-                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/85 leading-[1.7] font-normal">
+                    <p className="font-dm text-xs sm:text-[14.5px] text-muted-foreground/85 leading-relaxed font-normal">
                       {v.text}
                     </p>
                   </div>

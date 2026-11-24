@@ -61,7 +61,7 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* Project Body */}
-      <div className="p-8 sm:p-10 lg:p-12 flex-1 flex flex-col justify-between space-y-6">
+      <div className="p-5 sm:p-8 lg:p-12 flex-1 flex flex-col justify-between space-y-4 sm:space-y-6">
         <div>
           {/* Top Badges & Metric Strip */}
           <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4">
@@ -196,9 +196,9 @@ export function Projects() {
       : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-28 md:py-36 lg:py-44 border-t border-border relative">
-      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20 gap-6">
+    <section id="projects" className="py-16 sm:py-24 md:py-36 lg:py-44 border-t border-border relative">
+      <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 lg:mb-20 gap-6">
           <Reveal direction="up">
             <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center gap-2">
               <Layers className="w-3.5 h-3.5" /> Featured Work
