@@ -5,229 +5,44 @@ import * as THREE from "three";
 import { useTheme } from "next-themes";
 
 /**
- * Safe WebGL Support Check
- * Prevents WebKit / iOS Safari crashes like:
- * "Uncaught TypeError: null is not an object (evaluating 'glVersion.indexOf')"
- */
-function checkWebGLSupport(): boolean {
-  if (typeof window === "undefined") return false;
-  try {
-    const canvas = document.createElement("canvas");
-    const gl =
-      canvas.getContext("webgl2") ||
-      canvas.getContext("webgl") ||
-      canvas.getContext("experimental-webgl");
-    if (!gl) return false;
-    const version = (gl as WebGLRenderingContext).getParameter(
-      (gl as WebGLRenderingContext).VERSION
-    );
-    return typeof version === "string" && version.length > 0;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Ultra-crisp 2D Dual-Device Showcase (MacBook Pro + iPhone 16 Pro)
- * Renders on mobile devices (<768px) and environments where WebGL is unavailable or fails.
- * Guarantees 0ms lag, 0 GPU crashes, seamless touch scrolling, and 100% retina clarity.
- */
-function DualDeviceShowcase2D({ isDark }: { isDark: boolean }) {
-  return (
-    <div className="relative w-full max-w-[540px] mx-auto py-2 px-1 flex flex-col items-center justify-center select-none">
-      {/* 1. MacBook Pro Chassis */}
-      <div className="relative w-full rounded-2xl bg-[#0f172a] dark:bg-[#0a0e17] border border-slate-700/80 dark:border-white/10 shadow-2xl p-2 sm:p-2.5 transition-all">
-        {/* Screen Bezel & Camera Notch */}
-        <div className="relative w-full aspect-[16/10] rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden flex flex-col">
-          {/* Top Bar with traffic light dots & address */}
-          <div className="h-7 sm:h-8 bg-slate-900/90 border-b border-slate-800/80 px-3 flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500/90" />
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-500/90" />
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/90" />
-            </div>
-            <div className="px-3 py-0.5 rounded-md bg-slate-950/80 border border-slate-800 font-mono text-[9px] sm:text-[10px] text-slate-400">
-              prosperasare.dev/architecture-gateway
-            </div>
-            <div className="w-8" />
-          </div>
-
-          {/* Screen Content: Telemetry Dashboard & Architecture */}
-          <div className="flex-1 p-3 sm:p-4 bg-slate-950 text-slate-100 flex flex-col justify-between overflow-hidden">
-            {/* Header */}
-            <div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="font-montserrat font-bold text-xs sm:text-sm text-white">
-                    Full-Stack Enterprise Telemetry
-                  </h4>
-                  <p className="font-mono text-[8.5px] sm:text-[10px] text-slate-400">
-                    Next.js 16 • TypeScript • UG Legon &amp; Clinical Systems
-                  </p>
-                </div>
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[8.5px] font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  ONLINE
-                </span>
-              </div>
-
-              {/* Metric Cards Row */}
-              <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mt-2 sm:mt-3">
-                <div className="p-1.5 sm:p-2 rounded-lg bg-slate-900/80 border border-slate-800">
-                  <span className="font-mono text-[7.5px] sm:text-[8.5px] text-slate-400 block">SYSTEM UPTIME</span>
-                  <span className="font-montserrat font-bold text-[10px] sm:text-xs text-amber-400">99.98% / RELIABLE</span>
-                </div>
-                <div className="p-1.5 sm:p-2 rounded-lg bg-slate-900/80 border border-slate-800">
-                  <span className="font-mono text-[7.5px] sm:text-[8.5px] text-slate-400 block">API THROUGHPUT</span>
-                  <span className="font-montserrat font-bold text-[10px] sm:text-xs text-sky-400">4.2k req / sec</span>
-                </div>
-                <div className="p-1.5 sm:p-2 rounded-lg bg-slate-900/80 border border-slate-800">
-                  <span className="font-mono text-[7.5px] sm:text-[8.5px] text-slate-400 block">DATABASE HEALTH</span>
-                  <span className="font-montserrat font-bold text-[10px] sm:text-xs text-emerald-400">OPTIMIZED / SQL</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Split: Wave Traffic Graph + Code Snippet */}
-            <div className="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-slate-800/80">
-              <div className="p-1.5 sm:p-2 rounded-lg bg-slate-900/50 border border-slate-800/80 flex flex-col justify-between">
-                <span className="font-mono text-[8px] sm:text-[9px] text-slate-400">Production Traffic</span>
-                <svg className="w-full h-8 sm:h-10 text-amber-500/90" viewBox="0 0 100 35" fill="none" stroke="currentColor">
-                  <path d="M0 25 Q 15 10, 30 20 T 60 12 T 85 5 T 100 15" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <div className="p-1.5 sm:p-2 rounded-lg bg-slate-900/70 border border-slate-800/80 font-mono text-[7.5px] sm:text-[9px] text-slate-300 leading-snug">
-                <span className="text-amber-400 font-semibold">export interface Stack</span> {"{"}
-                <br />
-                &nbsp;&nbsp;web: <span className="text-emerald-400">&apos;Next.js 16&apos;</span>;
-                <br />
-                &nbsp;&nbsp;mobile: <span className="text-emerald-400">&apos;React Native&apos;</span>;
-                <br />
-                &nbsp;&nbsp;database: <span className="text-emerald-400">&apos;PostgreSQL&apos;</span>;
-                <br />
-                {"}"}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Laptop Base Lip & Trackpad */}
-        <div className="w-full h-2.5 sm:h-3 bg-gradient-to-b from-slate-700 to-slate-800 dark:from-slate-800 dark:to-slate-900 rounded-b-xl flex items-center justify-center mt-0.5">
-          <div className="w-16 h-1 rounded-full bg-slate-600/70 dark:bg-slate-700" />
-        </div>
-      </div>
-
-      {/* 2. iPhone 16 Pro Mockup (Floating slightly overlapping in bottom-right corner) */}
-      <div className="absolute -bottom-2 -right-1 sm:right-2 w-[135px] sm:w-[165px] rounded-[24px] bg-[#0f172a] dark:bg-[#0a0e17] border-2 border-slate-700 dark:border-white/15 shadow-2xl p-1.5 sm:p-2 transition-transform duration-300 hover:scale-105">
-        <div className="relative w-full aspect-[9/18] rounded-[18px] bg-slate-950 border border-slate-800 overflow-hidden flex flex-col justify-between p-2">
-          {/* Dynamic Island Pill */}
-          <div className="flex items-center justify-center pt-0.5">
-            <div className="w-12 sm:w-14 h-3 rounded-full bg-black border border-white/10 flex items-center justify-end px-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            </div>
-          </div>
-
-          {/* Mobile App View */}
-          <div className="space-y-1.5 text-center my-auto">
-            <span className="font-mono text-[7px] sm:text-[8px] text-amber-400 uppercase tracking-widest font-bold">
-              REACT NATIVE
-            </span>
-            <h5 className="font-montserrat font-bold text-[9px] sm:text-[11px] text-white">
-              MindBridge Health
-            </h5>
-            <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-left">
-              <span className="font-mono text-[6.5px] sm:text-[7.5px] text-slate-400 block">CLINICAL SYNC</span>
-              <span className="font-montserrat font-bold text-[8.5px] sm:text-[10px] text-emerald-400">82% Verified</span>
-            </div>
-          </div>
-
-          {/* Home Indicator */}
-          <div className="flex justify-center pb-0.5">
-            <div className="w-10 h-0.5 rounded-full bg-white/40" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/**
  * Interactive 3D Multi-Device Architecture Scene
  *
  * Renders high-fidelity 3D procedural models of a MacBook Pro and iPhone 16 Pro
  * floating completely unboxed directly on the page background.
  *
- * Includes bulletproof WebGL safety checks and seamless fallback to the 2D showcase
- * on mobile devices or whenever WebGL context fails.
+ * Anti-Clipping Architecture:
+ * - True Center of Mass: Both devices are symmetrically centered around (0,0,0)
+ *   so rotation never swings off-center or toward viewport edges.
+ * - Dynamic Aspect-Ratio Camera Rig: Guarantees at least 4.5 units of visible width
+ *   regardless of screen aspect ratio or column size, completely eliminating clipping borders.
+ * - 360° Industrial Design: Complete with MacBook metallic chassis & rear logo,
+ *   iPhone rear camera island & triple lenses, and dual-sided studio lighting.
+ * - 100% Unboxed: Zero cards, zero outlines, zero docks, zero pills.
  */
 export function InteractiveCanvas3D() {
   const mountRef = React.useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
-  const [isFallback, setIsFallback] = React.useState(false);
 
   React.useEffect(() => {
-    // 1. Mobile & WebGL Support Verification
-    const isMobile = window.innerWidth < 768;
-    if (isMobile || !checkWebGLSupport()) {
-      setIsFallback(true);
-      return;
-    }
-
     const currentMount = mountRef.current;
     if (!currentMount) return;
 
     let width = currentMount.clientWidth;
     let height = currentMount.clientHeight;
 
-    if (width === 0 || height === 0) {
-      width = 600;
-      height = 500;
-    }
-
-    // 2. Safe WebGLRenderer instantiation wrapped in try / catch
-    let renderer: THREE.WebGLRenderer;
-    try {
-      renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-        powerPreference: "default",
-      });
-      if (!renderer.domElement) {
-        throw new Error("WebGL domElement is undefined");
-      }
-    } catch (err) {
-      console.warn("Could not instantiate WebGLRenderer:", err);
-      setIsFallback(true);
-      return;
-    }
-
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.domElement.style.outline = "none";
-    renderer.domElement.style.border = "none";
-    renderer.domElement.style.background = "transparent";
-    renderer.domElement.style.touchAction = "pan-y";
-    currentMount.appendChild(renderer.domElement);
-
-    const handleContextLost = (e: Event) => {
-      e.preventDefault();
-      setIsFallback(true);
-    };
-    renderer.domElement.addEventListener("webglcontextlost", handleContextLost, false);
-
-    // 3. Scene & Adaptive Camera
+    // 1. Scene & Adaptive Camera
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(32, width / height, 0.1, 100);
 
+    // Compute base distance that guarantees no clipping at any rotation angle
     const computeSafeDistance = (w: number, h: number) => {
       const aspect = w / h;
-      const desiredSpan = 5.2;
+      const desiredSpan = 5.2; // Units needed to guarantee zero clipping in 360° rotation
       const fovRad = (camera.fov * Math.PI) / 180;
       const visibleHeightAtUnitDist = 2 * Math.tan(fovRad / 2);
       const visibleWidthAtUnitDist = visibleHeightAtUnitDist * aspect;
 
+      // Ensure both horizontal and vertical visible span accommodate desiredSpan
       const distForWidth = desiredSpan / visibleWidthAtUnitDist;
       const distForHeight = 4.0 / visibleHeightAtUnitDist;
       return Math.max(6.8, distForWidth, distForHeight);
@@ -237,15 +52,31 @@ export function InteractiveCanvas3D() {
     let targetCameraDist = baseCameraDist;
     camera.position.set(0, 0.15, baseCameraDist);
 
+    // 2. Renderer with transparent background (pure alpha)
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: "high-performance",
+    });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.domElement.style.outline = "none";
+    renderer.domElement.style.border = "none";
+    renderer.domElement.style.background = "transparent";
+    currentMount.appendChild(renderer.domElement);
+
     const isDark = resolvedTheme === "dark";
 
-    // 4. Lighting
+    // 3. Multi-Point Studio Lighting (Front, Rim & Back Lighting for 360° Fidelity)
     const ambientLight = new THREE.AmbientLight(
       isDark ? 0x0c101a : 0xffffff,
       isDark ? 2.0 : 2.9
     );
     scene.add(ambientLight);
 
+    // Front Key Light
     const keyLight = new THREE.DirectionalLight(
       isDark ? 0xf1f5f9 : 0xffffff,
       isDark ? 3.0 : 2.6
@@ -253,6 +84,7 @@ export function InteractiveCanvas3D() {
     keyLight.position.set(4, 5, 4);
     scene.add(keyLight);
 
+    // Fill Light
     const fillLight = new THREE.PointLight(
       isDark ? 0xe2a365 : 0x8e5f2e,
       isDark ? 2.2 : 2.0,
@@ -261,6 +93,7 @@ export function InteractiveCanvas3D() {
     fillLight.position.set(-4, -2, 3);
     scene.add(fillLight);
 
+    // Rim Light (Top-Back)
     const rimLight = new THREE.PointLight(
       isDark ? 0x93c5fd : 0x3b82f6,
       isDark ? 2.2 : 1.6,
@@ -269,6 +102,7 @@ export function InteractiveCanvas3D() {
     rimLight.position.set(0, 4, -2);
     scene.add(rimLight);
 
+    // Back Studio Light (Ensures metallic sheen and visibility when rotated to rear)
     const backLight = new THREE.DirectionalLight(
       isDark ? 0x64748b : 0xe2e8f0,
       isDark ? 2.2 : 2.0
@@ -276,7 +110,8 @@ export function InteractiveCanvas3D() {
     backLight.position.set(-3, 3, -5);
     scene.add(backLight);
 
-    // 5. Procedural UI Screen Textures
+    // 4. Procedural UI Screen Textures
+    // A. Laptop Screen (Full-Stack Next.js 16 Web Architecture)
     const laptopCanvas = document.createElement("canvas");
     laptopCanvas.width = 1024;
     laptopCanvas.height = 640;
@@ -293,6 +128,7 @@ export function InteractiveCanvas3D() {
     // Window top bar
     lCtx.fillStyle = isDark ? "#10131d" : "#e2e8f0";
     lCtx.fillRect(0, 0, 1024, 48);
+    // Window control dots
     lCtx.fillStyle = "#ef4444";
     lCtx.beginPath();
     lCtx.arc(28, 24, 6, 0, Math.PI * 2);
@@ -306,7 +142,7 @@ export function InteractiveCanvas3D() {
     lCtx.arc(68, 24, 6, 0, Math.PI * 2);
     lCtx.fill();
 
-    // URL bar
+    // URL address bar
     lCtx.fillStyle = cardBg;
     lCtx.roundRect(110, 12, 440, 24, 6);
     lCtx.fill();
@@ -353,6 +189,7 @@ export function InteractiveCanvas3D() {
     lCtx.font = "bold 16px sans-serif";
     lCtx.fillText("Production Service Traffic & Latency", 65, 305);
 
+    // Graph wave
     lCtx.strokeStyle = accentColor;
     lCtx.lineWidth = 4;
     lCtx.beginPath();
@@ -371,7 +208,7 @@ export function InteractiveCanvas3D() {
     }
     lCtx.stroke();
 
-    // Code preview card
+    // Code preview card (Right side of screen)
     lCtx.fillStyle = cardBg;
     lCtx.roundRect(660, 265, 324, 335, 14);
     lCtx.fill();
@@ -390,7 +227,7 @@ export function InteractiveCanvas3D() {
 
     const laptopTexture = new THREE.CanvasTexture(laptopCanvas);
 
-    // Smartphone Screen
+    // B. Smartphone Screen (Mobile Application Development)
     const phoneCanvas = document.createElement("canvas");
     phoneCanvas.width = 480;
     phoneCanvas.height = 960;
@@ -399,18 +236,18 @@ export function InteractiveCanvas3D() {
     pCtx.fillStyle = isDark ? "#090b11" : "#ffffff";
     pCtx.fillRect(0, 0, 480, 960);
 
-    // Dynamic island
+    // Dynamic island / notch
     pCtx.fillStyle = isDark ? "#000000" : "#0f172a";
     pCtx.roundRect(170, 18, 140, 28, 14);
     pCtx.fill();
 
-    // Status bar
+    // Status bar time
     pCtx.fillStyle = textPri;
     pCtx.font = "bold 14px sans-serif";
     pCtx.fillText("09:41", 40, 38);
     pCtx.fillText("5G • 100%", 380, 38);
 
-    // Mobile Header
+    // Mobile App Header
     pCtx.fillStyle = accentColor;
     pCtx.font = "bold 12px sans-serif";
     pCtx.fillText("REACT NATIVE • MOBILE", 36, 105);
@@ -429,7 +266,7 @@ export function InteractiveCanvas3D() {
     pCtx.font = "13px sans-serif";
     pCtx.fillText("Offline-first data caching active", 60, 248);
 
-    // Progress circle
+    // Progress circle in card
     pCtx.strokeStyle = accentColor;
     pCtx.lineWidth = 10;
     pCtx.beginPath();
@@ -471,15 +308,18 @@ export function InteractiveCanvas3D() {
 
     const phoneTexture = new THREE.CanvasTexture(phoneCanvas);
 
-    // 6. Assemble 3D Device Models
+    // 5. Assemble 3D Device Models with Symmetrical Center-of-Mass
     const masterGroup = new THREE.Group();
+    // Compact scale fits comfortably with abundant margins inside any viewport
     masterGroup.scale.set(0.78, 0.78, 0.78);
     scene.add(masterGroup);
 
     const deviceStage = new THREE.Group();
+    // Offset centers the combined composition at x=0
     deviceStage.position.set(0.18, 0, 0);
     masterGroup.add(deviceStage);
 
+    // Shared Metallic Chassis Materials
     const chassisMaterial = new THREE.MeshStandardMaterial({
       color: isDark ? 0x181c26 : 0xd1d5db,
       metalness: 0.88,
@@ -493,148 +333,205 @@ export function InteractiveCanvas3D() {
     });
 
     // ---------------------------
-    // LAPTOP MODEL
+    // A. 3D LAPTOP MODEL
     // ---------------------------
     const laptopGroup = new THREE.Group();
     laptopGroup.position.set(-0.55, -0.08, -0.1);
     laptopGroup.rotation.set(0.16, 0.42, -0.05);
 
+    // Laptop Base
     const baseGeo = new THREE.BoxGeometry(2.3, 0.05, 1.5);
     const baseMesh = new THREE.Mesh(baseGeo, chassisMaterial);
     laptopGroup.add(baseMesh);
 
+    // Trackpad
     const trackpadGeo = new THREE.PlaneGeometry(0.7, 0.45);
     const trackpadMat = new THREE.MeshStandardMaterial({
       color: isDark ? 0x222838 : 0xc5cad3,
+      metalness: 0.7,
       roughness: 0.4,
     });
     const trackpadMesh = new THREE.Mesh(trackpadGeo, trackpadMat);
     trackpadMesh.rotation.x = -Math.PI / 2;
-    trackpadMesh.position.set(0, 0.026, 0.45);
+    trackpadMesh.position.set(0, 0.026, 0.42);
     laptopGroup.add(trackpadMesh);
 
-    // Screen Lid
-    const lidGroup = new THREE.Group();
-    lidGroup.position.set(0, 0.025, -0.73);
-    lidGroup.rotation.x = -1.82;
+    // Keyboard Area
+    const keyboardGeo = new THREE.PlaneGeometry(2.0, 0.75);
+    const keyboardMat = new THREE.MeshStandardMaterial({
+      color: isDark ? 0x0f121a : 0xb8bcc7,
+      metalness: 0.6,
+      roughness: 0.5,
+    });
+    const keyboardMesh = new THREE.Mesh(keyboardGeo, keyboardMat);
+    keyboardMesh.rotation.x = -Math.PI / 2;
+    keyboardMesh.position.set(0, 0.026, -0.22);
+    laptopGroup.add(keyboardMesh);
 
-    const lidGeo = new THREE.BoxGeometry(2.3, 1.5, 0.04);
+    // Laptop Lid (Angled Screen)
+    const lidGroup = new THREE.Group();
+    lidGroup.position.set(0, 0.03, -0.72);
+    lidGroup.rotation.x = -Math.PI * 0.16;
+
+    const lidGeo = new THREE.BoxGeometry(2.3, 1.45, 0.04);
     const lidMesh = new THREE.Mesh(lidGeo, chassisMaterial);
-    lidMesh.position.set(0, 0.75, 0);
+    lidMesh.position.set(0, 0.725, 0);
     lidGroup.add(lidMesh);
 
-    const screenGeo = new THREE.PlaneGeometry(2.2, 1.4);
-    const screenMat = new THREE.MeshBasicMaterial({ map: laptopTexture });
+    // Screen Bezel Border
+    const bezelGeo = new THREE.BoxGeometry(2.26, 1.41, 0.042);
+    const bezelMesh = new THREE.Mesh(bezelGeo, borderMaterial);
+    bezelMesh.position.set(0, 0.725, 0.002);
+    lidGroup.add(bezelMesh);
+
+    // Screen Display Plane
+    const screenGeo = new THREE.PlaneGeometry(2.18, 1.35);
+    const screenMat = new THREE.MeshStandardMaterial({
+      map: laptopTexture,
+      roughness: 0.25,
+      metalness: 0.1,
+    });
     const screenMesh = new THREE.Mesh(screenGeo, screenMat);
-    screenMesh.position.set(0, 0.75, 0.021);
+    screenMesh.position.set(0, 0.725, 0.024);
     lidGroup.add(screenMesh);
 
-    const logoGeo = new THREE.CircleGeometry(0.1, 32);
+    // Laptop Rear Metallic Emblem (Visible when rotated to the back)
+    const logoGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.005, 32);
     const logoMat = new THREE.MeshStandardMaterial({
-      color: isDark ? 0x94a3b8 : 0xffffff,
+      color: isDark ? 0xffffff : 0x1e293b,
       metalness: 0.95,
       roughness: 0.1,
     });
     const logoMesh = new THREE.Mesh(logoGeo, logoMat);
-    logoMesh.position.set(0, 0.75, -0.021);
-    logoMesh.rotation.y = Math.PI;
+    logoMesh.rotation.x = Math.PI / 2;
+    logoMesh.position.set(0, 0.725, -0.022);
     lidGroup.add(logoMesh);
+
+    // Laptop Display Hinge
+    const hingeGeo = new THREE.CylinderGeometry(0.024, 0.024, 2.15, 16);
+    const hingeMat = new THREE.MeshStandardMaterial({
+      color: isDark ? 0x0a0c10 : 0x1f2937,
+      metalness: 0.8,
+      roughness: 0.3,
+    });
+    const hingeMesh = new THREE.Mesh(hingeGeo, hingeMat);
+    hingeMesh.rotation.z = Math.PI / 2;
+    hingeMesh.position.set(0, 0, 0);
+    lidGroup.add(hingeMesh);
 
     laptopGroup.add(lidGroup);
     deviceStage.add(laptopGroup);
 
     // ---------------------------
-    // SMARTPHONE MODEL (iPhone 16 Pro)
+    // B. 3D SMARTPHONE MODEL (Full 360° Industrial Model)
     // ---------------------------
     const phoneGroup = new THREE.Group();
-    phoneGroup.position.set(1.05, -0.18, 0.35);
-    phoneGroup.rotation.set(-0.12, -0.38, 0.08);
+    phoneGroup.position.set(0.85, -0.18, 0.55);
+    phoneGroup.rotation.set(-0.12, -0.38, 0.06);
 
-    const phoneGeo = new THREE.BoxGeometry(0.75, 1.52, 0.06);
-    const phoneMesh = new THREE.Mesh(phoneGeo, borderMaterial);
+    // Phone Body
+    const phoneGeo = new THREE.BoxGeometry(0.74, 1.48, 0.04);
+    const phoneMesh = new THREE.Mesh(phoneGeo, chassisMaterial);
     phoneGroup.add(phoneMesh);
 
-    const phoneScreenGeo = new THREE.PlaneGeometry(0.71, 1.47);
-    const phoneScreenMat = new THREE.MeshBasicMaterial({ map: phoneTexture });
+    // Phone Screen
+    const phoneScreenGeo = new THREE.PlaneGeometry(0.7, 1.44);
+    const phoneScreenMat = new THREE.MeshStandardMaterial({
+      map: phoneTexture,
+      roughness: 0.2,
+      metalness: 0.1,
+    });
     const phoneScreenMesh = new THREE.Mesh(phoneScreenGeo, phoneScreenMat);
-    phoneScreenMesh.position.set(0, 0, 0.031);
+    phoneScreenMesh.position.set(0, 0, 0.022);
     phoneGroup.add(phoneScreenMesh);
 
-    const camBumpGeo = new THREE.BoxGeometry(0.34, 0.36, 0.03);
+    // Phone Rear Metallic Emblem (Visible when rotated to the back)
+    const phoneLogoGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.004, 32);
+    const phoneLogoMesh = new THREE.Mesh(phoneLogoGeo, logoMat);
+    phoneLogoMesh.rotation.x = Math.PI / 2;
+    phoneLogoMesh.position.set(0, -0.05, -0.022);
+    phoneGroup.add(phoneLogoMesh);
+
+    // Phone Rear Camera Island Bump (Visible when rotated to the back)
+    const camBumpGeo = new THREE.BoxGeometry(0.28, 0.30, 0.015);
     const camBumpMat = new THREE.MeshStandardMaterial({
-      color: isDark ? 0x1f293d : 0xb0b7c3,
+      color: isDark ? 0x222736 : 0x9ca3af,
       metalness: 0.85,
       roughness: 0.25,
     });
     const camBumpMesh = new THREE.Mesh(camBumpGeo, camBumpMat);
-    camBumpMesh.position.set(-0.16, 0.52, -0.045);
+    camBumpMesh.position.set(-0.16, 0.48, -0.024);
     phoneGroup.add(camBumpMesh);
 
-    const lensGeo = new THREE.CylinderGeometry(0.065, 0.065, 0.02, 24);
+    // Triple Camera Lenses
+    const lensGeo = new THREE.CylinderGeometry(0.045, 0.045, 0.012, 24);
     const lensMat = new THREE.MeshStandardMaterial({
-      color: 0x050508,
+      color: 0x05070a,
       metalness: 0.9,
       roughness: 0.1,
     });
-    const lens1 = new THREE.Mesh(lensGeo, lensMat);
-    lens1.rotation.x = Math.PI / 2;
-    lens1.position.set(-0.21, 0.58, -0.062);
-    phoneGroup.add(lens1);
-
-    const lens2 = new THREE.Mesh(lensGeo, lensMat);
-    lens2.rotation.x = Math.PI / 2;
-    lens2.position.set(-0.21, 0.44, -0.062);
-    phoneGroup.add(lens2);
-
-    const lens3 = new THREE.Mesh(lensGeo, lensMat);
-    lens3.rotation.x = Math.PI / 2;
-    lens3.position.set(-0.09, 0.51, -0.062);
-    phoneGroup.add(lens3);
+    const lensPositions: [number, number, number][] = [
+      [-0.20, 0.54, -0.034],
+      [-0.20, 0.42, -0.034],
+      [-0.10, 0.48, -0.034],
+    ];
+    lensPositions.forEach(([lx, ly, lz]) => {
+      const lens = new THREE.Mesh(lensGeo, lensMat);
+      lens.rotation.x = Math.PI / 2;
+      lens.position.set(lx, ly, lz);
+      phoneGroup.add(lens);
+    });
 
     deviceStage.add(phoneGroup);
 
-    // 7. Interaction & Motion Controls
-    let isPointerDown = false;
-    let prevPointerX = 0;
-    let prevPointerY = 0;
+    // -------------------------------------------------------------
+    // 6. Smooth 360° Drag-to-Orbit, Inertia Physics & Scroll Zoom
+    // -------------------------------------------------------------
+    const defaultYaw = 0.12;
+    const defaultPitch = -0.06;
 
-    const defaultYaw = -0.15;
-    const defaultPitch = 0.08;
-    let currentYaw = defaultYaw;
-    let currentPitch = defaultPitch;
     let targetYaw = defaultYaw;
     let targetPitch = defaultPitch;
+    let currentYaw = defaultYaw;
+    let currentPitch = defaultPitch;
 
     let velocityYaw = 0;
     let velocityPitch = 0;
+
+    let isPointerDown = false;
+    let lastPointerX = 0;
+    let lastPointerY = 0;
     let lastPinchDist = 0;
 
     const handlePointerDown = (clientX: number, clientY: number) => {
       isPointerDown = true;
-      prevPointerX = clientX;
-      prevPointerY = clientY;
+      lastPointerX = clientX;
+      lastPointerY = clientY;
       velocityYaw = 0;
       velocityPitch = 0;
     };
 
     const handlePointerMove = (clientX: number, clientY: number) => {
       if (!isPointerDown) return;
-      const deltaX = clientX - prevPointerX;
-      const deltaY = clientY - prevPointerY;
-      prevPointerX = clientX;
-      prevPointerY = clientY;
+      const deltaX = clientX - lastPointerX;
+      const deltaY = clientY - lastPointerY;
 
-      velocityYaw = deltaX * 0.0055;
-      velocityPitch = deltaY * 0.0055;
+      const sensitivity = 0.0065;
+      targetYaw += deltaX * sensitivity;
+      targetPitch += deltaY * sensitivity;
 
-      targetYaw += velocityYaw;
-      targetPitch += velocityPitch;
+      velocityYaw = deltaX * sensitivity;
+      velocityPitch = deltaY * sensitivity;
+
+      lastPointerX = clientX;
+      lastPointerY = clientY;
     };
 
     const handlePointerUp = () => {
       isPointerDown = false;
     };
 
+    // DOM Mouse Events
     const onMouseDown = (e: MouseEvent) => {
       handlePointerDown(e.clientX, e.clientY);
     };
@@ -647,14 +544,16 @@ export function InteractiveCanvas3D() {
       handlePointerUp();
     };
 
+    // Wheel to Zoom (Optimized depth without edge clipping)
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      const zoomDelta = e.deltaY * 0.0035;
-      const minDistance = baseCameraDist * 0.72;
-      const maxDistance = baseCameraDist * 1.35;
+      const zoomDelta = e.deltaY * 0.004;
+      const minDistance = baseCameraDist * 0.65; // Close-up magnification with zero boundary clipping
+      const maxDistance = baseCameraDist * 1.5;
       targetCameraDist = Math.max(minDistance, Math.min(maxDistance, targetCameraDist + zoomDelta));
     };
 
+    // Touch Events for Mobile / Tablet
     const onTouchStart = (e: TouchEvent) => {
       if (e.touches.length === 1) {
         handlePointerDown(e.touches[0].clientX, e.touches[0].clientY);
@@ -666,7 +565,7 @@ export function InteractiveCanvas3D() {
     };
 
     const onTouchMove = (e: TouchEvent) => {
-      if (isPointerDown && e.touches.length === 1) {
+      if (e.touches.length === 1) {
         handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
       } else if (e.touches.length === 2) {
         const dx = e.touches[0].clientX - e.touches[1].clientX;
@@ -674,7 +573,7 @@ export function InteractiveCanvas3D() {
         const dist = Math.hypot(dx, dy);
         if (lastPinchDist > 0) {
           const pinchDelta = (lastPinchDist - dist) * 0.009;
-          const minDistance = baseCameraDist * 0.65;
+          const minDistance = baseCameraDist * 0.65; // Safe magnification range
           const maxDistance = baseCameraDist * 1.5;
           targetCameraDist = Math.max(minDistance, Math.min(maxDistance, targetCameraDist + pinchDelta));
         }
@@ -697,6 +596,7 @@ export function InteractiveCanvas3D() {
     window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("touchend", onTouchEnd);
 
+    // Double-click to smoothly reset view to home perspective
     const onDoubleClick = () => {
       targetYaw = defaultYaw;
       targetPitch = defaultPitch;
@@ -706,6 +606,9 @@ export function InteractiveCanvas3D() {
     };
     domElement.addEventListener("dblclick", onDoubleClick);
 
+    // -------------------------------------------------------------
+    // 7. Render Loop with Viewport Culling & Momentum Lerp
+    // -------------------------------------------------------------
     let animationFrameId: number;
     let isVisible = true;
     let isTabVisible = !document.hidden;
@@ -729,30 +632,40 @@ export function InteractiveCanvas3D() {
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+
+      // Culling: Skip expensive WebGL rendering when Hero is scrolled out of view or tab is hidden
       if (!isVisible || !isTabVisible) return;
 
       const now = performance.now();
       const elapsedTime = (now - startTime) * 0.001;
 
+      // Coasting Momentum & Inertia when released
       if (!isPointerDown) {
         if (Math.abs(velocityYaw) > 0.0001 || Math.abs(velocityPitch) > 0.0001) {
           targetYaw += velocityYaw;
           targetPitch += velocityPitch;
-          velocityYaw *= 0.93;
+          velocityYaw *= 0.93; // Smooth inertial decay
           velocityPitch *= 0.93;
         } else {
+          // Subtle idle ambient rotation
           targetYaw += 0.0018;
         }
       }
 
+      // Safe pitch clamp prevents extreme tilt and keeps models comfortably in frame
       targetPitch = Math.max(-0.42, Math.min(0.42, targetPitch));
+
+      // Silky smooth interpolation (Lerp)
       currentYaw += (targetYaw - currentYaw) * 0.085;
       currentPitch += (targetPitch - currentPitch) * 0.085;
 
       masterGroup.rotation.y = currentYaw;
       masterGroup.rotation.x = currentPitch;
+
+      // Smooth camera zoom lerp
       camera.position.z += (targetCameraDist - camera.position.z) * 0.08;
 
+      // Organic Zero-Gravity Floating for Devices
       laptopGroup.position.y = -0.08 + Math.sin(elapsedTime * 1.3) * 0.03;
       phoneGroup.position.y = -0.18 + Math.cos(elapsedTime * 1.5) * 0.04;
 
@@ -761,11 +674,8 @@ export function InteractiveCanvas3D() {
 
     animate();
 
+    // 8. Dynamic Anti-Clipping Resize Observer
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setIsFallback(true);
-        return;
-      }
       if (!currentMount) return;
       width = currentMount.clientWidth;
       height = currentMount.clientHeight;
@@ -782,6 +692,7 @@ export function InteractiveCanvas3D() {
     const resizeObserver = new ResizeObserver(handleResize);
     resizeObserver.observe(currentMount);
 
+    // 9. Clean Up
     return () => {
       cancelAnimationFrame(animationFrameId);
 
@@ -794,7 +705,6 @@ export function InteractiveCanvas3D() {
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", onTouchEnd);
       domElement.removeEventListener("dblclick", onDoubleClick);
-      domElement.removeEventListener("webglcontextlost", handleContextLost);
 
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
@@ -803,7 +713,6 @@ export function InteractiveCanvas3D() {
       laptopTexture.dispose();
       phoneTexture.dispose();
       baseGeo.dispose();
-      trackpadGeo.dispose();
       lidGeo.dispose();
       screenGeo.dispose();
       phoneGeo.dispose();
@@ -813,7 +722,6 @@ export function InteractiveCanvas3D() {
       lensGeo.dispose();
       chassisMaterial.dispose();
       borderMaterial.dispose();
-      trackpadMat.dispose();
       screenMat.dispose();
       phoneScreenMat.dispose();
       logoMat.dispose();
@@ -828,16 +736,12 @@ export function InteractiveCanvas3D() {
   }, [resolvedTheme]);
 
   return (
-    <div className="relative w-full max-w-[700px] xl:max-w-[760px] min-h-[300px] sm:min-h-[420px] lg:h-[600px] xl:h-[640px] flex items-center justify-center select-none overflow-visible pointer-events-auto">
-      {isFallback ? (
-        <DualDeviceShowcase2D isDark={resolvedTheme === "dark"} />
-      ) : (
-        <div
-          ref={mountRef}
-          style={{ touchAction: "pan-y" }}
-          className="w-full h-full cursor-grab active:cursor-grabbing"
-        />
-      )}
+    <div className="relative w-full max-w-[700px] xl:max-w-[760px] h-[520px] sm:h-[580px] lg:h-[640px] xl:h-[680px] flex items-center justify-center select-none overflow-visible pointer-events-auto">
+      {/* 3D WebGL Canvas: 100% Unboxed (transparent background, zero borders, zero docks/cards) */}
+      <div
+        ref={mountRef}
+        className="w-full h-full cursor-grab active:cursor-grabbing"
+      />
     </div>
   );
 }

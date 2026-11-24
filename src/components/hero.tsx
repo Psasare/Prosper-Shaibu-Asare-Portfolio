@@ -1,20 +1,10 @@
 "use client";
 
 import * as React from "react";
-import dynamic from "next/dynamic";
 import { ArrowRight, Code2, Globe, Smartphone } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { InteractiveCanvas3D } from "./interactive-canvas-3d";
 import { RotatingWords } from "./animated-text";
-
-const InteractiveCanvas3D = dynamic(
-  () => import("./interactive-canvas-3d").then((mod) => mod.InteractiveCanvas3D),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="relative w-full max-w-[700px] xl:max-w-[760px] min-h-[300px] sm:min-h-[420px] lg:h-[600px] xl:h-[640px] flex items-center justify-center select-none" />
-    ),
-  }
-);
 
 export function Hero() {
   const sectionRef = React.useRef<HTMLElement>(null);

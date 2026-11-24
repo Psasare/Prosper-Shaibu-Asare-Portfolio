@@ -14,8 +14,7 @@ import { TechHeroBackground } from "@/components/ui/tech-hero-background";
 import {
   PortfolioGuideProvider,
   WelcomeDialog,
-  MiniInstructor,
-  TourLauncherBadge,
+  VisitorBadge,
 } from "@/components/portfolio-guide";
 
 export default function Home() {
@@ -38,8 +37,7 @@ export default function Home() {
           </main>
           <Footer />
           <ScrollToTop />
-          <TourLauncherBadge />
-          <MiniInstructor />
+          <VisitorBadge />
           <WelcomeDialog />
         </div>
       </LaunchTransition>

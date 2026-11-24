@@ -4,15 +4,13 @@ import * as React from "react";
 import Link from "next/link";
 import { motion, useScroll } from "framer-motion";
 import { ThemeToggle } from "./theme-toggle";
-import { Menu, X, Terminal, Compass } from "lucide-react";
+import { Menu, X, Terminal } from "lucide-react";
 import { GithubIcon } from "./icons";
-import { usePortfolioGuide } from "./portfolio-guide";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState<string>("");
   const { scrollYProgress } = useScroll();
-  const { startTour, profile } = usePortfolioGuide();
 
   const navLinks = [
     { label: "About", href: "#about" },
@@ -99,17 +97,6 @@ export function Navbar() {
 
           {/* Action icons & Theme toggle */}
           <div className="flex items-center gap-2">
-            {/* Tour Guide Quick Launcher */}
-            <button
-              onClick={() => startTour(0)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/15 border border-accent/30 text-accent font-montserrat font-bold text-[11px] uppercase tracking-wider hover:bg-accent hover:text-accent-foreground transition-all cursor-pointer shadow-xs"
-              title="Take guided tour with Byte"
-              aria-label="Take guided tour with Byte"
-            >
-              <Compass className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Tour</span>
-            </button>
-
             <a
               href="https://github.com/Psasare"
               target="_blank"
@@ -135,20 +122,6 @@ export function Navbar() {
         {/* Mobile Drawer */}
         {isOpen && (
           <div className="md:hidden max-w-7xl xl:max-w-[1400px] mx-auto mt-2 p-4 rounded-2xl bg-card border border-border shadow-lg space-y-3 font-montserrat text-xs uppercase tracking-wider font-semibold">
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                startTour(0);
-              }}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-accent text-accent-foreground font-bold shadow-xs cursor-pointer"
-            >
-              <span className="flex items-center gap-2">
-                <Compass className="w-4 h-4" />
-                <span>Start Guided Tour</span>
-              </span>
-              <span className="text-[10px] uppercase font-mono tracking-wider opacity-80">Byte Guide</span>
-            </button>
-
             {navLinks.map((link) => {
               const sectionId = link.href.replace("#", "");
               const isActive = activeSection === sectionId;

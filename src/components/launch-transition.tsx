@@ -44,13 +44,8 @@ function getInitialLocationClock() {
  */
 export function LaunchTransition({ children }: LaunchTransitionProps) {
   const [phase, setPhase] = React.useState<"loading" | "out" | "lift" | "gone">("loading");
-  const [greeting, setGreeting] = React.useState("Welcome");
-  const [locationClock, setLocationClock] = React.useState("Ho, Ghana");
-
-  React.useEffect(() => {
-    setGreeting(getInitialGreeting());
-    setLocationClock(getInitialLocationClock());
-  }, []);
+  const [greeting] = React.useState(getInitialGreeting);
+  const [locationClock] = React.useState(getInitialLocationClock);
 
   const loaderRef = React.useRef<HTMLDivElement>(null);
   const nameRef = React.useRef<HTMLDivElement>(null);
@@ -93,12 +88,8 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
       // Step 3: Loader is completely removed and scroll is restored
       const timerGone = setTimeout(() => {
         setPhase("gone");
-        document.body.style.overflow = "";
-        document.documentElement.style.overflow = "";
-        if (typeof window !== "undefined") {
-          window.dispatchEvent(new CustomEvent("portfolio:ready"));
-        }
-      }, 1200);
+        document.body.style.overflow = originalOverflow;
+      }, 1450);
       timers.push(timerGone);
     };
 
@@ -241,12 +232,11 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
       cancelAnimationFrame(rafId);
       timers.forEach(clearTimeout);
       window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
+      document.body.style.overflow = originalOverflow;
     };
   }, []);
 
-  const triggerSkip = (e: React.MouseEvent | React.TouchEvent) => {
+  const triggerSkip = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (phase === "loading") {
       isSkippingRef.current = true;
@@ -259,7 +249,6 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
         <div
           ref={loaderRef}
           onClick={triggerSkip}
-          onTouchStart={triggerSkip}
           role="status"
           aria-label="Loading portfolio. Tap to skip."
           style={{
@@ -271,7 +260,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
             "fixed inset-0 z-[100] flex flex-col justify-between cursor-pointer select-none overflow-hidden",
             "bg-background text-foreground",
             "px-6 sm:px-10 lg:px-14 py-6 sm:py-8",
-            phase !== "loading" && "pointer-events-none"
+            phase === "out" && "pointer-events-none"
           )}
         >
           {/* Subtle Vertical Drafting Guide Lines (25%, 50%, 75%) */}
