@@ -193,7 +193,7 @@ export function RotatingWords({ words, className = "" }: RotatingWordsProps) {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className={`font-serif italic font-normal text-accent border-b border-accent/40 pb-0.5 inline-block whitespace-nowrap ${className}`}
+          className={`border-b border-accent/40 pb-0.5 inline-block whitespace-nowrap ${className || "font-serif italic font-normal text-accent"}`}
         >
           {words[index]}
         </motion.span>

@@ -54,18 +54,18 @@ export function Hero() {
               &amp; Mobile Application Development.
             </h1>
 
-            {/* Intro Subtitle: Disciplined DM Sans typography with seamless rotating word */}
-            <p className="font-dm text-lg sm:text-xl text-muted-foreground/90 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-              Hi, I&apos;m <span className="font-semibold text-foreground">Prosper Shaibu Asare</span>.
+            {/* Intro Subtitle: Bold, authoritative Georgia Pro Black editorial typography */}
+            <p className="font-georgia font-black text-xl sm:text-2xl lg:text-[23px] text-foreground/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed tracking-tight">
+              Hi, I&apos;m <span className="text-foreground">Prosper Shaibu Asare</span>.
               I architect{" "}
               <RotatingWords
                 words={[
-                  "performant React Native mobile apps",
                   "accessible modern UI systems",
+                  "performant React Native mobile apps",
                   "resilient full-stack web platforms",
                   "hospital network infrastructure",
                 ]}
-                className="font-serif italic font-normal text-accent"
+                className="font-georgia font-black italic text-accent border-b-2 border-accent/40 pb-0.5"
               />
               , engineered for precision, speed, and real-world scale.
             </p>

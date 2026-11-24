@@ -1,6 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Georgia Pro Black';
+  src: local('Georgia Pro Black'), local('GeorgiaPro-Black'), local('Georgia Pro'), local('Georgia-Bold'), local('Georgia');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Georgia Pro Black';
+  src: local('Georgia Pro Black Italic'), local('GeorgiaPro-BlackItalic'), local('Georgia Pro Italic'), local('Georgia-BoldItalic'), local('Georgia Italic');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
@@ -106,6 +122,8 @@
 }
 
 @theme {
+  --font-georgia: 'Georgia Pro Black', 'Georgia Pro', Georgia, serif;
+  --font-georgia-pro: 'Georgia Pro Black', 'Georgia Pro', Georgia, serif;
   --font-montserrat: 'Montserrat', sans-serif;
   --font-jakarta: 'Plus Jakarta Sans', sans-serif;
   --font-sans: 'Plus Jakarta Sans', 'DM Sans', system-ui, -apple-system, sans-serif;
