@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   GraduationCap,
   Calendar,
@@ -123,8 +124,16 @@ const EDUCATION_DATA: EducationCardData[] = [
 ];
 
 export function Education() {
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const cardsY = useTransform(scrollYProgress, [0, 1], [22, -22]);
+
   return (
     <section
+      ref={sectionRef}
       id="education"
       className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
     >
@@ -145,8 +154,8 @@ export function Education() {
           </p>
         </Reveal>
 
-        {/* Modern Dual Academic Bento Cards (Image-Free, Executive & High-Contrast) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+        {/* Modern Dual Academic Bento Cards with Parallax Depth */}
+        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
           {EDUCATION_DATA.map((item, idx) => {
             const MainIcon = item.icon;
             return (
@@ -253,7 +262,7 @@ export function Education() {
               </Reveal>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

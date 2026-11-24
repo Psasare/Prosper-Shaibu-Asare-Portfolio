@@ -168,6 +168,24 @@ export const SphereImageGrid: React.FC<SphereImageGridProps> = ({
     return () => document.removeEventListener("visibilitychange", handleVisibility);
   }, []);
 
+  // Scroll-linked momentum: Scrolling past section gives the 3D sphere an organic spin
+  useEffect(() => {
+    let lastScroll = window.scrollY;
+    const handleScroll = () => {
+      if (!isInViewRef.current) return;
+      const currentScroll = window.scrollY;
+      const delta = currentScroll - lastScroll;
+      lastScroll = currentScroll;
+
+      // Add gentle angular momentum proportional to scroll
+      velocityRef.current.y += Math.max(-1.8, Math.min(1.8, delta * 0.025));
+      velocityRef.current.x += Math.max(-0.9, Math.min(0.9, -delta * 0.012));
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // High-Performance 120 FPS Direct-DOM Animation Loop
   // Updates styles directly on nodeRefs without triggering ANY React re-renders!
   useEffect(() => {

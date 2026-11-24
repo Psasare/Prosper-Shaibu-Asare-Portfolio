@@ -14,7 +14,7 @@ import {
   ShieldCheck,
   Activity,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
 import { TextMaskReveal } from "./animated-text";
 
@@ -213,9 +213,16 @@ const EXPERIENCES: ExperienceItem[] = [
 export function Experience() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const current = EXPERIENCES[selectedIndex];
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const panelY = useTransform(scrollYProgress, [0, 1], [18, -18]);
 
   return (
     <section
+      ref={sectionRef}
       id="experience"
       className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
     >
@@ -311,8 +318,8 @@ export function Experience() {
               </div>
             </div>
 
-            {/* RIGHT PANEL: Executive Architecture Detail Card */}
-            <div className="lg:col-span-7">
+            {/* RIGHT PANEL: Executive Architecture Detail Card with Parallax Counter-Drift */}
+            <motion.div style={{ y: panelY }} className="lg:col-span-7">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={current.id}
@@ -421,7 +428,7 @@ export function Experience() {
                   </div>
                 </motion.div>
               </AnimatePresence>
-            </div>
+            </motion.div>
           </div>
         </Reveal>
       </div>

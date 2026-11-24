@@ -1,7 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useInView,
+  AnimatePresence,
+  useScroll,
+  useVelocity,
+  useSpring,
+} from "framer-motion";
 
 interface TextMaskRevealProps {
   children: string;
@@ -72,22 +79,58 @@ export function TypographicMarquee() {
     { text: "[ UG LEGON // IT UNDERGRADUATE ]", type: "mono" },
   ];
 
+  const marqueeRef = React.useRef<HTMLDivElement>(null);
+  const baseX = React.useRef(0);
+
+  // Scroll velocity reactive tracking
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 50,
+    stiffness: 400,
+  });
+
+  React.useEffect(() => {
+    let animId = 0;
+    let lastTime = performance.now();
+    const baseSpeed = 0.024; // base speed percentage per ms
+
+    const loop = (now: number) => {
+      const dt = Math.min(now - lastTime, 50);
+      lastTime = now;
+
+      const vel = smoothVelocity.get();
+      // Calculate dynamic acceleration based on page scroll velocity
+      const velocityFactor = Math.min(Math.abs(vel) * 0.0007, 0.12);
+      const totalSpeed = baseSpeed + velocityFactor;
+
+      baseX.current -= totalSpeed * dt * 0.05;
+      if (baseX.current <= -50) {
+        baseX.current += 50;
+      }
+
+      if (marqueeRef.current) {
+        marqueeRef.current.style.transform = `translate3d(${baseX.current.toFixed(3)}%, 0, 0)`;
+      }
+
+      animId = requestAnimationFrame(loop);
+    };
+
+    animId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animId);
+  }, [smoothVelocity]);
+
   return (
     <div className="relative w-full overflow-hidden py-8 sm:py-9 border-y border-border/80 bg-card/60 backdrop-blur-xs select-none">
       {/* Edge gradient masks for seamless fade */}
       <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-      <motion.div
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          duration: 36,
-          repeat: Infinity,
-          ease: "linear",
-        }}
+      <div
+        ref={marqueeRef}
         className="flex items-center whitespace-nowrap will-change-transform"
       >
-        {[...marqueeItems, ...marqueeItems].map((item, idx) => (
+        {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, idx) => (
           <div key={idx} className="flex items-center mx-5 sm:mx-8">
             {item.type === "solid" && (
               <span className="font-montserrat font-black text-xs sm:text-sm md:text-base uppercase tracking-[0.24em] text-foreground">
@@ -112,7 +155,7 @@ export function TypographicMarquee() {
             <span className="w-1.5 h-1.5 rounded-full bg-accent ml-5 sm:ml-8" />
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }

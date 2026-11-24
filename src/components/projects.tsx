@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { Layers, ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { GithubIcon } from "./icons";
 import { Reveal } from "./reveal";
 import { TextMaskReveal } from "./animated-text";
@@ -18,6 +18,119 @@ interface Project {
   githubUrl: string;
   liveUrl?: string;
   metric?: string;
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  const cardRef = React.useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Optical window-box parallax: image shifts smoothly relative to the card frame on scroll
+  const imageY = useTransform(scrollYProgress, [0, 1], [-24, 24]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.12, 1.05, 1.12]);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      layout
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.96 }}
+      transition={{ duration: 0.3 }}
+      className="group flex flex-col rounded-3xl border border-border bg-card overflow-hidden hover:border-accent/50 hover:shadow-2xl transition-all duration-500"
+    >
+      {/* Project Image Banner with Optical Window-Box Parallax */}
+      <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden bg-muted">
+        <motion.div
+          style={{ y: imageY, scale: imageScale }}
+          className="absolute inset-[-12%] w-[124%] h-[124%]"
+        >
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            unoptimized
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+          />
+        </motion.div>
+        {/* Subtle edge fade into card */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
+      </div>
+
+      {/* Project Body */}
+      <div className="p-8 sm:p-10 lg:p-12 flex-1 flex flex-col justify-between space-y-6">
+        <div>
+          {/* Top Badges & Metric Strip */}
+          <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="font-montserrat text-[11px] font-bold px-3 py-1 rounded-full bg-secondary border border-border text-foreground">
+                {project.category}
+              </span>
+              {project.badge && (
+                <span className="font-montserrat text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full bg-accent/15 text-accent border border-accent/25">
+                  {project.badge}
+                </span>
+              )}
+            </div>
+            {project.metric && (
+              <span className="font-mono text-[10px] uppercase tracking-wider text-foreground font-bold px-2.5 py-1 rounded-md bg-secondary border border-border">
+                {project.metric}
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-start justify-between gap-4 mb-3">
+            <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground group-hover:text-accent transition-colors leading-snug">
+              {project.title}
+            </h3>
+            <div className="flex items-center gap-2 shrink-0">
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer shadow-2xs"
+                aria-label={`View ${project.title} on GitHub`}
+                title="View Source on GitHub"
+              >
+                <GithubIcon className="w-4 h-4" />
+              </a>
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-xl bg-accent text-white hover:opacity-90 transition-all cursor-pointer shadow-2xs"
+                  aria-label={`Visit Live Demo of ${project.title}`}
+                  title="Visit Live Demo"
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              )}
+            </div>
+          </div>
+
+          <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/85 leading-relaxed">
+            {project.description}
+          </p>
+        </div>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border/80">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border/80"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
 }
 
 export function Projects() {
@@ -101,7 +214,7 @@ export function Projects() {
             </p>
           </Reveal>
 
-          {/* Filter Pills with JetBrains Mono font */}
+          {/* Filter Pills with Montserrat uppercase */}
           <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
@@ -118,103 +231,11 @@ export function Projects() {
           </div>
         </div>
 
-        {/* Project Grid with Rich Image Cards */}
+        {/* Project Grid with Optical Window-Box Parallax */}
         <motion.div layout className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-14">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.3 }}
-                key={project.title}
-                className="group flex flex-col rounded-3xl border border-border bg-card overflow-hidden hover:border-accent/50 hover:shadow-2xl transition-all duration-500"
-              >
-                {/* Project Image Banner */}
-                <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden bg-muted">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    unoptimized
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                  />
-                  {/* Subtle edge fade into card */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
-                </div>
-
-                {/* Project Body */}
-                <div className="p-8 sm:p-10 lg:p-12 flex-1 flex flex-col justify-between space-y-6">
-                  <div>
-                    {/* Top Badges & Metric Strip */}
-                    <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4">
-                      <div className="flex items-center gap-2">
-                        <span className="font-montserrat text-[11px] font-bold px-3 py-1 rounded-full bg-secondary border border-border text-foreground">
-                          {project.category}
-                        </span>
-                        {project.badge && (
-                          <span className="font-montserrat text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full bg-accent/15 text-accent border border-accent/25">
-                            {project.badge}
-                          </span>
-                        )}
-                      </div>
-                      {project.metric && (
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-foreground font-bold px-2.5 py-1 rounded-md bg-secondary border border-border">
-                          {project.metric}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex items-start justify-between gap-4 mb-3">
-                      <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground group-hover:text-accent transition-colors leading-snug">
-                        {project.title}
-                      </h3>
-                      <div className="flex items-center gap-2 shrink-0">
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer shadow-2xs"
-                          aria-label={`View ${project.title} on GitHub`}
-                          title="View Source on GitHub"
-                        >
-                          <GithubIcon className="w-4 h-4" />
-                        </a>
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 rounded-xl bg-accent text-white hover:opacity-90 transition-all cursor-pointer shadow-2xs"
-                            aria-label={`Visit Live Demo of ${project.title}`}
-                            title="Visit Live Demo"
-                          >
-                            <ArrowUpRight className="w-4 h-4" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-
-                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/85 leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border/80">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border/80"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+              <ProjectCard key={project.title} project={project} />
             ))}
           </AnimatePresence>
         </motion.div>
