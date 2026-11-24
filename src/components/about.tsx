@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Server, Code2, Users2, Smartphone } from "lucide-react";
+import { Server, Code2, Users2, Smartphone, Terminal } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./reveal";
 import { TextMaskReveal } from "./animated-text";
@@ -13,9 +13,66 @@ export function About() {
     offset: ["start end", "end start"],
   });
 
-  // Parallax subtle counter-drift between bio narrative and pillars grid
-  const bioY = useTransform(scrollYProgress, [0, 1], [22, -22]);
-  const gridY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  // Parallax subtle counter-drift
+  const bioY = useTransform(scrollYProgress, [0, 1], [18, -18]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [-16, 16]);
+
+  const narrativeChapters = [
+    {
+      num: "01",
+      badge: "ACADEMIC HONORS & ACTIVE SERVICE",
+      content: (
+        <>
+          I am an analytical, driven, and detail-oriented{" "}
+          <span className="text-accent underline decoration-accent/35 underline-offset-4 font-semibold">
+            Information Technology Graduate
+          </span>{" "}
+          from the University of Ghana, Legon, with practical field experience spanning healthcare
+          networks, full-stack software development, and systems administration. I am currently
+          undergoing my National Service at the{" "}
+          <span className="text-foreground font-semibold">
+            IT Directorate of the University of Health and Allied Sciences (UHAS)
+          </span>
+          , supporting institutional digital systems and university network infrastructure.
+        </>
+      ),
+    },
+    {
+      num: "02",
+      badge: "HEALTHCARE NETWORKS & CRITICAL UPTIME",
+      content: (
+        <>
+          Grounded in General Science foundations and{" "}
+          <span className="text-foreground font-semibold">Elective ICT</span> from Kpando Senior
+          High, my journey bridges physical technology infrastructure with modern software
+          engineering. Having administered hospital Local Area Networks (LANs), resolved critical
+          hardware and software faults across medical workstations, and trained personnel at{" "}
+          <span className="text-foreground font-semibold">
+            Volta Regional Hospital (Hohoe)
+          </span>{" "}
+          and{" "}
+          <span className="text-foreground font-semibold">
+            Ho Teaching Hospital (Trafalgar)
+          </span>
+          , I build software with deep respect for uptime, data accuracy, and user experience.
+        </>
+      ),
+    },
+    {
+      num: "03",
+      badge: "ENGINEERING CRAFT & EVERYDAY IMPACT",
+      content: (
+        <>
+          Whether deploying university academic platforms, architecting healthcare digital
+          companions, or crafting mobile wellness tools, my objective is simple:{" "}
+          <span className="text-foreground font-semibold">
+            engineering resilient software that solves genuine everyday challenges
+          </span>
+          .
+        </>
+      ),
+    },
+  ];
 
   const values = [
     {
@@ -41,11 +98,15 @@ export function About() {
   ];
 
   return (
-    <section ref={sectionRef} id="about" className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="about"
+      className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
+    >
       <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
-        {/* Top Part: Asymmetric Editorial Narrative */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 items-start mb-20 lg:mb-28">
-          {/* Left Column: Section Title & Quick Credential Tags */}
+        {/* Top Part: Editorial Narrative Grid with Progressive Scroll Transition */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start mb-20 lg:mb-28">
+          {/* Left Column: Pinned Context & Credential Badges */}
           <motion.div style={{ y: bioY }} className="lg:col-span-5 space-y-7 lg:space-y-8">
             <Reveal direction="up">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent font-montserrat text-xs uppercase tracking-widest font-bold">
@@ -81,27 +142,58 @@ export function About() {
                 </span>
               </div>
             </Reveal>
+
+            <Reveal direction="up" delay={0.22}>
+              <div className="p-4 rounded-2xl bg-card/70 border border-border/80 flex items-center gap-3 font-mono text-xs text-muted-foreground">
+                <div className="w-8 h-8 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent shrink-0">
+                  <Terminal className="w-4 h-4" />
+                </div>
+                <span>
+                  Engineering Focus: <strong className="text-foreground">Full-Stack Web, Cross-Platform Mobile &amp; Systems Uptime</strong>
+                </span>
+              </div>
+            </Reveal>
           </motion.div>
 
-          {/* Right Column: Generous, Comfortable Reading Typography */}
-          <div className="lg:col-span-7 space-y-7 lg:pt-2">
-            <Reveal direction="up" delay={0.12}>
-              <p className="font-jakarta text-lg sm:text-xl lg:text-[22px] text-foreground/90 font-normal leading-[1.78] tracking-[-0.012em]">
-                I am an analytical, driven, and detail-oriented <span className="text-accent underline decoration-accent/35 underline-offset-4 font-semibold">Information Technology Graduate</span> from the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration. I am currently undergoing my National Service at the <span className="text-foreground font-semibold">IT Directorate of the University of Health and Allied Sciences (UHAS)</span>, supporting institutional digital systems and university network infrastructure.
-              </p>
-            </Reveal>
+          {/* Right Column: Progressive Scroll-Driven Narrative Timeline */}
+          <div className="lg:col-span-7 lg:pt-2">
+            <div className="relative pl-6 sm:pl-8 border-l-2 border-border/80 space-y-8 sm:space-y-10">
+              {narrativeChapters.map((chap, idx) => (
+                <motion.div
+                  key={chap.num}
+                  initial={{ opacity: 0, y: 26 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{
+                    duration: 0.6,
+                    delay: idx * 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="relative group"
+                >
+                  {/* Glowing Active Spine Node */}
+                  <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-card border-2 border-accent shadow-xs group-hover:scale-125 group-hover:bg-accent transition-all duration-300">
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:bg-white transition-colors" />
+                  </div>
 
-            <Reveal direction="up" delay={0.2}>
-              <p className="font-jakarta text-lg sm:text-xl lg:text-[22px] text-foreground/90 font-normal leading-[1.78] tracking-[-0.012em]">
-                Grounded in General Science foundations and <span className="text-foreground font-semibold">Elective ICT</span> from Kpando Senior High, my journey bridges physical technology infrastructure with modern software engineering. Having administered hospital Local Area Networks (LANs), resolved critical hardware and software faults across medical workstations, and trained personnel at <span className="text-foreground font-semibold">Volta Regional Hospital (Hohoe)</span> and <span className="text-foreground font-semibold">Ho Teaching Hospital (Trafalgar)</span>, I build software with deep respect for uptime, data accuracy, and user experience.
-              </p>
-            </Reveal>
+                  {/* Chapter Header Micro-Tag */}
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <span className="font-mono text-xs font-bold text-accent">
+                      {chap.num}
+                    </span>
+                    <span className="font-mono text-xs text-muted-foreground/60">•</span>
+                    <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+                      {chap.badge}
+                    </span>
+                  </div>
 
-            <Reveal direction="up" delay={0.28}>
-              <p className="font-jakarta text-lg sm:text-xl lg:text-[22px] text-foreground/90 font-normal leading-[1.78] tracking-[-0.012em]">
-                Whether deploying university academic platforms, architecting healthcare digital companions, or crafting mobile wellness tools, my objective is simple: engineering resilient software that solves genuine everyday challenges.
-              </p>
-            </Reveal>
+                  {/* Chapter Paragraph in Plus Jakarta Sans with Calibrated Elegant Scale */}
+                  <p className="font-jakarta text-[16px] sm:text-[17px] md:text-[18px] text-foreground/85 leading-[1.82] tracking-[-0.006em] font-normal">
+                    {chap.content}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
 
