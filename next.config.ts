@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 
+// Next.js configuration - updated for dev cache refresh
 const nextConfig: NextConfig = {
   allowedDevOrigins: [
     "172.20.4.15",

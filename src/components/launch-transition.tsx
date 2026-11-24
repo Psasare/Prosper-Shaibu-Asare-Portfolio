@@ -44,8 +44,13 @@ function getInitialLocationClock() {
  */
 export function LaunchTransition({ children }: LaunchTransitionProps) {
   const [phase, setPhase] = React.useState<"loading" | "out" | "lift" | "gone">("loading");
-  const [greeting] = React.useState(getInitialGreeting);
-  const [locationClock] = React.useState(getInitialLocationClock);
+  const [greeting, setGreeting] = React.useState("Welcome");
+  const [locationClock, setLocationClock] = React.useState("Ho, Ghana");
+
+  React.useEffect(() => {
+    setGreeting(getInitialGreeting());
+    setLocationClock(getInitialLocationClock());
+  }, []);
 
   const loaderRef = React.useRef<HTMLDivElement>(null);
   const nameRef = React.useRef<HTMLDivElement>(null);
