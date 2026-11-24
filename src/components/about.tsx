@@ -124,22 +124,28 @@ export function About() {
             </Reveal>
 
             <Reveal direction="up" delay={0.16}>
-              <div className="flex flex-wrap gap-2 pt-1 font-mono text-[11px] sm:text-xs font-medium text-foreground">
-                <span className="px-3 py-1.5 rounded-xl bg-card border border-border shadow-2xs">
-                  BSc. IT &bull; UG Legon &apos;26
-                </span>
-                <span className="px-3 py-1.5 rounded-xl bg-accent/10 border border-accent/25 text-accent shadow-2xs font-semibold">
-                  NSS &bull; UHAS IT Directorate
-                </span>
-                <span className="px-3 py-1.5 rounded-xl bg-card border border-border shadow-2xs">
-                  Volta Regional Hosp. (Hohoe)
-                </span>
-                <span className="px-3 py-1.5 rounded-xl bg-card border border-border shadow-2xs">
-                  Ho Teaching Hosp. (Trafalgar)
-                </span>
-                <span className="px-3 py-1.5 rounded-xl bg-card border border-border shadow-2xs">
-                  General Science &amp; Elective ICT &bull; Kpando SHS
-                </span>
+              <div className="space-y-2 pt-1">
+                <div className="flex flex-wrap gap-2 font-mono text-[11px] sm:text-xs font-medium">
+                  <span className="px-3 py-1.5 rounded-xl bg-card border border-border text-foreground shadow-2xs">
+                    🎓 BSc. IT &bull; UG Legon &apos;26
+                  </span>
+                  <span className="px-3 py-1.5 rounded-xl bg-accent/10 border border-accent/25 text-accent shadow-2xs font-semibold">
+                    ⚡ NSS &bull; UHAS IT Directorate
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2 font-mono text-[11px] sm:text-xs font-medium">
+                  <span className="px-3 py-1.5 rounded-xl bg-card border border-border text-foreground shadow-2xs">
+                    🏥 Volta Regional Hosp. (Hohoe)
+                  </span>
+                  <span className="px-3 py-1.5 rounded-xl bg-card border border-border text-foreground shadow-2xs">
+                    🏥 Ho Teaching Hosp. (Trafalgar)
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2 font-mono text-[11px] sm:text-xs font-medium">
+                  <span className="px-3 py-1.5 rounded-xl bg-card border border-border text-foreground shadow-2xs">
+                    🔬 General Science &amp; Elective ICT &bull; Kpando SHS
+                  </span>
+                </div>
               </div>
             </Reveal>
 
@@ -155,40 +161,37 @@ export function About() {
             </Reveal>
           </motion.div>
 
-          {/* Right Column: Progressive Scroll-Driven Narrative Timeline */}
+          {/* Right Column: Progressive Scroll-Driven Narrative Cards */}
           <div className="lg:col-span-7 lg:pt-2">
-            <div className="relative pl-5 sm:pl-8 border-l-2 border-border/80 space-y-7 sm:space-y-10">
+            <div className="space-y-4 sm:space-y-6">
               {narrativeChapters.map((chap, idx) => (
                 <motion.div
                   key={chap.num}
-                  initial={{ opacity: 0, y: 26 }}
+                  initial={{ opacity: 0, y: 22 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
+                  viewport={{ once: true, margin: "-30px" }}
                   transition={{
-                    duration: 0.6,
+                    duration: 0.55,
                     delay: idx * 0.1,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="relative group"
+                  className="p-5 sm:p-7 rounded-2xl bg-card border border-border/80 shadow-xs hover:border-accent/40 transition-all duration-300 relative overflow-hidden group"
                 >
-                  {/* Glowing Active Spine Node */}
-                  <div className="absolute -left-[27px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-card border-2 border-accent shadow-xs group-hover:scale-125 group-hover:bg-accent transition-all duration-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:bg-white transition-colors" />
-                  </div>
+                  {/* Subtle Accent Edge Indicator */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent/60 group-hover:w-1.5 group-hover:bg-accent transition-all duration-300" />
 
                   {/* Chapter Header Micro-Tag */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="font-mono text-xs font-bold text-accent">
+                  <div className="flex items-center gap-2 mb-2.5 pl-1">
+                    <span className="font-mono text-xs font-bold text-accent px-2 py-0.5 rounded-md bg-accent/10 border border-accent/20">
                       {chap.num}
                     </span>
-                    <span className="font-mono text-xs text-muted-foreground/60">•</span>
                     <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-muted-foreground font-semibold">
                       {chap.badge}
                     </span>
                   </div>
 
                   {/* Chapter Paragraph in Plus Jakarta Sans with Calibrated Elegant Scale */}
-                  <p className="font-jakarta text-[15px] sm:text-[17px] md:text-[18px] text-foreground/90 leading-[1.78] sm:leading-[1.82] tracking-[-0.005em] font-normal">
+                  <p className="font-jakarta text-[14.5px] sm:text-[16px] md:text-[17px] text-foreground/90 leading-[1.78] sm:leading-[1.82] tracking-[-0.005em] font-normal pl-1">
                     {chap.content}
                   </p>
                 </motion.div>
