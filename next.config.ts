@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: [
+    "172.20.4.15",
+    "172.20.4.15:3000",
+    "localhost:3000",
+  ],
   experimental: {
     cpus: 1,
   },
