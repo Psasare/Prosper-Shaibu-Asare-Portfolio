@@ -63,7 +63,7 @@ export function About() {
             </Reveal>
 
             <Reveal direction="up" delay={0.16}>
-              <div className="flex flex-wrap gap-2.5 pt-2 font-montserrat text-xs font-semibold text-foreground">
+              <div className="flex flex-wrap gap-2.5 pt-2 font-mono text-xs font-medium text-foreground">
                 <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
                   BSc. IT &bull; UG Legon &apos;26
                 </span>
@@ -83,19 +83,19 @@ export function About() {
           {/* Right Column: Generous, Comfortable Reading Typography */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-7 lg:pt-2">
             <Reveal direction="up" delay={0.12}>
-              <p className="font-sans text-lg sm:text-xl lg:text-2xl text-foreground font-medium leading-relaxed">
-                I am an analytical driven, and detail-oriented <span className="text-accent underline decoration-accent/30 underline-offset-4 font-semibold">Information Technology Graduate</span> from the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration.
+              <p className="font-dm text-lg sm:text-xl lg:text-[22px] text-foreground/95 font-normal leading-[1.7] tracking-[-0.012em]">
+                I am an analytical, driven, and detail-oriented <span className="text-accent underline decoration-accent/35 underline-offset-4 font-medium">Information Technology Graduate</span> from the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration.
               </p>
             </Reveal>
 
             <Reveal direction="up" delay={0.2}>
-              <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed lg:leading-[1.85]">
+              <p className="font-dm text-base sm:text-[17px] text-muted-foreground/90 leading-[1.82] tracking-[-0.005em]">
                 Grounded in General Science foundations from Kpando Senior High, my journey bridges physical technology infrastructure with modern software engineering. Having administered hospital Local Area Networks (LANs), resolved critical hardware and software faults across medical workstations, and trained personnel at <span className="text-foreground font-medium">Volta Regional Hospital (Hohoe)</span> and <span className="text-foreground font-medium">Ho Teaching Hospital (Trafalgar)</span>, I build software with deep respect for uptime, data accuracy, and user experience.
               </p>
             </Reveal>
 
             <Reveal direction="up" delay={0.28}>
-              <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed lg:leading-[1.85]">
+              <p className="font-dm text-base sm:text-[17px] text-muted-foreground/90 leading-[1.82] tracking-[-0.005em]">
                 Whether deploying university academic platforms, architecting healthcare digital companions, or crafting mobile wellness tools, my objective is simple: engineering resilient software that solves genuine everyday challenges.
               </p>
             </Reveal>
@@ -113,10 +113,10 @@ export function About() {
                     <div className="w-13 h-13 rounded-2xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform duration-300">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <h4 className="font-montserrat font-bold text-lg text-foreground mb-3 group-hover:text-accent transition-colors">
+                    <h4 className="font-montserrat font-bold text-lg text-foreground tracking-tight mb-3 group-hover:text-accent transition-colors">
                       {v.title}
                     </h4>
-                    <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/85 leading-[1.7] font-normal">
                       {v.text}
                     </p>
                   </div>
