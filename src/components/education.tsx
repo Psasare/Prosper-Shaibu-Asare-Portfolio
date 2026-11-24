@@ -10,7 +10,6 @@ import {
   Atom,
   Binary,
   Layers,
-  Award,
   ArrowUpRight,
 } from "lucide-react";
 import { Reveal } from "./reveal";
