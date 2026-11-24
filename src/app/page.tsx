@@ -11,27 +11,38 @@ import { ScrollToTop } from "@/components/scroll-to-top";
 import { LaunchTransition } from "@/components/launch-transition";
 import { TypographicMarquee } from "@/components/animated-text";
 import { TechHeroBackground } from "@/components/ui/tech-hero-background";
+import {
+  PortfolioGuideProvider,
+  WelcomeDialog,
+  MiniInstructor,
+  TourLauncherBadge,
+} from "@/components/portfolio-guide";
 
 export default function Home() {
   return (
-    <LaunchTransition>
-      <div className="relative min-h-screen flex flex-col overflow-x-hidden">
-        {/* Global Tech & Development Background Animation across the entire portfolio */}
-        <TechHeroBackground />
-        <Navbar />
-        <main className="flex-1">
-          <Hero />
-          <TypographicMarquee />
-          <About />
-          <Skills />
-          <Experience />
-          <Education />
-          <Projects />
-          <Contact />
-        </main>
-        <Footer />
-        <ScrollToTop />
-      </div>
-    </LaunchTransition>
+    <PortfolioGuideProvider>
+      <LaunchTransition>
+        <div className="relative min-h-screen flex flex-col overflow-x-hidden">
+          {/* Global Tech & Development Background Animation across the entire portfolio */}
+          <TechHeroBackground />
+          <Navbar />
+          <main className="flex-1">
+            <Hero />
+            <TypographicMarquee />
+            <About />
+            <Skills />
+            <Experience />
+            <Education />
+            <Projects />
+            <Contact />
+          </main>
+          <Footer />
+          <ScrollToTop />
+          <TourLauncherBadge />
+          <MiniInstructor />
+          <WelcomeDialog />
+        </div>
+      </LaunchTransition>
+    </PortfolioGuideProvider>
   );
 }

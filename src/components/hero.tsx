@@ -20,7 +20,7 @@ export function Hero() {
   const bgGlowY = useTransform(scrollYProgress, [0, 1], [0, -40]);
 
   return (
-    <section ref={sectionRef} className="relative pt-36 pb-24 md:pt-44 md:pb-32 lg:pt-52 lg:pb-36 overflow-hidden">
+    <section id="hero" ref={sectionRef} className="relative pt-36 pb-24 md:pt-44 md:pb-32 lg:pt-52 lg:pb-36 overflow-hidden">
       {/* Parallax Ambient Radial Beam */}
       <motion.div
         style={{ y: bgGlowY }}
