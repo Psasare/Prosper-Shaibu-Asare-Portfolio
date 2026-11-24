@@ -20,16 +20,16 @@ function getInitialGreeting() {
   return hr < 12 ? "Good morning" : hr < 17 ? "Good afternoon" : "Good evening";
 }
 
-function getInitialAccraClock() {
+function getInitialLocationClock() {
   try {
     const clockStr = new Intl.DateTimeFormat("en-GB", {
       timeZone: "Africa/Accra",
       hour: "2-digit",
       minute: "2-digit",
     }).format(new Date());
-    return `Accra ${clockStr}`;
+    return `Ho, Ghana • ${clockStr}`;
   } catch {
-    return "Accra GMT";
+    return "Ho, Ghana";
   }
 }
 
@@ -45,7 +45,7 @@ function getInitialAccraClock() {
 export function LaunchTransition({ children }: LaunchTransitionProps) {
   const [phase, setPhase] = React.useState<"loading" | "out" | "lift" | "gone">("loading");
   const [greeting] = React.useState(getInitialGreeting);
-  const [accraClock] = React.useState(getInitialAccraClock);
+  const [locationClock] = React.useState(getInitialLocationClock);
 
   const loaderRef = React.useRef<HTMLDivElement>(null);
   const nameRef = React.useRef<HTMLDivElement>(null);
@@ -97,7 +97,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
       if (isCleanedUp) return;
 
       const dur = 10000; // 10 seconds total loading screen time as requested
-      const sweepDur = 7500; // 7.5 seconds wave progression so entire name (including ASARE) reaches 800 bold
+      const sweepDur = 8000; // 8 seconds wave progression so entire name (including ASARE) reaches 800 bold with perfect buttery smoothness
       const t0 = performance.now();
       const totalChars = chElements.length;
 
@@ -142,7 +142,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
         }
 
         // 4. Variable font weight wave sweep across characters (100 -> 800)
-        // Ensures even the final characters ("ASARE") smoothly reach 100% bold (800 weight)
+        // Uses smootherstep (quintic Hermite) curve for buttery, zero-jerk optical weight morphing
         chElements.forEach((c, i) => {
           if (isSkip) {
             c.style.fontWeight = "800";
@@ -150,15 +150,16 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
             return;
           }
           const charFrac = totalChars > 1 ? i / (totalChars - 1) : 0;
-          const staggerWindow = 0.58;
-          const charDuration = 0.42;
+          const staggerWindow = 0.60;
+          const charDuration = 0.40;
           const charStart = charFrac * staggerWindow;
           const rawL = (sw - charStart) / charDuration;
           const l = Math.max(0, Math.min(1, rawL));
 
-          const k = l * l * (3 - 2 * l); // Smoothstep curve
+          // Quintic smootherstep: 6l^5 - 15l^4 + 10l^3 (C^2 continuous, zero jerk at start and finish)
+          const k = l * l * l * (l * (l * 6 - 15) + 10);
           const weight = Math.round(100 + 700 * k);
-          const opacity = (0.2 + 0.8 * k).toFixed(2);
+          const opacity = (0.2 + 0.8 * k).toFixed(3);
           c.style.fontWeight = String(weight);
           c.style.opacity = opacity;
         });
@@ -288,7 +289,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
             )}
           />
 
-          {/* Top Bar: Time-aware greeting & live Accra GMT clock */}
+          {/* Top Bar: Time-aware greeting & live Ho, Ghana clock */}
           <div
             className={cn(
               "relative z-10 flex items-center justify-between gap-4 pb-4 border-b text-xs sm:text-sm font-sans",
@@ -301,7 +302,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
               {greeting}
             </span>
             <span suppressHydrationWarning className="font-mono text-[11px] sm:text-xs text-muted-foreground">
-              {accraClock}
+              {locationClock}
             </span>
           </div>
 
@@ -324,7 +325,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
                   {item.word.split("").map((c, charIdx) => (
                     <i
                       key={charIdx}
-                      className="ch-glyph not-italic inline-block font-[100] opacity-20 transition-[font-weight,opacity] duration-75"
+                      className="ch-glyph not-italic inline-block font-[100] opacity-20 will-change-[font-weight,opacity]"
                     >
                       {c === " " ? "\u00A0" : c}
                     </i>
