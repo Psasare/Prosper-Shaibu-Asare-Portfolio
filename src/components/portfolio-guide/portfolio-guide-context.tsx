@@ -53,12 +53,27 @@ export function PortfolioGuideProvider({ children }: { children: React.ReactNode
         setHasCompletedTour(true);
       }
 
-      // If welcome was never seen, open the welcome prompt after initial launch sequence
+      // If welcome was never seen, open the welcome prompt after initial launch sequence completes
       if (!welcomeSeen) {
-        const timer = setTimeout(() => {
+        let timer: NodeJS.Timeout;
+        const handlePortfolioReady = () => {
+          timer = setTimeout(() => {
+            setIsWelcomeOpen(true);
+          }, 600);
+        };
+
+        window.addEventListener("portfolio:ready", handlePortfolioReady, { once: true });
+
+        // Fallback timer if launch screen is skipped or event was missed
+        const fallbackTimer = setTimeout(() => {
           setIsWelcomeOpen(true);
-        }, 2200);
-        return () => clearTimeout(timer);
+        }, 11000);
+
+        return () => {
+          window.removeEventListener("portfolio:ready", handlePortfolioReady);
+          clearTimeout(timer);
+          clearTimeout(fallbackTimer);
+        };
       }
     } catch {
       // Ignore storage errors in private browsing modes

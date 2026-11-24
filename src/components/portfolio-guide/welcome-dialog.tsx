@@ -49,27 +49,17 @@ export function WelcomeDialog() {
       {isWelcomeOpen && (
         <div
           role="dialog"
-          aria-modal="true"
           aria-labelledby="welcome-title"
-          className="fixed inset-0 z-[80] flex items-center justify-center p-4"
+          className="fixed bottom-4 sm:bottom-6 left-4 right-4 sm:left-auto sm:right-6 z-[80] flex justify-center sm:justify-end pointer-events-none select-none"
         >
-          {/* Subtle Backdrop */}
+          {/* Small Floating Menu Card - Completely non-blocking (No full-screen backdrop) */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeWelcome}
-            className="absolute inset-0 bg-background/70 backdrop-blur-sm"
-          />
-
-          {/* Small Menu Container */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 12 }}
+            initial={{ opacity: 0, scale: 0.92, y: 18 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 12 }}
+            exit={{ opacity: 0, scale: 0.92, y: 18 }}
             transition={{ type: "spring", stiffness: 420, damping: 30 }}
             onKeyDown={handleKeyDown}
-            className="relative w-full max-w-[340px] bg-card border border-border rounded-2xl p-5 shadow-2xl z-10"
+            className="w-full max-w-[340px] bg-card/95 backdrop-blur-xl border border-border rounded-2xl p-4 sm:p-5 shadow-2xl pointer-events-auto"
           >
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-border">
@@ -91,11 +81,11 @@ export function WelcomeDialog() {
             </div>
 
             {/* Form Fields: Preferred Name & Title */}
-            <div className="space-y-3.5 py-4">
-              <div className="space-y-1.5">
+            <div className="space-y-3 py-3.5">
+              <div className="space-y-1">
                 <label
                   htmlFor="visitor-name"
-                  className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5"
+                  className="font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5"
                 >
                   <User className="w-3 h-3 text-accent" />
                   <span>Preferred Name</span>
@@ -111,10 +101,10 @@ export function WelcomeDialog() {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <label
                   htmlFor="visitor-title"
-                  className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5"
+                  className="font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5"
                 >
                   <Briefcase className="w-3 h-3 text-accent" />
                   <span>Title</span>
