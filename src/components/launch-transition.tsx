@@ -96,8 +96,10 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
     const startAnimation = () => {
       if (isCleanedUp) return;
 
-      const dur = 4000; // 4 seconds smooth, deliberate progression
+      const dur = 10000; // 10 seconds total loading screen time as requested
+      const sweepDur = 7500; // 7.5 seconds wave progression so entire name (including ASARE) reaches 800 bold
       const t0 = performance.now();
+      const totalChars = chElements.length;
 
       function frame(currentTime: number) {
         if (isCleanedUp) return;
@@ -105,7 +107,7 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
         const p = Math.min((currentTime - t0) / dur, 1);
         const isSkip = isSkippingRef.current;
         const e = isSkip ? 1 : 0.5 - Math.cos(Math.PI * p) / 2;
-        const sw = isSkip ? 1 : Math.min(1, (currentTime - t0) / 2400);
+        const sw = isSkip ? 1 : Math.min(1, (currentTime - t0) / sweepDur);
 
         // 1. Update counter directly without triggering React re-renders (120fps)
         const pct = Math.round(e * 100);
@@ -140,11 +142,23 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
         }
 
         // 4. Variable font weight wave sweep across characters (100 -> 800)
+        // Ensures even the final characters ("ASARE") smoothly reach 100% bold (800 weight)
         chElements.forEach((c, i) => {
-          const l = Math.max(0, Math.min(1, sw * 1.6 - i * 0.08));
+          if (isSkip) {
+            c.style.fontWeight = "800";
+            c.style.opacity = "1";
+            return;
+          }
+          const charFrac = totalChars > 1 ? i / (totalChars - 1) : 0;
+          const staggerWindow = 0.58;
+          const charDuration = 0.42;
+          const charStart = charFrac * staggerWindow;
+          const rawL = (sw - charStart) / charDuration;
+          const l = Math.max(0, Math.min(1, rawL));
+
           const k = l * l * (3 - 2 * l); // Smoothstep curve
           const weight = Math.round(100 + 700 * k);
-          const opacity = (0.18 + 0.82 * k).toFixed(2);
+          const opacity = (0.2 + 0.8 * k).toFixed(2);
           c.style.fontWeight = String(weight);
           c.style.opacity = opacity;
         });
@@ -152,7 +166,17 @@ export function LaunchTransition({ children }: LaunchTransitionProps) {
         if (p < 1 && !isSkip) {
           rafId = requestAnimationFrame(frame);
         } else {
-          // If skipped, ensure all steps show completed
+          // If finished or skipped, ensure all characters reach 800 bold and steps complete
+          chElements.forEach((c) => {
+            c.style.fontWeight = "800";
+            c.style.opacity = "1";
+          });
+          if (countRef.current) {
+            countRef.current.textContent = "100";
+          }
+          if (barRef.current) {
+            barRef.current.style.transform = "scaleX(1)";
+          }
           if (stepsRef.current) {
             const listItems = stepsRef.current.children;
             for (let i = 0; i < listItems.length; i++) {
