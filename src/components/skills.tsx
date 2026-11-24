@@ -165,16 +165,11 @@ const BASE_TECH_STACK: Omit<ImageData, "id">[] = [
   },
 ];
 
-// Generate 42 items using Fibonacci coverage
-const TECH_SPHERE_IMAGES: ImageData[] = [];
-for (let i = 0; i < 42; i++) {
-  const baseIndex = i % BASE_TECH_STACK.length;
-  const item = BASE_TECH_STACK[baseIndex];
-  TECH_SPHERE_IMAGES.push({
-    id: `tech-${i + 1}-${item.alt.toLowerCase()}`,
-    ...item,
-  });
-}
+// 24 Core Technologies from Prosper's Engineering Stack (clean 1:1 Fibonacci distribution)
+const TECH_SPHERE_IMAGES: ImageData[] = BASE_TECH_STACK.map((item, index) => ({
+  id: `tech-${index + 1}-${item.alt.toLowerCase().replace(/[^a-z0-9]/g, "-")}`,
+  ...item,
+}));
 
 export function Skills() {
   const [inspectedTech, setInspectedTech] = React.useState<ImageData | null>(TECH_SPHERE_IMAGES[0] || null);

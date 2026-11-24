@@ -607,13 +607,34 @@ export function InteractiveCanvas3D() {
     domElement.addEventListener("dblclick", onDoubleClick);
 
     // -------------------------------------------------------------
-    // 7. Render Loop with Momentum, Idle Float & Zero Deprecations
+    // 7. Render Loop with Viewport Culling & Momentum Lerp
     // -------------------------------------------------------------
     let animationFrameId: number;
+    let isVisible = true;
+    let isTabVisible = !document.hidden;
+
+    const handleVisibilityChange = () => {
+      isTabVisible = !document.hidden;
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    const intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.05 }
+    );
+    intersectionObserver.observe(currentMount);
+
     const startTime = performance.now();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+
+      // Culling: Skip expensive WebGL rendering when Hero is scrolled out of view or tab is hidden
+      if (!isVisible || !isTabVisible) return;
 
       const now = performance.now();
       const elapsedTime = (now - startTime) * 0.001;
@@ -686,6 +707,8 @@ export function InteractiveCanvas3D() {
       domElement.removeEventListener("dblclick", onDoubleClick);
 
       resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
 
       laptopTexture.dispose();
       phoneTexture.dispose();

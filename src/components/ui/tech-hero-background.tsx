@@ -67,7 +67,7 @@ export function TechHeroBackground() {
 
     const handleResize = () => {
       if (!canvas) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = width * dpr;
@@ -76,7 +76,7 @@ export function TechHeroBackground() {
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     // Track mouse anywhere on the viewport
     const handleMouseMove = (e: MouseEvent) => {
@@ -89,11 +89,11 @@ export function TechHeroBackground() {
       mouse.y = -1000;
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
-    // Initialize particles across full viewport
-    const particleCount = Math.floor(Math.min(width, 1600) / 28);
+    // Initialize particles across full viewport (capped for peak 120 FPS performance)
+    const particleCount = Math.min(32, Math.max(16, Math.floor(width / 42)));
     const particles: Particle[] = [];
 
     for (let i = 0; i < particleCount; i++) {
