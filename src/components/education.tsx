@@ -1,45 +1,134 @@
 "use client";
 
 import * as React from "react";
-import { GraduationCap } from "lucide-react";
+import {
+  GraduationCap,
+  Calendar,
+  MapPin,
+  CheckCircle2,
+  BookOpen,
+  Atom,
+  Binary,
+  Layers,
+  Award,
+  ArrowUpRight,
+} from "lucide-react";
 import { Reveal } from "./reveal";
 import { TextMaskReveal } from "./animated-text";
-import { ConnoisseurStackInteractor, MenuItem } from "./ui/connoisseur-stack-interactor";
 
-const EDUCATION_ITEMS: MenuItem[] = [
+interface EducationCardData {
+  id: string;
+  num: string;
+  institution: string;
+  credential: string;
+  division: string;
+  period: string;
+  location: string;
+  statusBadge: string;
+  isCandidate?: boolean;
+  icon: React.ElementType;
+  overview: string;
+  coreCurriculum: {
+    title: string;
+    description: string;
+    icon: React.ElementType;
+  }[];
+  keyCompetencies: string[];
+}
+
+const EDUCATION_DATA: EducationCardData[] = [
   {
+    id: "ug-legon",
     num: "01",
-    name: "University of Ghana",
-    subtitle: "B.Sc. in Information Technology",
+    institution: "University of Ghana",
+    credential: "B.Sc. in Information Technology",
+    division: "Department of Computer Science • College of Basic & Applied Sciences",
     period: "2022 - 2026 (Expected)",
     location: "Accra, Legon",
-    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80",
-    description: [
-      "Pursuing comprehensive advanced studies in software development methodologies, database administration, networking principles, and enterprise system architectures.",
-      "Engineering full-stack web and mobile capstones, bridging dependable distributed backend logic with accessible, fluid user interfaces.",
-      "Conducting practical laboratories across Linux systems administration, relational schema modeling, and client-server network topologies.",
+    statusBadge: "Degree Candidate",
+    isCandidate: true,
+    icon: GraduationCap,
+    overview:
+      "Advanced undergraduate curriculum spanning distributed software architecture, relational database administration, computer network topologies, and full-stack software development.",
+    coreCurriculum: [
+      {
+        title: "Software Engineering & System Architecture",
+        description:
+          "Object-oriented software design, modular architectures, design patterns, algorithmic complexity, and testing methodologies.",
+        icon: Binary,
+      },
+      {
+        title: "Database Modeling & Enterprise Administration",
+        description:
+          "Relational schema normalization, SQL optimization, ACID compliance, transaction safety, and persistent storage engineering.",
+        icon: Layers,
+      },
+      {
+        title: "Computer Networks & Client-Server Topologies",
+        description:
+          "OSI and TCP/IP stack layers, routing protocols, subnetting, socket communications, and server room infrastructure management.",
+        icon: BookOpen,
+      },
     ],
-    skills: ["Software Engineering", "Relational Databases", "Computer Networks", "System Architecture"],
+    keyCompetencies: [
+      "Software Engineering",
+      "Relational Databases",
+      "Computer Networks",
+      "System Architecture",
+      "Linux Systems Admin",
+      "Full-Stack Capstones",
+    ],
   },
   {
+    id: "kpando-shs",
     num: "02",
-    name: "Kpando Senior High",
-    subtitle: "General Science Foundations",
+    institution: "Kpando Senior High School",
+    credential: "General Science Foundations",
+    division: "Pure Science Program • Secondary Education",
     period: "Secondary Education",
     location: "Kpando, Volta Region",
-    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
-    description: [
-      "Built rigorous quantitative problem-solving foundations through advanced coursework in elective mathematics, physics, and chemistry.",
-      "Cultivated the disciplined scientific inquiry, empirical analysis, and structured computational thinking that directly underpin software engineering.",
-      "Engaged in laboratory experimentation, data collection, and rigorous theoretical problem modeling.",
+    statusBadge: "Scientific Grounding",
+    isCandidate: false,
+    icon: Atom,
+    overview:
+      "Rigorous secondary science education cultivating mathematical deduction, empirical laboratory experimentation, and quantitative problem-solving foundations.",
+    coreCurriculum: [
+      {
+        title: "Elective Mathematics & Analytical Calculus",
+        description:
+          "Differential and integral calculus, mathematical logic, probability theory, vectors, and systematic quantitative deduction.",
+        icon: Binary,
+      },
+      {
+        title: "Physics & Circuit Theory",
+        description:
+          "Electromagnetism, digital logic gates, electrical mechanics, wave dynamics, and empirical energy systems.",
+        icon: Atom,
+      },
+      {
+        title: "Scientific Methodology & Empirical Inquiry",
+        description:
+          "Systematic hypothesis formulation, experimental data collection, laboratory precision, and analytical error verification.",
+        icon: Award,
+      },
     ],
-    skills: ["Elective Mathematics", "Physics", "Chemistry", "Quantitative Problem Solving"],
+    keyCompetencies: [
+      "Elective Mathematics",
+      "Physics & Circuits",
+      "Quantitative Deduction",
+      "Empirical Methodology",
+      "Analytical Rigor",
+      "Scientific Inquiry",
+    ],
   },
 ];
 
 export function Education() {
   return (
-    <section id="education" className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden">
+    <section
+      id="education"
+      className="py-28 md:py-36 lg:py-44 border-t border-border relative overflow-hidden"
+    >
       <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
         {/* Section Header */}
         <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
@@ -57,10 +146,115 @@ export function Education() {
           </p>
         </Reveal>
 
-        {/* Interactive Academic Foundations Showcase */}
-        <Reveal direction="up" delay={0.2}>
-          <ConnoisseurStackInteractor items={EDUCATION_ITEMS} />
-        </Reveal>
+        {/* Modern Dual Academic Bento Cards (Image-Free, Executive & High-Contrast) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+          {EDUCATION_DATA.map((item, idx) => {
+            const MainIcon = item.icon;
+            return (
+              <Reveal key={item.id} direction="up" delay={idx * 0.15}>
+                <div className="h-full rounded-3xl bg-card border border-border p-8 sm:p-10 lg:p-12 hover:border-accent/50 transition-all duration-300 shadow-xl flex flex-col justify-between group relative overflow-hidden">
+                  {/* Subtle Background Radial Warm Glow */}
+                  <div className="absolute top-0 right-0 w-56 h-56 bg-accent/6 rounded-full blur-[90px] pointer-events-none group-hover:bg-accent/10 transition-colors" />
+
+                  <div className="space-y-6">
+                    {/* Header Row */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/80 pb-5">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-2xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent group-hover:scale-105 transition-transform duration-300">
+                          <MainIcon className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest">
+                            {item.statusBadge}
+                          </span>
+                          <span className="font-mono text-xs text-muted-foreground block">
+                            Milestone {item.num}
+                          </span>
+                        </div>
+                      </div>
+
+                      <span className="flex items-center gap-1.5 font-mono text-xs font-semibold text-muted-foreground">
+                        <Calendar className="w-3.5 h-3.5 text-accent" />
+                        {item.period}
+                      </span>
+                    </div>
+
+                    {/* Degree Title & Institution */}
+                    <div className="space-y-1.5">
+                      <h3 className="font-montserrat text-2xl sm:text-3xl font-black text-foreground tracking-tight group-hover:text-accent transition-colors">
+                        {item.credential}
+                      </h3>
+                      <h4 className="font-montserrat text-lg font-bold text-foreground/90 flex items-center gap-2">
+                        {item.institution}
+                        <ArrowUpRight className="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </h4>
+                      <p className="font-mono text-xs text-muted-foreground">
+                        {item.division}
+                      </p>
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-mono pt-1">
+                        <MapPin className="w-3.5 h-3.5 text-accent/80" />
+                        <span>{item.location}</span>
+                      </div>
+                    </div>
+
+                    {/* Overview Paragraph */}
+                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/90 leading-relaxed pt-1">
+                      {item.overview}
+                    </p>
+
+                    {/* Core Curriculum Blocks */}
+                    <div className="space-y-3 pt-2">
+                      <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground font-bold block">
+                        Core Academic &amp; Empirical Focus
+                      </span>
+                      <div className="space-y-2.5">
+                        {item.coreCurriculum.map((mod, mIdx) => {
+                          const ModIcon = mod.icon;
+                          return (
+                            <div
+                              key={mIdx}
+                              className="p-3.5 sm:p-4 rounded-xl bg-secondary/50 border border-border/80 flex items-start gap-3.5"
+                            >
+                              <div className="w-7 h-7 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent shrink-0 mt-0.5">
+                                <ModIcon className="w-3.5 h-3.5" />
+                              </div>
+                              <div className="space-y-0.5">
+                                <h5 className="font-montserrat font-bold text-xs sm:text-sm text-foreground">
+                                  {mod.title}
+                                </h5>
+                                <p className="font-dm text-xs sm:text-[13px] text-muted-foreground leading-relaxed">
+                                  {mod.description}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Skills / Competencies Chip Badges */}
+                  <div className="pt-6 mt-6 border-t border-border/80">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground font-bold block mb-2.5">
+                      Academic Competencies &amp; Methodologies
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {item.keyCompetencies.map((comp, cIdx) => (
+                        <span
+                          key={cIdx}
+                          className="font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border hover:border-accent/40 transition-colors flex items-center gap-1.5"
+                        >
+                          <CheckCircle2 className="w-3 h-3 text-accent shrink-0" />
+                          <span>{comp}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
