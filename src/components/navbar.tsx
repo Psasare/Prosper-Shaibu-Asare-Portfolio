@@ -29,13 +29,13 @@ export function Navbar() {
           <div className="w-8 h-8 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center text-accent">
             <Terminal className="w-4 h-4" />
           </div>
-          <span className="font-montserrat font-black text-sm uppercase tracking-[0.18em] text-foreground">
+          <span className="font-ultramagnetic font-black text-sm sm:text-base uppercase tracking-[0.16em] text-foreground">
             PROSPER <span className="text-accent">ASARE</span>
           </span>
         </Link>
 
         {/* Desktop Links with Montserrat uppercase tracking */}
-        <div className="hidden md:flex items-center gap-7 font-montserrat text-xs uppercase tracking-wider font-semibold text-muted-foreground">
+        <div className="hidden md:flex items-center gap-7 font-montserrat text-xs sm:text-[13px] uppercase tracking-wider font-bold text-muted-foreground">
           {navLinks.map((link) => (
             <a
               key={link.label}

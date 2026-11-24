@@ -87,27 +87,27 @@ export function Projects() {
       <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20 gap-6">
           <Reveal direction="up">
-            <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center gap-2">
+            <h2 className="font-ultramagnetic text-xs sm:text-[13px] uppercase tracking-widest font-bold text-accent mb-3 flex items-center gap-2">
               <Layers className="w-3.5 h-3.5" /> Featured Work
             </h2>
             <TextMaskReveal
               as="h3"
-              className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
+              className="font-montserrat text-4xl sm:text-5xl lg:text-6xl xl:text-[66px] font-black tracking-tight text-foreground leading-[1.08]"
             >
               Projects &amp; Engineering Cases
             </TextMaskReveal>
-            <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-xl mt-4">
+            <p className="font-dm text-lg sm:text-xl text-muted-foreground/90 leading-relaxed max-w-xl mt-4">
               Production applications, healthcare platforms, and institutional portals engineered with TypeScript, React Native, and resilient system architectures.
             </p>
           </Reveal>
 
           {/* Filter Pills with JetBrains Mono font */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2.5">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-2 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === cat
+                className={`px-4 sm:px-5 py-2.5 rounded-xl font-mono text-xs sm:text-[13px] font-bold uppercase tracking-wider transition-all cursor-pointer ${activeFilter === cat
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
@@ -161,14 +161,14 @@ export function Projects() {
                         )}
                       </div>
                       {project.metric && (
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-foreground font-bold px-2.5 py-1 rounded-md bg-secondary border border-border">
+                        <span className="font-ultramagnetic text-[11px] sm:text-xs uppercase tracking-wider text-accent font-bold px-3 py-1 rounded-md bg-accent/10 border border-accent/25">
                           {project.metric}
                         </span>
                       )}
                     </div>
 
-                    <div className="flex items-start justify-between gap-4 mb-3">
-                      <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground group-hover:text-accent transition-colors leading-snug">
+                    <div className="flex items-start justify-between gap-4 mb-3.5">
+                      <h3 className="font-montserrat font-black text-2xl sm:text-3xl text-foreground group-hover:text-accent transition-colors tracking-tight leading-snug">
                         {project.title}
                       </h3>
                       <div className="flex items-center gap-2 shrink-0">
@@ -176,7 +176,7 @@ export function Projects() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer shadow-2xs"
+                          className="p-2.5 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer shadow-2xs"
                           aria-label={`View ${project.title} on GitHub`}
                           title="View Source on GitHub"
                         >
@@ -187,7 +187,7 @@ export function Projects() {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 rounded-xl bg-accent text-white hover:opacity-90 transition-all cursor-pointer shadow-2xs"
+                            className="p-2.5 rounded-xl bg-accent text-white hover:opacity-90 transition-all cursor-pointer shadow-2xs"
                             aria-label={`Visit Live Demo of ${project.title}`}
                             title="Visit Live Demo"
                           >
@@ -197,17 +197,17 @@ export function Projects() {
                       </div>
                     </div>
 
-                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/85 leading-relaxed">
+                    <p className="font-dm text-base sm:text-[16.5px] text-muted-foreground/90 leading-relaxed">
                       {project.description}
                     </p>
                   </div>
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border/80">
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-border/80">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border/80"
+                        className="font-mono text-xs sm:text-[13px] font-semibold px-3 py-1.5 rounded-md bg-secondary text-foreground border border-border/80"
                       >
                         {tag}
                       </span>

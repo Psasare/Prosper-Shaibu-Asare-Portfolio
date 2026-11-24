@@ -151,15 +151,15 @@ export function ConnoisseurStackInteractor({
             >
               {/* Institution & Degree Title */}
               <div>
-                <div className="flex items-center gap-2 text-xs font-montserrat uppercase tracking-widest text-accent font-bold mb-2">
+                <div className="flex items-center gap-2 text-xs sm:text-[13px] font-ultramagnetic uppercase tracking-widest text-accent font-bold mb-2">
                   <GraduationCap className="w-4 h-4" />
                   <span>Academic Degree Program</span>
                 </div>
-                <h3 className="font-montserrat text-2xl sm:text-3xl lg:text-4xl font-black text-foreground tracking-tight leading-tight">
+                <h3 className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black text-foreground tracking-tight leading-tight">
                   {currentItem.name}
                 </h3>
                 {currentItem.subtitle && (
-                  <p className="font-montserrat font-bold text-accent text-base sm:text-lg mt-1.5">
+                  <p className="font-montserrat font-bold text-accent text-lg sm:text-xl mt-2">
                     {currentItem.subtitle}
                   </p>
                 )}
@@ -168,18 +168,18 @@ export function ConnoisseurStackInteractor({
               {/* Metadata Badges */}
               <div className="flex flex-wrap items-center gap-2.5 pt-1">
                 {currentItem.period && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary border border-border text-xs font-mono text-foreground font-semibold">
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-secondary border border-border text-xs sm:text-[13px] font-mono text-foreground font-semibold">
                     <Calendar className="w-3.5 h-3.5 text-accent" />
                     {currentItem.period}
                   </span>
                 )}
                 {currentItem.location && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary border border-border text-xs font-mono text-foreground font-semibold">
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-secondary border border-border text-xs sm:text-[13px] font-mono text-foreground font-semibold">
                     <MapPin className="w-3.5 h-3.5 text-accent" />
                     {currentItem.location}
                   </span>
                 )}
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/20 text-xs font-montserrat uppercase tracking-wider text-accent font-bold">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-accent/10 border border-accent/20 text-xs sm:text-[13px] font-ultramagnetic uppercase tracking-wider text-accent font-bold">
                   <Award className="w-3.5 h-3.5" />
                   {activeIndex === 0 ? "Undergraduate Degree" : "Scientific Foundations"}
                 </span>
@@ -187,14 +187,14 @@ export function ConnoisseurStackInteractor({
 
               {/* Structured Key Takeaways */}
               {currentItem.description && currentItem.description.length > 0 && (
-                <div className="space-y-3 pt-2">
+                <div className="space-y-3.5 pt-2">
                   <p className="font-mono text-xs uppercase tracking-wider font-bold text-muted-foreground flex items-center gap-1.5">
                     <BookOpen className="w-3.5 h-3.5 text-accent" /> Core Curriculum &amp; Research Focus
                   </p>
                   <ul className="space-y-3">
                     {currentItem.description.map((desc, dIdx) => (
-                      <li key={dIdx} className="flex items-start gap-3 font-dm text-sm sm:text-[14.5px] text-muted-foreground/90 leading-relaxed">
-                        <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                      <li key={dIdx} className="flex items-start gap-3.5 font-dm text-base sm:text-[16.5px] text-muted-foreground/95 leading-relaxed">
+                        <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-1" />
                         <span>{desc}</span>
                       </li>
                     ))}
@@ -209,7 +209,7 @@ export function ConnoisseurStackInteractor({
                     {currentItem.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="px-2.5 py-1 rounded-md bg-secondary text-foreground border border-border text-xs font-mono font-semibold"
+                        className="px-3 py-1.5 rounded-md bg-secondary text-foreground border border-border text-xs sm:text-[13px] font-mono font-semibold"
                       >
                         {skill}
                       </span>

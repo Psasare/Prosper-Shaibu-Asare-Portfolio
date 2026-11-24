@@ -245,16 +245,16 @@ export function Skills() {
       <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
         {/* Section Header */}
         <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
-          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
+          <h2 className="font-ultramagnetic text-xs sm:text-[13px] uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
             <Layers className="w-3.5 h-3.5" /> Capabilities &amp; Focus
           </h2>
           <TextMaskReveal
             as="h3"
-            className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
+            className="font-montserrat text-4xl sm:text-5xl lg:text-6xl xl:text-[66px] font-black tracking-tight text-foreground leading-[1.08]"
           >
             Technical Stack &amp; Craft
           </TextMaskReveal>
-          <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
+          <p className="font-dm text-lg sm:text-xl text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
             A comprehensive engineering toolkit cultivated through enterprise systems administration, academic rigor, and production software delivery.
           </p>
         </Reveal>
@@ -340,13 +340,13 @@ export function Skills() {
                         <Icon className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="font-montserrat font-bold text-lg text-foreground group-hover:text-accent transition-colors">
+                        <h3 className="font-montserrat font-bold text-xl sm:text-2xl text-foreground group-hover:text-accent transition-colors">
                           {category.title}
                         </h3>
                       </div>
                     </div>
 
-                    <p className="font-dm text-sm sm:text-[14.5px] text-muted-foreground/85 mb-6 leading-relaxed">
+                    <p className="font-dm text-base sm:text-[16.5px] text-muted-foreground/85 mb-6 leading-relaxed">
                       {category.description}
                     </p>
                   </div>
@@ -355,7 +355,7 @@ export function Skills() {
                     {category.skills.map((skill) => (
                       <div
                         key={skill}
-                        className="flex items-center gap-2 font-mono text-xs font-semibold text-foreground bg-muted/80 hover:bg-muted hover:border-accent/40 transition-all rounded-lg px-3 py-2 border border-border"
+                        className="flex items-center gap-2 font-mono text-xs sm:text-[13px] font-semibold text-foreground bg-muted/80 hover:bg-muted hover:border-accent/40 transition-all rounded-lg px-3.5 py-2.5 border border-border"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-accent shrink-0" />
                         <span className="truncate">{skill}</span>

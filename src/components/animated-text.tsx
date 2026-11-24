@@ -62,14 +62,14 @@ export function TextMaskReveal({
  */
 export function TypographicMarquee() {
   const marqueeItems = [
-    { text: "FULL-STACK ENGINEERING", type: "solid" },
-    { text: "Web Designing & Craft", type: "serif" },
+    { text: "FULL-STACK ENGINEERING", type: "ultramagnetic" },
+    { text: "Web Designing & Craft", type: "mondique" },
     { text: "CROSS-PLATFORM MOBILE", type: "outline" },
     { text: "[ NEXT.JS 16 // TYPESCRIPT ]", type: "mono" },
-    { text: "HEALTHCARE SYSTEMS ARCHITECTURE", type: "solid" },
-    { text: "Accessible UI Systems", type: "serif" },
+    { text: "HEALTHCARE ARCHITECTURE", type: "wetzlar" },
+    { text: "Accessible UI Systems", type: "garadone" },
     { text: "HOSPITAL NETWORK INFRASTRUCTURE", type: "outline" },
-    { text: "[ UG LEGON // IT UNDERGRADUATE ]", type: "mono" },
+    { text: "[ UG LEGON // UHAS NSS ]", type: "mono" },
   ];
 
   return (
@@ -89,8 +89,13 @@ export function TypographicMarquee() {
       >
         {[...marqueeItems, ...marqueeItems].map((item, idx) => (
           <div key={idx} className="flex items-center mx-5 sm:mx-8">
-            {item.type === "solid" && (
-              <span className="font-montserrat font-black text-xs sm:text-sm md:text-base uppercase tracking-[0.24em] text-foreground">
+            {item.type === "ultramagnetic" && (
+              <span className="font-ultramagnetic font-black text-xs sm:text-sm md:text-base uppercase tracking-[0.22em] text-foreground">
+                {item.text}
+              </span>
+            )}
+            {item.type === "wetzlar" && (
+              <span className="font-wetzlar font-bold text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] text-foreground">
                 {item.text}
               </span>
             )}
@@ -99,13 +104,18 @@ export function TypographicMarquee() {
                 {item.text}
               </span>
             )}
-            {item.type === "serif" && (
-              <span className="font-serif italic font-normal text-accent text-base sm:text-lg md:text-xl tracking-normal">
+            {item.type === "mondique" && (
+              <span className="font-mondique italic font-normal text-accent text-lg sm:text-xl md:text-2xl tracking-normal">
+                {item.text}
+              </span>
+            )}
+            {item.type === "garadone" && (
+              <span className="font-garadone italic font-normal text-accent/90 text-base sm:text-lg md:text-xl tracking-normal">
                 {item.text}
               </span>
             )}
             {item.type === "mono" && (
-              <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.28em] text-accent font-bold px-2.5 py-0.5 rounded-md border border-accent/30 bg-accent/10">
+              <span className="font-mono text-xs sm:text-[13px] uppercase tracking-[0.26em] text-accent font-bold px-3 py-1 rounded-md border border-accent/30 bg-accent/10">
                 {item.text}
               </span>
             )}

@@ -43,16 +43,16 @@ export function Education() {
       <div className="max-w-7xl xl:max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-16">
         {/* Section Header */}
         <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <h2 className="font-montserrat text-xs uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
+          <h2 className="font-ultramagnetic text-xs sm:text-[13px] uppercase tracking-widest font-bold text-accent mb-3 flex items-center justify-center gap-2">
             <GraduationCap className="w-3.5 h-3.5" /> Academic Foundations
           </h2>
           <TextMaskReveal
             as="h3"
-            className="font-montserrat text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.12]"
+            className="font-montserrat text-4xl sm:text-5xl lg:text-6xl xl:text-[66px] font-black tracking-tight text-foreground leading-[1.08]"
           >
             Education &amp; Science
           </TextMaskReveal>
-          <p className="font-dm text-base sm:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
+          <p className="font-dm text-lg sm:text-xl text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto mt-4 sm:mt-5">
             B.Sc. Information Technology studies at the University of Ghana, Legon, grounded in General Science foundations from Kpando Senior High School.
           </p>
         </Reveal>
