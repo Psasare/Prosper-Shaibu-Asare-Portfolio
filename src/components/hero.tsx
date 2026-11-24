@@ -5,6 +5,7 @@ import { ArrowRight, Code2, Globe, Smartphone } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { InteractiveCanvas3D } from "./interactive-canvas-3d";
 import { RotatingWords } from "./animated-text";
+import { TechHeroBackground } from "./ui/tech-hero-background";
 
 export function Hero() {
   const sectionRef = React.useRef<HTMLElement>(null);
@@ -21,6 +22,9 @@ export function Hero() {
 
   return (
     <section ref={sectionRef} className="relative pt-36 pb-24 md:pt-44 md:pb-32 lg:pt-52 lg:pb-36 overflow-hidden">
+      {/* Dynamic Tech & Development Background Animation */}
+      <TechHeroBackground />
+
       {/* Parallax Ambient Radial Beam */}
       <motion.div
         style={{ y: bgGlowY }}

@@ -67,6 +67,9 @@ export function About() {
                 <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
                   BSc. IT &bull; UG Legon &apos;26
                 </span>
+                <span className="px-3.5 py-2 rounded-xl bg-accent/10 border border-accent/25 text-accent shadow-2xs font-semibold">
+                  NSS &bull; UHAS IT Directorate
+                </span>
                 <span className="px-3.5 py-2 rounded-xl bg-card border border-border shadow-2xs">
                   Volta Regional Hosp. (Hohoe)
                 </span>
@@ -84,7 +87,7 @@ export function About() {
           <div className="lg:col-span-7 space-y-6 sm:space-y-7 lg:pt-2">
             <Reveal direction="up" delay={0.12}>
               <p className="font-dm text-lg sm:text-xl lg:text-[22px] text-foreground/95 font-normal leading-[1.7] tracking-[-0.012em]">
-                I am an analytical, driven, and detail-oriented <span className="text-accent underline decoration-accent/35 underline-offset-4 font-medium">Information Technology Graduate</span> from the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration.
+                I am an analytical, driven, and detail-oriented <span className="text-accent underline decoration-accent/35 underline-offset-4 font-medium">Information Technology Graduate</span> from the University of Ghana, Legon, with practical field experience spanning healthcare networks, full-stack software development, and systems administration. I am currently undergoing my National Service at the <span className="text-foreground font-medium">IT Directorate of the University of Health and Allied Sciences (UHAS)</span>, supporting institutional digital systems and university network infrastructure.
               </p>
             </Reveal>
 
